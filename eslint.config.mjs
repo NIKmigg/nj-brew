@@ -17,6 +17,12 @@ export default withNuxt(
     },
     {
       rules: {
+        "vue/block-order": [
+          "error",
+          {
+            order: ["template", "script", "style"],
+          },
+        ],
         "ts/no-redeclare": "off",
         "ts/consistent-type-definitions": ["error", "type"],
         "no-console": ["warn"],
