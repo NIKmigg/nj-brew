@@ -1,8 +1,8 @@
 <template>
   <label class="swap swap-rotate">
     <input v-model="isDark" type="checkbox">
-    <Icon name="tabler:sun" class="swap-on" />
-    <Icon name="tabler:moon" class="swap-off" />
+    <Icon name="tabler:sun" class="swap-on" size="24" />
+    <Icon name="tabler:moon" class="swap-off" size="24" />
   </label>
 </template>
 

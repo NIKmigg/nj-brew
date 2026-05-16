@@ -1,7 +1,7 @@
-import { Database } from "@tursodatabase/database";
-import { drizzle } from "drizzle-orm/tursodatabase/database";
+import { createClient } from "@libsql/client";
+import { drizzle } from "drizzle-orm/libsql";
 import { env } from "../lib/env";
 
-const client = new Database(env.DB_FILE_NAME!);
+const client = createClient({ url: env.DB_FILE_NAME! });
 
 export const db = drizzle({ client });
