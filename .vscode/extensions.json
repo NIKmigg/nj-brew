@@ -2,6 +2,7 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "bradlc.vscode-tailwindcss",
-    "Vue.volar"
+    "Vue.volar",
+    "GitHub.vscode-pull-request-github"
   ]
 }
