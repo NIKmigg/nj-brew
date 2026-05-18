@@ -4,44 +4,35 @@
       <a class="btn btn-ghost text-xl">daisyUI</a>
     </div>
     <div class="flex-none">
-      <ThemeToggle />
+      <ThemeToggle class="mx-4" />
       <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-          <div class="indicator">
-            <Icon name="mdi:cart" size="24" />
-            <span class="badge badge-sm indicator-item">8</span>
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+            <img
+              v-if="authStore.user?.image"
+              :src="authStore.user.image"
+              alt="avatar"
+              class="rounded-full"
+            >
+            <Icon v-else name="mdi:user" size="24" />
           </div>
+          <ul
+            tabindex="-1"
+            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+          >
+            <li v-if="authStore.user">
+              <a @click="authStore.signOut">Logout</a>
+            </li>
+            <li v-else>
+              <AuthButton />
+            </li>
+          </ul>
         </div>
-        <div
-          tabindex="0"
-          class="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
-        >
-          <div class="card-body">
-            <span class="text-lg font-bold">8 Items</span>
-            <span class="text-info">Subtotal: $999</span>
-            <div class="card-actions">
-              <button class="btn btn-primary btn-block">
-                View cart
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-          <Icon name="mdi:user" size="24" />
-        </div>
-        <ul
-          tabindex="-1"
-          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-        >
-          <li>
-            <AuthButton />
-          </li>
-          <li><a>Settings</a></li>
-          <li><a>Logout</a></li>
-        </ul>
       </div>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+const authStore = useAuthStore();
+</script>
