@@ -11,10 +11,10 @@ const colorMode = useColorMode();
 
 const isDark = computed({
   get() {
-    return colorMode.value === "dark";
+    return colorMode.value === "nj-brew-dark";
   },
   set(value: boolean) {
-    colorMode.preference = value ? "dark" : "light";
+    colorMode.preference = value ? "nj-brew-dark" : "nj-brew-light";
   },
 });
 </script>
