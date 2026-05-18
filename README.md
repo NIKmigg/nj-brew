@@ -12,6 +12,8 @@ Moderne Fullstack-Webapp mit **Nuxt 4**, **Vue 3**, **Pinia**, **TailwindCSS v4*
 - [pnpm installieren](#pnpm-installieren)
 - [Repository klonen](#repository-klonen)
 - [Dependencies installieren](#dependencies-installieren)
+- [Environment Variablen](#environment-variablen)
+- [Datenbank initialisieren](#datenbank-initialisieren)
 - [Entwicklungsserver starten](#entwicklungsserver-starten)
 - [VSCode Setup](#vscode-setup)
 - [GitHub Workflow](#github-workflow)
@@ -108,6 +110,30 @@ cd nj-brew
 
 ```bash
 pnpm install
+```
+
+---
+
+## Environment Variablen
+
+Eine `.env` Datei im Root-Ordner anlegen und folgende Variablen befüllen:
+
+```txt
+NODE_ENV=
+DB_FILE_NAME=
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL=
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+```
+
+---
+
+## Datenbank initialisieren
+
+```bash
+pnpm db:generate
+pnpm db:migrate
 ```
 
 ---
