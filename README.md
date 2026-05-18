@@ -12,6 +12,8 @@ Moderne Fullstack-Webapp mit **Nuxt 4**, **Vue 3**, **Pinia**, **TailwindCSS v4*
 - [pnpm installieren](#pnpm-installieren)
 - [Repository klonen](#repository-klonen)
 - [Dependencies installieren](#dependencies-installieren)
+- [Environment Variablen](#environment-variablen)
+- [Datenbank initialisieren](#datenbank-initialisieren)
 - [Entwicklungsserver starten](#entwicklungsserver-starten)
 - [VSCode Setup](#vscode-setup)
 - [GitHub Workflow](#github-workflow)
