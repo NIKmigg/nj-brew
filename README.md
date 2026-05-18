@@ -112,6 +112,30 @@ pnpm install
 
 ---
 
+## Environment Variablen
+
+Eine `.env` Datei im Root-Ordner anlegen und folgende Variablen befüllen:
+
+```txt
+NODE_ENV=
+DB_FILE_NAME=
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL=
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+```
+
+---
+
+## Datenbank initialisieren
+
+```bash
+pnpm db:generate
+pnpm db:migrate
+```
+
+---
+
 ## Entwicklungsserver starten
 
 ```bash
