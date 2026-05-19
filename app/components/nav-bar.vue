@@ -36,7 +36,7 @@
           </li>
           <li>
             <NuxtLink
-              to="/generator"
+              to="/"
               class="hover:bg-transparent hover:scale-110"
             >
               <Icon name="mdi:glass-mug-variant" class="text-3xl" />
@@ -44,7 +44,7 @@
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/info" class="hover:bg-transparent hover:scale-110">
+            <NuxtLink to="/" class="hover:bg-transparent hover:scale-110">
               <Icon name="mdi:info" class="text-3xl" />
               <a>Info</a>
             </NuxtLink>
@@ -119,7 +119,7 @@
       </li>
       <li>
         <NuxtLink
-          to="/generator"
+          to="/"
           class="hover:bg-transparent hover:scale-110"
           @click="closeDropdown"
         >
@@ -129,7 +129,7 @@
       </li>
       <li>
         <NuxtLink
-          to="/info"
+          to="/"
           class="hover:bg-transparent hover:scale-110"
           @click="closeDropdown"
         >
