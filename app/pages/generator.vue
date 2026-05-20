@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap gap-4 p-26">
+  <div class="flex flex-wrap gap-4 p-6">
     <!-- Eingabe Card -->
     <div class="card bg-base-200 shadow-sm flex-1 min-w-64">
       <div class="card-body gap-4">
@@ -12,7 +12,7 @@
             Ansatzvolumen (L)
           </legend>
           <input
-            v-model="targetVolumeL"
+            v-model="form.targetVolumeL"
             type="number"
             min="0"
             class="input w-full"
@@ -24,7 +24,7 @@
           <legend class="fieldset-legend">
             Tannin verwenden
           </legend>
-          <input v-model="useTannin" type="checkbox" class="toggle toggle-primary">
+          <input v-model="form.useTannin" type="checkbox" class="toggle toggle-primary">
         </fieldset>
 
         <button class="btn btn-primary w-full" @click="calculate">
@@ -34,71 +34,69 @@
     </div>
 
     <!-- Zutaten Card -->
-    <div v-if="calculated" class="card bg-base-200 shadow-sm flex-1 min-w-64">
+    <div v-if="result" class="card bg-base-200 shadow-sm flex-1 min-w-64">
       <div class="card-body gap-3">
         <h2 class="card-title text-base">
           Zutaten
         </h2>
         <div class="flex justify-between">
           <span class="text-base-content/60 text-sm">Honig</span>
-          <span class="font-medium">{{ baseHoney_g }} g</span>
+          <span class="font-medium">{{ result.honey_g }} g</span>
         </div>
         <div class="divider my-0" />
         <div class="flex justify-between">
           <span class="text-base-content/60 text-sm">Wasser</span>
-          <span class="font-medium">{{ waterL?.toFixed(2) }} L</span>
+          <span class="font-medium">{{ result.water_L.toFixed(2) }} L</span>
         </div>
         <div class="divider my-0" />
         <div class="flex justify-between">
           <span class="text-base-content/60 text-sm">Hefe</span>
-          <span class="font-medium">{{ yeast_g?.toFixed(1) }} g</span>
+          <span class="font-medium">{{ result.yeast_g.toFixed(1) }} g</span>
         </div>
         <div class="divider my-0" />
         <div class="flex justify-between">
           <span class="text-base-content/60 text-sm">Hefenährsalz</span>
-          <span class="font-medium">{{ nutrient_g?.toFixed(1) }} g</span>
+          <span class="font-medium">{{ result.nutrient_g.toFixed(1) }} g</span>
         </div>
-        <template v-if="useTannin && tannin_g !== null">
+        <template v-if="result.tannin_g !== undefined">
           <div class="divider my-0" />
           <div class="flex justify-between">
             <span class="text-base-content/60 text-sm">Tannin</span>
-            <span class="font-medium">{{ tannin_g?.toFixed(2) }} g</span>
+            <span class="font-medium">{{ result.tannin_g.toFixed(2) }} g</span>
           </div>
         </template>
       </div>
     </div>
 
     <!-- Gärwerte Card -->
-    <div v-if="calculated" class="card bg-base-200 shadow-sm flex-1 min-w-64">
+    <div v-if="result" class="card bg-base-200 shadow-sm flex-1 min-w-64">
       <div class="card-body gap-4">
         <h2 class="card-title text-base">
           Gärwerte
         </h2>
-
         <div class="flex flex-col gap-1">
           <div class="flex justify-between text-sm">
             <span class="text-base-content/60">°Brix</span>
-            <span class="font-medium">{{ estimatedBrix?.toFixed(1) }}</span>
+            <span class="font-medium">{{ result.estimatedBrix.toFixed(1) }}</span>
           </div>
           <progress
             class="progress w-full"
             :class="brixProgressClass"
-            :value="estimatedBrix ?? 0"
+            :value="result.estimatedBrix"
             max="35"
           />
           <p class="text-xs text-base-content/40">
             Ziel: 26–29 °Brix
           </p>
         </div>
-
         <div class="flex flex-col gap-1">
           <div class="flex justify-between text-sm">
             <span class="text-base-content/60">Alkohol</span>
-            <span class="font-medium">{{ estimatedABV?.toFixed(1) }} %</span>
+            <span class="font-medium">{{ result.estimatedABV.toFixed(1) }} %</span>
           </div>
           <progress
             class="progress progress-info w-full"
-            :value="estimatedABV ?? 0"
+            :value="result.estimatedABV"
             max="25"
           />
           <p class="text-xs text-base-content/40">
@@ -125,49 +123,50 @@ const volumePerKgHoney = 0.75;
 const yeastPerL = 0.5;
 const nutrientPerL = 0.375;
 
-const targetVolumeL = ref<number | null>(null);
-const useTannin = ref(false);
 const showError = ref(false);
 const calculated = ref(false);
 
-const baseHoney_g = ref<number | null>(null);
-const waterL = ref<number | null>(null);
-const yeast_g = ref<number | null>(null);
-const nutrient_g = ref<number | null>(null);
-const tannin_g = ref<number | null>(null);
-const estimatedABV = ref<number | null>(null);
-const estimatedBrix = ref<number | null>(null);
+const result = ref<MeadRecipeOutput | null>(null);
+const form = ref<MeadRecipeInput>({
+  targetVolumeL: 0,
+  waterHardness_dH: undefined,
+  useTannin: false,
+});
 
 const brixProgressClass = computed(() => {
-  if (!estimatedBrix.value)
+  if (!result.value?.estimatedBrix)
     return "progress-warning";
-  if (estimatedBrix.value < 26)
+  if (result.value.estimatedBrix < 26)
     return "progress-warning";
-  if (estimatedBrix.value > 29)
+  if (result.value.estimatedBrix > 29)
     return "progress-error";
   return "progress-success";
 });
 
 function calculate() {
-  if (!targetVolumeL.value) {
+  const parsed = meadRecipeInputSchema.safeParse(form.value);
+
+  if (!parsed.success) {
     showError.value = true;
     return;
   }
 
+  const { targetVolumeL: vol, useTannin: tannin } = parsed.data;
+  const honey_g = vol * honeyPerL;
+
+  result.value = {
+    honey_g,
+    water_L: vol - ((honey_g / 1000) * volumePerKgHoney),
+    yeast_g: vol * yeastPerL,
+    nutrient_g: vol * nutrientPerL,
+    tannin_g: tannin ? vol * 0.16 : undefined,
+    estimatedABV: (honey_g / vol) / 26,
+    estimatedBrix: (honey_g / vol) / 14,
+    recommendOsmosis: false,
+    stepFeedHoney_g: honey_g * 0.1,
+  };
+
   showError.value = false;
-  tannin_g.value = null;
-
-  baseHoney_g.value = targetVolumeL.value * honeyPerL;
-  waterL.value = targetVolumeL.value - ((baseHoney_g.value / 1000) * volumePerKgHoney);
-  yeast_g.value = targetVolumeL.value * yeastPerL;
-  nutrient_g.value = targetVolumeL.value * nutrientPerL;
-
-  if (useTannin.value) {
-    tannin_g.value = targetVolumeL.value * 0.16;
-  }
-
-  estimatedABV.value = (baseHoney_g.value / targetVolumeL.value) / 26;
-  estimatedBrix.value = (baseHoney_g.value / targetVolumeL.value) / 14;
 
   calculated.value = true;
 }

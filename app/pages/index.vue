@@ -14,8 +14,5 @@
         </button>
       </div>
     </div>
-    <NuxtLink to="/generator">
-      Generator
-    </NuxtLink>
   </div>
 </template>
