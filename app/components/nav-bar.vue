@@ -10,8 +10,8 @@
           class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
         >
           <li>
-            <NuxtLink to="/" class="hover:bg-transparent hover:scale-110">
-              <Icon name="mdi:home" class="text-3xl" :class="{ 'text-primary/80': isActive('/') }" />
+            <NuxtLink to="/" class="hover:bg-transparent hover:scale-110" :class="{ 'text-primary/80': isActive('/') }">
+              <Icon name="mdi:home" class="text-3xl" />
               Home
             </NuxtLink>
           </li>
@@ -19,14 +19,15 @@
             <NuxtLink
               to="/generator"
               class="hover:bg-transparent hover:scale-110"
+              :class="{ 'text-primary/80': isActive('/generator') }"
             >
-              <Icon name="mdi:glass-mug-variant" class="text-3xl" :class="{ 'text-primary/80': isActive('/generator') }" />
+              <Icon name="mdi:glass-mug-variant" class="text-3xl" />
               Rezept-Generator
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/info" class="hover:bg-transparent hover:scale-110">
-              <Icon name="mdi:info" class="text-3xl" :class="{ 'text-primary/80': isActive('/info') }" />
+            <NuxtLink to="/info" class="hover:bg-transparent hover:scale-110" :class="{ 'text-primary/80': isActive('/info') }">
+              <Icon name="mdi:info" class="text-3xl" />
               Info
             </NuxtLink>
           </li>
@@ -62,8 +63,8 @@
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink to="/info" class="hover:bg-transparent hover:scale-110">
-            <Icon name="mdi:info" class="text-3xl" :class="{ 'text-primary/80': isActive('/info') }" />
+          <NuxtLink to="/info" class="hover:bg-transparent hover:scale-110" :class="{ 'text-primary/80': isActive('/info') }">
+            <Icon name="mdi:info" class="text-3xl" />
             Info
           </NuxtLink>
         </li>
