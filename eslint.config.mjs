@@ -18,6 +18,17 @@ export default withNuxt(
     },
     {
       rules: {
+        "vue/max-attributes-per-line": [
+          "error",
+          {
+            singleline: {
+              max: 3,
+            },
+            multiline: {
+              max: 1,
+            },
+          },
+        ],
         "vue/block-order": [
           "error",
           {
@@ -38,6 +49,15 @@ export default withNuxt(
             ignore: ["README.md"],
           },
         ],
+      },
+    },
+    {
+      files: [
+        "server/db/migrations/**",
+      ],
+
+      rules: {
+        "unicorn/filename-case": "off",
       },
     },
   ),
