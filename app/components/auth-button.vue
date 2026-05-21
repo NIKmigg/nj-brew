@@ -1,11 +1,15 @@
 <template>
-  <button :disabled="authStore.loading" class="btn btn-accent" @click="authStore.signIn">
-    <span v-if="authStore.loading" class="loading loading-spinner loading-md" />
-    <Icon v-else name="tabler:brand-github" size="24" />
-    Sign in with GitHub
-  </button>
+  <NuxtLink class="btn btn-accent w-full" :to="loginTo">
+    <Icon name="mdi:login" size="20" />
+    Login
+  </NuxtLink>
 </template>
 
 <script setup lang="ts">
-const authStore = useAuthStore();
+const route = useRoute();
+
+const loginTo = computed(() => ({
+  path: "/login",
+  query: route.path === "/" ? undefined : { redirect: route.fullPath },
+}));
 </script>

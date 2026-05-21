@@ -1,13 +1,29 @@
 import { auth } from "../lib/auth";
 
-export default defineEventHandler(async (event) => {
-  if (event.path.startsWith("/dashboard")) {
-    const session = await auth.api.getSession({
-      headers: event.headers,
-    });
+const protectedRoutes = [
+  "/info",
+  "/generator",
+];
 
-    if (!session) {
-      await sendRedirect(event, "/", 302);
-    }
+export default defineEventHandler(async (event) => {
+  const url = getRequestURL(event);
+  const path = url.pathname;
+
+  const isProtectedRoute = protectedRoutes.some(route => path === route || path.startsWith(`${route}/`));
+
+  if (!isProtectedRoute) {
+    return;
   }
+
+  const session = await auth.api.getSession({
+    headers: event.headers,
+  });
+
+  if (!session?.user) {
+    const redirect = encodeURIComponent(`${url.pathname}${url.search}`);
+
+    return sendRedirect(event, `/login?redirect=${redirect}`, 302);
+  }
+
+  event.context.session = session;
 });
