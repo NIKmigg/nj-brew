@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-wrap gap-4 p-6">
     <!-- Eingabe Card -->
-    <div class="card bg-base-200 shadow-sm flex-1 min-w-64">
+    <div class="card bg-base-100 shadow-sm flex-1 min-w-64">
       <div class="card-body gap-4">
         <h2 class="card-title text-base">
           Rezept
@@ -34,7 +34,7 @@
     </div>
 
     <!-- Zutaten Card -->
-    <div v-if="result" class="card bg-base-200 shadow-sm flex-1 min-w-64">
+    <div v-if="result" class="card bg-base-100 shadow-sm flex-1 min-w-64">
       <div class="card-body gap-3">
         <h2 class="card-title text-base">
           Zutaten
@@ -69,7 +69,7 @@
     </div>
 
     <!-- Gärwerte Card -->
-    <div v-if="result" class="card bg-base-200 shadow-sm flex-1 min-w-64">
+    <div v-if="result" class="card bg-base-100 shadow-sm flex-1 min-w-64">
       <div class="card-body gap-4">
         <h2 class="card-title text-base">
           Gärwerte
