@@ -10,31 +10,31 @@
           class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
         >
           <li>
-            <NuxtLink to="/" class="hover:bg-transparent hover:scale-110" :class="{ 'text-primary/80': isActive('/') }">
+            <NuxtLink :to="localePath('/')" class="hover:bg-transparent hover:scale-110" :class="{ 'text-primary/80': isActive('/') }">
               <Icon name="mdi:home" class="text-3xl" />
-              Home
+              {{ $t("nav.home") }}
             </NuxtLink>
           </li>
           <li>
             <NuxtLink
-              to="/generator"
+              :to="localePath('/generator')"
               class="hover:bg-transparent hover:scale-110"
               :class="{ 'text-primary/80': isActive('/generator') }"
             >
               <Icon name="mdi:glass-mug-variant" class="text-3xl" />
-              Rezept-Generator
+              {{ $t("nav.generator") }}
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/info" class="hover:bg-transparent hover:scale-110" :class="{ 'text-primary/80': isActive('/info') }">
-              <Icon name="mdi:info" class="text-3xl" />
-              Info
+            <NuxtLink :to="localePath('/market')" class="hover:bg-transparent hover:scale-110" :class="{ 'text-primary/80': isActive('/market') }">
+              <Icon name="mdi:storefront" class="text-3xl" />
+              {{ $t("nav.market") }}
             </NuxtLink>
           </li>
         </ul>
       </div>
       <NuxtLink
-        to="/"
+        :to="localePath('/')"
         class="flex items-center ml-4"
       >
         <img
@@ -42,30 +42,33 @@
           alt="NJ Logo"
           class="w-10 h-10"
         >
+        <span class="ml-2 font-bold text-xl font-old-style text-primary/80">
+          NJ Brew
+        </span>
       </NuxtLink>
     </div>
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal px-1">
         <li>
-          <NuxtLink to="/" class="hover:bg-transparent hover:scale-110" :class="{ 'text-primary/80': isActive('/') }">
+          <NuxtLink :to="localePath('/')" class="hover:bg-transparent hover:scale-110" :class="{ 'text-primary/80': isActive('/') }">
             <Icon name="mdi:home" class="text-3xl" />
-            Home
+            {{ $t("nav.home") }}
           </NuxtLink>
         </li>
         <li>
           <NuxtLink
-            to="/generator"
+            :to="localePath('/generator')"
             class="hover:bg-transparent hover:scale-110"
             :class="{ 'text-primary/80': isActive('/generator') }"
           >
             <Icon name="mdi:glass-mug-variant" class="text-3xl" />
-            Rezept-Generator
+            {{ $t("nav.generator") }}
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink to="/info" class="hover:bg-transparent hover:scale-110" :class="{ 'text-primary/80': isActive('/info') }">
-            <Icon name="mdi:info" class="text-3xl" />
-            Info
+          <NuxtLink :to="localePath('/market')" class="hover:bg-transparent hover:scale-110" :class="{ 'text-primary/80': isActive('/market') }">
+            <Icon name="mdi:storefront" class="text-3xl" />
+            {{ $t("nav.market") }}
           </NuxtLink>
         </li>
       </ul>
@@ -102,8 +105,20 @@
 
             <ThemeToggle class="mb-4" />
 
+            <div class="join mb-4 w-full">
+              <NuxtLink
+                v-for="language in languages"
+                :key="language.code"
+                class="btn btn-sm join-item flex-1"
+                :class="{ 'btn-active': locale === language.code }"
+                :to="switchLocalePath(language.code)"
+              >
+                {{ language.label }}
+              </NuxtLink>
+            </div>
+
             <button v-if="authStore.user" class="btn btn-ghost" @click="authStore.signOut">
-              Logout
+              {{ $t("auth.logout") }}
             </button>
 
             <AuthButton v-else />
@@ -118,8 +133,16 @@
 const authStore = useAuthStore();
 
 const route = useRoute();
+const localePath = useLocalePath();
+const switchLocalePath = useSwitchLocalePath();
+const { locale } = useI18n();
+
+const languages = [
+  { code: "de", label: "DE" },
+  { code: "en", label: "EN" },
+] as const;
 
 function isActive(path: string) {
-  return route.path === path;
+  return route.path === localePath(path);
 }
 </script>

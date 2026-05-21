@@ -1,13 +1,18 @@
 import { auth } from "../lib/auth";
 
 const protectedRoutes = [
-  "/info",
+  "/market",
   "/generator",
+];
+
+const localePrefixes = [
+  "/en",
 ];
 
 export default defineEventHandler(async (event) => {
   const url = getRequestURL(event);
-  const path = url.pathname;
+  const localePrefix = localePrefixes.find(prefix => url.pathname === prefix || url.pathname.startsWith(`${prefix}/`));
+  const path = localePrefix ? url.pathname.slice(localePrefix.length) || "/" : url.pathname;
 
   const isProtectedRoute = protectedRoutes.some(route => path === route || path.startsWith(`${route}/`));
 
@@ -21,8 +26,9 @@ export default defineEventHandler(async (event) => {
 
   if (!session?.user) {
     const redirect = encodeURIComponent(`${url.pathname}${url.search}`);
+    const loginPath = localePrefix ? `${localePrefix}/login` : "/login";
 
-    return sendRedirect(event, `/login?redirect=${redirect}`, 302);
+    return sendRedirect(event, `${loginPath}?redirect=${redirect}`, 302);
   }
 
   event.context.session = session;

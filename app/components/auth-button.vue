@@ -1,15 +1,16 @@
 <template>
   <NuxtLink class="btn btn-accent w-full" :to="loginTo">
     <Icon name="mdi:login" size="20" />
-    Login
+    {{ $t("auth.login") }}
   </NuxtLink>
 </template>
 
 <script setup lang="ts">
 const route = useRoute();
+const localePath = useLocalePath();
 
 const loginTo = computed(() => ({
-  path: "/login",
-  query: route.path === "/" ? undefined : { redirect: route.fullPath },
+  path: localePath("/login"),
+  query: route.path === localePath("/") ? undefined : { redirect: route.fullPath },
 }));
 </script>

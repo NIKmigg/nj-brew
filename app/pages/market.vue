@@ -1,6 +1,6 @@
 <template>
   <div role="alert" class="alert alert-warning alert-outline">
-    <span>Info</span>
+    <span>{{ $t("market.title") }}</span>
   </div>
 </template>
 

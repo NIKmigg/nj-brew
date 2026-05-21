@@ -4,31 +4,31 @@
     <div class="card bg-base-100 shadow-sm flex-1 min-w-64">
       <div class="card-body gap-4">
         <h2 class="card-title text-base">
-          Rezept
+          {{ $t("generator.recipe") }}
         </h2>
 
         <fieldset class="fieldset">
           <legend class="fieldset-legend">
-            Ansatzvolumen (L)
+            {{ $t("generator.targetVolume") }}
           </legend>
           <input
             v-model="form.targetVolumeL"
             type="number"
             min="0"
             class="input w-full"
-            placeholder="z.B. 8"
+            :placeholder="$t('generator.targetVolumePlaceholder')"
           >
         </fieldset>
 
         <fieldset class="fieldset">
           <legend class="fieldset-legend">
-            Tannin verwenden
+            {{ $t("generator.useTannin") }}
           </legend>
           <input v-model="form.useTannin" type="checkbox" class="toggle toggle-primary">
         </fieldset>
 
         <button class="btn btn-primary w-full" @click="calculate">
-          Berechnen
+          {{ $t("generator.calculate") }}
         </button>
       </div>
     </div>
@@ -37,31 +37,31 @@
     <div v-if="result" class="card bg-base-100 shadow-sm flex-1 min-w-64">
       <div class="card-body gap-3">
         <h2 class="card-title text-base">
-          Zutaten
+          {{ $t("generator.ingredients") }}
         </h2>
         <div class="flex justify-between">
-          <span class="text-base-content/60 text-sm">Honig</span>
+          <span class="text-base-content/60 text-sm">{{ $t("generator.honey") }}</span>
           <span class="font-medium">{{ result.honey_g }} g</span>
         </div>
         <div class="divider my-0" />
         <div class="flex justify-between">
-          <span class="text-base-content/60 text-sm">Wasser</span>
+          <span class="text-base-content/60 text-sm">{{ $t("generator.water") }}</span>
           <span class="font-medium">{{ result.water_L.toFixed(2) }} L</span>
         </div>
         <div class="divider my-0" />
         <div class="flex justify-between">
-          <span class="text-base-content/60 text-sm">Hefe</span>
+          <span class="text-base-content/60 text-sm">{{ $t("generator.yeast") }}</span>
           <span class="font-medium">{{ result.yeast_g.toFixed(1) }} g</span>
         </div>
         <div class="divider my-0" />
         <div class="flex justify-between">
-          <span class="text-base-content/60 text-sm">Hefenährsalz</span>
+          <span class="text-base-content/60 text-sm">{{ $t("generator.nutrient") }}</span>
           <span class="font-medium">{{ result.nutrient_g.toFixed(1) }} g</span>
         </div>
         <template v-if="result.tannin_g !== undefined">
           <div class="divider my-0" />
           <div class="flex justify-between">
-            <span class="text-base-content/60 text-sm">Tannin</span>
+            <span class="text-base-content/60 text-sm">{{ $t("generator.tannin") }}</span>
             <span class="font-medium">{{ result.tannin_g.toFixed(2) }} g</span>
           </div>
         </template>
@@ -72,7 +72,7 @@
     <div v-if="result" class="card bg-base-100 shadow-sm flex-1 min-w-64">
       <div class="card-body gap-4">
         <h2 class="card-title text-base">
-          Gärwerte
+          {{ $t("generator.fermentationValues") }}
         </h2>
         <div class="flex flex-col gap-1">
           <div class="flex justify-between text-sm">
@@ -86,12 +86,12 @@
             max="35"
           />
           <p class="text-xs text-base-content/40">
-            Ziel: 26–29 °Brix
+            {{ $t("generator.brixTarget") }}
           </p>
         </div>
         <div class="flex flex-col gap-1">
           <div class="flex justify-between text-sm">
-            <span class="text-base-content/60">Alkohol</span>
+            <span class="text-base-content/60">{{ $t("generator.alcohol") }}</span>
             <span class="font-medium">{{ result.estimatedABV.toFixed(1) }} %</span>
           </div>
           <progress
@@ -100,7 +100,7 @@
             max="25"
           />
           <p class="text-xs text-base-content/40">
-            ~14% ABV erwartet
+            {{ $t("generator.abvExpected") }}
           </p>
         </div>
       </div>

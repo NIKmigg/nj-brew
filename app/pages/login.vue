@@ -4,10 +4,10 @@
       <div class="card-body gap-5">
         <div class="text-center">
           <h1 class="text-2xl font-semibold">
-            Willkommen
+            {{ $t("auth.welcome") }}
           </h1>
           <p class="mt-2 text-sm text-base-content/60">
-            Melde dich an oder erstelle ein neues Konto.
+            {{ $t("auth.intro") }}
           </p>
         </div>
 
@@ -18,7 +18,7 @@
             type="button"
             @click="mode = 'login'"
           >
-            Login
+            {{ $t("auth.login") }}
           </button>
           <button
             class="btn join-item flex-1"
@@ -26,14 +26,14 @@
             type="button"
             @click="mode = 'signup'"
           >
-            Registrieren
+            {{ $t("auth.register") }}
           </button>
         </div>
 
         <form class="flex flex-col gap-3" @submit.prevent="submit">
           <label v-if="mode === 'signup'" class="form-control w-full">
             <span class="label pb-1">
-              <span class="label-text">Name</span>
+              <span class="label-text">{{ $t("auth.name") }}</span>
             </span>
             <input
               v-model="name"
@@ -46,7 +46,7 @@
 
           <label class="form-control w-full">
             <span class="label pb-1">
-              <span class="label-text">Email</span>
+              <span class="label-text">{{ $t("auth.email") }}</span>
             </span>
             <input
               v-model="email"
@@ -59,7 +59,7 @@
 
           <label class="form-control w-full">
             <span class="label pb-1">
-              <span class="label-text">Passwort</span>
+              <span class="label-text">{{ $t("auth.password") }}</span>
             </span>
             <input
               v-model="password"
@@ -78,7 +78,7 @@
           <button :disabled="submitting" class="btn btn-accent w-full" type="submit">
             <span v-if="submitting" class="loading loading-spinner loading-sm" />
             <Icon v-else name="mdi:email" size="20" />
-            {{ mode === 'signup' ? 'Registrieren' : 'Login' }}
+            {{ mode === 'signup' ? $t("auth.register") : $t("auth.login") }}
           </button>
         </form>
 
@@ -91,7 +91,7 @@
           @click="signInWithGitHub"
         >
           <Icon name="tabler:brand-github" size="20" />
-          Mit GitHub anmelden
+          {{ $t("auth.github") }}
         </button>
       </div>
     </div>
@@ -101,6 +101,8 @@
 <script setup lang="ts">
 const authStore = useAuthStore();
 const route = useRoute();
+const localePath = useLocalePath();
+const { t } = useI18n();
 
 const mode = ref<"login" | "signup">("login");
 const name = ref("");
@@ -112,7 +114,7 @@ const submitting = ref(false);
 const redirect = computed(() => {
   const value = route.query.redirect;
 
-  return typeof value === "string" && value.startsWith("/") ? value : "/";
+  return typeof value === "string" && value.startsWith("/") ? value : localePath("/");
 });
 
 watch(
@@ -140,7 +142,7 @@ async function submit() {
     await navigateTo(redirect.value);
   }
   catch (error) {
-    errorMessage.value = error instanceof Error ? error.message : "Auth fehlgeschlagen.";
+    errorMessage.value = error instanceof Error ? error.message : t("auth.failed");
   }
   finally {
     submitting.value = false;
@@ -148,6 +150,6 @@ async function submit() {
 }
 
 async function signInWithGitHub() {
-  await authStore.signInWithGitHub(redirect.value);
+  await authStore.signInWithGitHub(redirect.value || localePath("/"));
 }
 </script>

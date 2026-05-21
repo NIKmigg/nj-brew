@@ -1,0 +1,48 @@
+{
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Registrieren",
+    "welcome": "Willkommen",
+    "intro": "Melde dich an oder erstelle ein neues Konto.",
+    "name": "Name",
+    "email": "Email",
+    "password": "Passwort",
+    "github": "Mit GitHub anmelden",
+    "failed": "Auth fehlgeschlagen."
+  },
+  "footer": {
+    "tagline": "Braukunst nach alter Tradition.",
+    "copyright": "Copyright © {year} - Alle Rechte vorbehalten"
+  },
+  "generator": {
+    "recipe": "Rezept",
+    "targetVolume": "Ansatzvolumen (L)",
+    "targetVolumePlaceholder": "z.B. 8",
+    "useTannin": "Tannin verwenden",
+    "calculate": "Berechnen",
+    "ingredients": "Zutaten",
+    "honey": "Honig",
+    "water": "Wasser",
+    "yeast": "Hefe",
+    "nutrient": "Hefenährsalz",
+    "tannin": "Tannin",
+    "fermentationValues": "Gärwerte",
+    "brixTarget": "Ziel: 26–29 °Brix",
+    "alcohol": "Alkohol",
+    "abvExpected": "~14% ABV erwartet"
+  },
+  "home": {
+    "title": "NJ Brew",
+    "body": "Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.",
+    "cta": "Loslegen"
+  },
+  "market": {
+    "title": "Markt"
+  },
+  "nav": {
+    "home": "Home",
+    "generator": "Rezept-Generator",
+    "market": "Markt"
+  }
+}
