@@ -1,6 +1,46 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+html,
+html[data-theme="nj-brew-light"] {
+  --home-background-image: url("/background-light.png");
+  --app-background-overlay: rgb(255 246 225 / 68%);
+}
+
+html[data-theme="nj-brew-dark"] {
+  --home-background-image: url("/background-dark.png");
+  --app-background-overlay: rgb(0 0 0 / 62%);
+}
+
+.home-hero-bg {
+  background-image: var(--home-background-image);
+  background-position: center;
+  background-size: cover;
+}
+
+.app-background {
+  position: fixed;
+  inset: -2rem;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--home-background-image);
+  background-position: center;
+  background-size: cover;
+  filter: blur(18px);
+  transform: scale(1.04);
+}
+
+.app-background::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: var(--app-background-overlay);
+}
+
+@theme {
+  --font-old-style: "Macondo", cursive;
+}
+
 @plugin "daisyui/theme" {
   name: "nj-brew-dark";
   default: true;

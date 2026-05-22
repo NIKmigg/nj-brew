@@ -78,10 +78,17 @@
 </template>
 
 <script lang="ts" setup>
+definePageMeta({
+  middleware: "auth",
+});
+
 // 26–29 °Brix ≈ 14% Alkoholpotential
 
 // Brix-Bewertung
 // <24 zu schwach "Ansatz könnte zu schwach werden."
+// 24–26 akzeptabel  "Ansatz könnte zu schwach werden."
+// 26–29 ideal
+// >30 "Hohes Risiko für Hefestress oder Gärstopp."
 // 24–26 akzeptabel  "Ansatz könnte zu schwach werden."
 // 26–29 ideal
 // >30 "Hohes Risiko für Hefestress oder Gärstopp."
