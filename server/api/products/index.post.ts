@@ -1,6 +1,9 @@
 import { db } from "@server/db";
 import { products } from "@server/db/schema/products";
 import { insertProductSchema } from "@shared/schemas/product";
+import { eq } from "drizzle-orm";
+import { customAlphabet } from "nanoid";
+import slugify from "slugify";
 
 export default defineEventHandler(async (event) => {
   const result = await readValidatedBody(event, insertProductSchema.safeParse);
@@ -19,10 +22,36 @@ export default defineEventHandler(async (event) => {
     }));
   }
 
-  const [created] = await db.insert(products).values({
-    ...result.data,
-    slug: result.data.name.toLowerCase().replace(/\s+/g, "-"),
-  }).returning();
+  const nanoid = customAlphabet(
+    "abcdefghijklmnopqrstuvwxyz0123456789",
+    5,
+  );
 
-  return created;
+  const baseSlug = slugify(result.data.name, {
+    lower: true,
+    strict: true,
+  });
+
+  let slug = baseSlug;
+
+  while (
+    await db.query.products.findFirst({
+      where: eq(products.slug, slug),
+    })
+  ) {
+    slug = `${baseSlug}-${nanoid()}`;
+  }
+
+  try {
+    const [created] = await db.insert(products).values({
+      ...result.data,
+      slug,
+    }).returning();
+
+    return created;
+  }
+  catch (error) {
+    console.error("Error inserting product:", error);
+    throw error;
+  }
 });
