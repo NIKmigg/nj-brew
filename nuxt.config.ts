@@ -1,6 +1,6 @@
-import tailwindcss from "@tailwindcss/vite";
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { resolve } from "pathe";
+import { resolve } from "node:path";
+import tailwindcss from "@tailwindcss/vite";
 
 import "./server/lib/env";
 
@@ -19,6 +19,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@vee-validate/nuxt",
     "@nuxt/fonts",
+    "nuxt-csurf",
   ],
   eslint: {
     config: {
