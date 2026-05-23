@@ -15,6 +15,9 @@
           :class="{ 'input-error': errors.targetVolumeL }"
           :placeholder="$t('generator.targetVolumePlaceholder')"
         >
+        <p v-if="errors.targetVolumeL" class="text-error label">
+          {{ $t(errors.targetVolumeL) }}
+        </p>
       </fieldset>
 
       <fieldset class="fieldset">
