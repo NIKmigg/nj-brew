@@ -1,49 +1,51 @@
 <template>
   <div class="flex flex-wrap gap-4 p-6">
     <!-- Eingabe Card -->
-    <BaseCard title="Rezept">
+    <BaseCard :title="$t('generator.recipe')">
       <fieldset class="fieldset">
         <legend class="fieldset-legend">
-          Ansatzvolumen (L)
+          {{ $t("generator.targetVolume") }}
         </legend>
         <input
-          v-model="form.targetVolumeL"
+          v-model="targetVolumeL"
+          v-bind="targetVolumeLAttrs"
           type="number"
           min="0"
           class="input w-full"
-          placeholder="z.B. 8"
+          :class="{ 'input-error': errors.targetVolumeL }"
+          :placeholder="$t('generator.targetVolumePlaceholder')"
         >
       </fieldset>
 
       <fieldset class="fieldset">
         <legend class="fieldset-legend">
-          Tannin verwenden
+          {{ $t("generator.useTannin") }}
         </legend>
-        <input v-model="form.useTannin" type="checkbox" class="toggle toggle-primary">
+        <input v-model="useTannin" type="checkbox" class="toggle toggle-primary">
       </fieldset>
 
-      <button class="btn btn-primary w-full mt-auto" @click="calculate">
-        Berechnen
+      <button class="btn btn-primary w-full mt-auto" @click="onSubmit">
+        {{ $t("generator.calculate") }}
       </button>
     </BaseCard>
 
     <!-- Zutaten Card -->
-    <BaseCard v-if="result" title="Zutaten">
-      <GeneratorIngredientRow label="Honig" :value="`${result.honey_g} g`" />
+    <BaseCard v-if="result" :title="$t('generator.ingredients')">
+      <GeneratorIngredientRow :label="$t('generator.honey')" :value="`${result.honey_g} g`" />
       <div class="divider my-0" />
-      <GeneratorIngredientRow label="Wasser" :value="`${result.water_L.toFixed(2)} L`" />
+      <GeneratorIngredientRow :label="$t('generator.water')" :value="`${result.water_L.toFixed(2)} L`" />
       <div class="divider my-0" />
-      <GeneratorIngredientRow label="Hefe" :value="`${result.yeast_g.toFixed(1)} g`" />
+      <GeneratorIngredientRow :label="$t('generator.yeast')" :value="`${result.yeast_g.toFixed(1)} g`" />
       <div class="divider my-0" />
-      <GeneratorIngredientRow label="Hefenährsalz" :value="`${result.nutrient_g.toFixed(1)} g`" />
+      <GeneratorIngredientRow :label="$t('generator.nutrient')" :value="`${result.nutrient_g.toFixed(1)} g`" />
       <template v-if="result.tannin_g !== undefined">
         <div class="divider my-0" />
-        <GeneratorIngredientRow label="Tannin" :value="`${result.tannin_g.toFixed(2)} g`" />
+        <GeneratorIngredientRow :label="$t('generator.tannin')" :value="`${result.tannin_g.toFixed(2)} g`" />
       </template>
     </BaseCard>
 
     <!-- Gärwerte Card -->
-    <BaseCard v-if="result" title="Gärwerte">
+    <BaseCard v-if="result" :title="$t('generator.fermentationValues')">
       <div class="flex flex-col gap-1">
         <div class="flex justify-between text-sm">
           <span class="text-base-content/60">°Brix</span>
@@ -56,12 +58,12 @@
           max="35"
         />
         <p class="text-xs text-base-content/40">
-          Ziel: 26–29 °Brix
+          {{ $t("generator.brixTarget") }}
         </p>
       </div>
       <div class="flex flex-col gap-1">
         <div class="flex justify-between text-sm">
-          <span class="text-base-content/60">Alkohol</span>
+          <span class="text-base-content/60">{{ $t("generator.alcohol") }}</span>
           <span class="font-medium">{{ result.estimatedABV.toFixed(1) }} %</span>
         </div>
         <progress
@@ -70,7 +72,7 @@
           max="25"
         />
         <p class="text-xs text-base-content/40">
-          ~14% ABV erwartet
+          {{ $t("generator.abvExpected") }}
         </p>
       </div>
     </BaseCard>
@@ -99,15 +101,15 @@ const volumePerKgHoney = 0.75;
 const yeastPerL = 0.5;
 const nutrientPerL = 0.375;
 
-const showError = ref(false);
 const calculated = ref(false);
 
 const result = ref<MeadRecipeOutput | null>(null);
-const form = ref<MeadRecipeInput>({
-  targetVolumeL: 0,
-  waterHardness_dH: undefined,
-  useTannin: false,
+const { defineField, handleSubmit, errors } = useForm({
+  validationSchema: toTypedSchema(meadRecipeInputSchema),
 });
+
+const [targetVolumeL, targetVolumeLAttrs] = defineField("targetVolumeL");
+const useTannin = ref(false);
 
 const brixProgressClass = computed(() => {
   if (!result.value?.estimatedBrix)
@@ -119,15 +121,10 @@ const brixProgressClass = computed(() => {
   return "progress-success";
 });
 
-function calculate() {
-  const parsed = meadRecipeInputSchema.safeParse(form.value);
+const onSubmit = handleSubmit((values) => {
+  const { targetVolumeL: vol } = values;
+  const tannin = useTannin.value;
 
-  if (!parsed.success) {
-    showError.value = true;
-    return;
-  }
-
-  const { targetVolumeL: vol, useTannin: tannin } = parsed.data;
   const honey_g = vol * honeyPerL;
 
   result.value = {
@@ -142,8 +139,6 @@ function calculate() {
     stepFeedHoney_g: honey_g * 0.1,
   };
 
-  showError.value = false;
-
   calculated.value = true;
-}
+});
 </script>

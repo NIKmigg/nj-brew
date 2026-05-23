@@ -19,6 +19,7 @@
     "recipe": "Rezept",
     "targetVolume": "Ansatzvolumen (L)",
     "targetVolumePlaceholder": "z.B. 8",
+    "targetVolumeError": "Bitte geben Sie eine gültige Menge ein.",
     "useTannin": "Tannin verwenden",
     "calculate": "Berechnen",
     "ingredients": "Zutaten",
