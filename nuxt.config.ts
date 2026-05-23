@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { resolve } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 
 import "./server/lib/env";
@@ -6,6 +7,10 @@ import "./server/lib/env";
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  alias: {
+    "@server": resolve(__dirname, "./server"),
+    "@shared": resolve(__dirname, "./shared"),
+  },
   modules: [
     "@nuxt/eslint",
     "@nuxt/icon",
@@ -14,6 +19,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@vee-validate/nuxt",
     "@nuxt/fonts",
+    "nuxt-csurf",
   ],
   eslint: {
     config: {

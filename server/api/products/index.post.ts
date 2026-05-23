@@ -1,0 +1,57 @@
+import { db } from "@server/db";
+import { products } from "@server/db/schema/products";
+import { insertProductSchema } from "@shared/schemas/product";
+import { eq } from "drizzle-orm";
+import { customAlphabet } from "nanoid";
+import slugify from "slugify";
+
+export default defineEventHandler(async (event) => {
+  const result = await readValidatedBody(event, insertProductSchema.safeParse);
+
+  if (!result.success) {
+    const statusMessage = result.error.issues.map(issue => `${issue.path.join("")}: ${issue.message}`).join("; ");
+    const data = result.error.issues.reduce((errors, issue) => {
+      errors[issue.path.join("")] = issue.message;
+      return errors;
+    }, {} as Record<string, string>);
+
+    return sendError(event, createError({
+      statusCode: 422,
+      statusMessage,
+      data,
+    }));
+  }
+
+  const nanoid = customAlphabet(
+    "abcdefghijklmnopqrstuvwxyz0123456789",
+    5,
+  );
+
+  const baseSlug = slugify(result.data.name, {
+    lower: true,
+    strict: true,
+  });
+
+  let slug = baseSlug;
+
+  while (
+    await db.query.products.findFirst({
+      where: eq(products.slug, slug),
+    })
+  ) {
+    slug = `${baseSlug}-${nanoid()}`;
+  }
+
+  try {
+    const [created] = await db.insert(products).values({
+      ...result.data,
+      slug,
+    }).returning();
+
+    return created;
+  }
+  catch (error) {
+    console.error("Error inserting product:", error);
+    throw error;
+  }
+});

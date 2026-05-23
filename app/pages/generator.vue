@@ -80,10 +80,6 @@
 </template>
 
 <script lang="ts" setup>
-definePageMeta({
-  middleware: "auth",
-});
-
 // 26–29 °Brix ≈ 14% Alkoholpotential
 
 // Brix-Bewertung
@@ -95,7 +91,14 @@ definePageMeta({
 // 26–29 ideal
 // >30 "Hohes Risiko für Hefestress oder Gärstopp."
 
+import type { MeadRecipeInput, MeadRecipeOutput } from "@shared/schemas/mead";
 // const fermentableSugarPerGHoney = 0.8; // g vergärbarer Zucker pro g Honig
+import { meadRecipeInputSchema } from "@shared/schemas/mead";
+
+definePageMeta({
+  middleware: "auth",
+});
+
 const honeyPerL = 364;
 const volumePerKgHoney = 0.75;
 const yeastPerL = 0.5;
