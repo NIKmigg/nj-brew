@@ -24,3 +24,8 @@ export const meadRecipeOutputSchema = z.object({
 
 export type MeadRecipeInput = z.infer<typeof meadRecipeInputSchema>;
 export type MeadRecipeOutput = z.infer<typeof meadRecipeOutputSchema>;
+
+export const honeyPerL = 364;
+export const volumePerKgHoney = 0.75;
+export const yeastPerL = 0.5;
+export const nutrientPerL = 0.375;

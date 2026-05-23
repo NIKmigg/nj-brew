@@ -83,31 +83,12 @@
 </template>
 
 <script lang="ts" setup>
-// 26–29 °Brix ≈ 14% Alkoholpotential
-
-// Brix-Bewertung
-// <24 zu schwach "Ansatz könnte zu schwach werden."
-// 24–26 akzeptabel  "Ansatz könnte zu schwach werden."
-// 26–29 ideal
-// >30 "Hohes Risiko für Hefestress oder Gärstopp."
-// 24–26 akzeptabel  "Ansatz könnte zu schwach werden."
-// 26–29 ideal
-// >30 "Hohes Risiko für Hefestress oder Gärstopp."
-
-import type { MeadRecipeInput, MeadRecipeOutput } from "@shared/schemas/mead";
-// const fermentableSugarPerGHoney = 0.8; // g vergärbarer Zucker pro g Honig
-import { meadRecipeInputSchema } from "@shared/schemas/mead";
+import type { MeadRecipeOutput } from "@shared/schemas/mead";
+import { honeyPerL, meadRecipeInputSchema, nutrientPerL, volumePerKgHoney, yeastPerL } from "@shared/schemas/mead";
 
 definePageMeta({
   middleware: "auth",
 });
-
-const honeyPerL = 364;
-const volumePerKgHoney = 0.75;
-const yeastPerL = 0.5;
-const nutrientPerL = 0.375;
-
-const calculated = ref(false);
 
 const result = ref<MeadRecipeOutput | null>(null);
 const { defineField, handleSubmit, errors } = useForm({
@@ -145,6 +126,12 @@ const onSubmit = handleSubmit((values) => {
     stepFeedHoney_g: honey_g * 0.1,
   };
 
-  calculated.value = true;
+  sessionStorage.setItem("meadResult", JSON.stringify(result.value));
+});
+
+onMounted(() => {
+  const saved = sessionStorage.getItem("meadResult");
+  if (saved)
+    result.value = JSON.parse(saved);
 });
 </script>
