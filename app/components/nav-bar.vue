@@ -77,8 +77,8 @@
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
           <img
-            v-if="authStore.user?.image"
-            :src="authStore.user.image"
+            v-if="user?.image"
+            :src="user.image"
             alt="avatar"
             class="rounded-full"
           >
@@ -94,11 +94,11 @@
         <div tabindex="0" class="dropdown-content mt-3 z-1 w-64 card card-compact bg-base-100 shadow">
           <div class="card-body text-center">
             <h3 class="font-semibold">
-              {{ authStore.user?.name || 'Ragnar Prostbrok' }}
+              {{ user?.name || 'Ragnar Prostbrok' }}
             </h3>
 
             <p class="text-sm opacity-70 mt-1">
-              {{ authStore.user?.email || 'ragnar@valhalla.met' }}
+              {{ user?.email || 'ragnar@valhalla.met' }}
             </p>
 
             <div class="divider my-3" />
@@ -117,11 +117,18 @@
               </NuxtLink>
             </div>
 
-            <button v-if="authStore.user" class="btn btn-ghost" @click="authStore.signOut">
+            <button v-if="user" class="btn btn-ghost" @click="signOut">
               {{ $t("auth.logout") }}
             </button>
 
             <AuthButton v-else />
+
+            <div v-if="isAdmin" class="mt-4">
+              <div class="divider my-3" />
+              <button v-if="user" class="btn btn-ghost" @click="signOut">
+                {{ $t("nav.admin") }}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -130,7 +137,7 @@
 </template>
 
 <script setup lang="ts">
-const authStore = useAuthStore();
+const { user, signOut, isAdmin } = await useAuth();
 
 const route = useRoute();
 const localePath = useLocalePath();

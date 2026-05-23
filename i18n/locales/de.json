@@ -43,6 +43,7 @@
   "nav": {
     "home": "Home",
     "generator": "Rezept-Generator",
-    "market": "Markt"
+    "market": "Markt",
+    "admin": "Admin Dashboard"
   }
 }

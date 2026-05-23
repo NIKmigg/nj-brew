@@ -88,7 +88,7 @@
           :disabled="submitting"
           class="btn btn-outline w-full"
           type="button"
-          @click="signInWithGitHub"
+          @click="callSignInWithGitHub"
         >
           <Icon name="tabler:brand-github" size="20" />
           {{ $t("auth.github") }}
@@ -99,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-const authStore = useAuthStore();
+const { user, signInWithEmail, signUpWithEmail, signInWithGitHub } = await useAuth();
 const route = useRoute();
 const localePath = useLocalePath();
 const { t } = useI18n();
@@ -118,9 +118,9 @@ const redirect = computed(() => {
 });
 
 watch(
-  () => authStore.user,
-  async (user) => {
-    if (user) {
+  user,
+  async (value) => {
+    if (value) {
       await navigateTo(redirect.value);
     }
   },
@@ -133,10 +133,10 @@ async function submit() {
 
   try {
     if (mode.value === "signup") {
-      await authStore.signUpWithEmail(name.value, email.value, password.value);
+      await signUpWithEmail(name.value, email.value, password.value);
     }
     else {
-      await authStore.signInWithEmail(email.value, password.value);
+      await signInWithEmail(email.value, password.value);
     }
 
     await navigateTo(redirect.value);
@@ -149,7 +149,7 @@ async function submit() {
   }
 }
 
-async function signInWithGitHub() {
-  await authStore.signInWithGitHub(redirect.value || localePath("/"));
+async function callSignInWithGitHub() {
+  await signInWithGitHub(redirect.value || localePath("/"));
 }
 </script>

@@ -43,6 +43,7 @@
   "nav": {
     "home": "Home",
     "generator": "Recipe Generator",
-    "market": "Market"
+    "market": "Market",
+    "admin": "Admin Dashboard"
   }
 }
