@@ -28,10 +28,13 @@
     "yeast": "Yeast",
     "nutrient": "Yeast nutrient",
     "tannin": "Tannin",
-    "fermentationValues": "Fermentation values",
-    "brixTarget": "Target: 26–29 °Brix",
-    "alcohol": "Alcohol",
-    "abvExpected": "~14% ABV expected"
+    "fermentationValues": "Fermentation targets",
+    "brixInfo": "Brix info",
+    "brixWeak": "Too weak",
+    "brixOk": "Acceptable",
+    "brixIdeal": "Ideal",
+    "brixRisk": "High risk",
+    "alcohol": "Alcohol"
   },
   "home": {
     "title": "NJ Brew",

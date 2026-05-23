@@ -13,8 +13,8 @@ export const meadRecipeOutputSchema = z.object({
   nutrient_g: z.number().positive(),
   tannin_g: z.number().positive().optional(),
 
-  estimatedABV: z.number().min(0).max(100),
-  estimatedBrix: z.number().min(0),
+  // estimatedABV: z.number().min(0).max(100),
+  // estimatedBrix: z.number().min(0),
 
   recommendOsmosis: z.boolean(),
   osmosisRatio: z.number().min(0).max(1).optional(),
@@ -29,3 +29,5 @@ export const honeyPerL = 364;
 export const volumePerKgHoney = 0.75;
 export const yeastPerL = 0.5;
 export const nutrientPerL = 0.375;
+export const estimatedBrix = 26;
+export const estimatedAlc = 14;

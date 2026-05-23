@@ -49,34 +49,56 @@
 
     <!-- Gärwerte Card -->
     <BaseCard v-if="result" :title="$t('generator.fermentationValues')">
-      <div class="flex flex-col gap-1">
-        <div class="flex justify-between text-sm">
-          <span class="text-base-content/60">°Brix</span>
-          <span class="font-medium">{{ result.estimatedBrix.toFixed(1) }}</span>
+      <InfoModal :title="$t('generator.brixInfo')">
+        <div class="flex flex-col gap-1 w-full">
+          <div class="flex justify-between text-sm">
+            <span class="text-base-content/60">°Brix</span>
+            <span class="font-medium">{{ estimatedBrix.toFixed(1) }}</span>
+          </div>
+          <progress
+            class="progress progress-success w-full"
+            :value="estimatedBrix"
+            max="35"
+          />
         </div>
-        <progress
-          class="progress w-full"
-          :class="brixProgressClass"
-          :value="result.estimatedBrix"
-          max="35"
-        />
-        <p class="text-xs text-base-content/40">
-          {{ $t("generator.brixTarget") }}
-        </p>
-      </div>
-      <div class="flex flex-col gap-1">
+        <template #info>
+          <div class="mt-2 flex flex-col gap-1.5">
+            <!-- Zu schwach -->
+            <div class="flex items-center justify-between px-3 py-2 rounded-lg border-l-[5px] bg-info/70 border-info">
+              <span class="text-info-content">{{ $t("generator.brixWeak") }}</span>
+              <span class="font-medium text-info-content">&lt; 24</span>
+            </div>
+
+            <!-- Akzeptabel -->
+            <div class="flex items-center justify-between px-3 py-2 rounded-lg border-l-[3px] bg-warning/70 border-warning">
+              <span class="text-warning-content">{{ $t("generator.brixOk") }}</span>
+              <span class="font-medium text-warning-content">24 – 26</span>
+            </div>
+
+            <!-- Ideal -->
+            <div class="flex items-center justify-between px-3 py-2 rounded-lg border-l-[3px] bg-success/70 border-success">
+              <span class="text-success-content">{{ $t("generator.brixIdeal") }}</span>
+              <span class="font-medium text-success-content">26 – 29</span>
+            </div>
+
+            <!-- Hohes Risiko -->
+            <div class="flex items-center justify-between px-3 py-2 rounded-lg border-l-[3px] bg-error/70 border-error">
+              <span class="text-error-content">{{ $t("generator.brixRisk") }}</span>
+              <span class="font-medium text-error-content">&gt; 30</span>
+            </div>
+          </div>
+        </template>
+      </InfoModal>
+      <div class="flex flex-col gap-1 pt-3">
         <div class="flex justify-between text-sm">
           <span class="text-base-content/60">{{ $t("generator.alcohol") }}</span>
-          <span class="font-medium">{{ result.estimatedABV.toFixed(1) }} %</span>
+          <span class="font-medium">{{ estimatedAlc.toFixed(1) }} %</span>
         </div>
         <progress
           class="progress progress-info w-full"
-          :value="result.estimatedABV"
+          :value="estimatedAlc"
           max="25"
         />
-        <p class="text-xs text-base-content/40">
-          {{ $t("generator.abvExpected") }}
-        </p>
       </div>
     </BaseCard>
   </div>
@@ -84,7 +106,7 @@
 
 <script lang="ts" setup>
 import type { MeadRecipeOutput } from "@shared/schemas/mead";
-import { honeyPerL, meadRecipeInputSchema, nutrientPerL, volumePerKgHoney, yeastPerL } from "@shared/schemas/mead";
+import { estimatedAlc, estimatedBrix, honeyPerL, meadRecipeInputSchema, nutrientPerL, volumePerKgHoney, yeastPerL } from "@shared/schemas/mead";
 
 definePageMeta({
   middleware: "auth",
@@ -98,16 +120,6 @@ const { defineField, handleSubmit, errors } = useForm({
 const [targetVolumeL, targetVolumeLAttrs] = defineField("targetVolumeL");
 const useTannin = ref(false);
 
-const brixProgressClass = computed(() => {
-  if (!result.value?.estimatedBrix)
-    return "progress-warning";
-  if (result.value.estimatedBrix < 26)
-    return "progress-warning";
-  if (result.value.estimatedBrix > 29)
-    return "progress-error";
-  return "progress-success";
-});
-
 const onSubmit = handleSubmit((values) => {
   const { targetVolumeL: vol } = values;
   const tannin = useTannin.value;
@@ -120,8 +132,6 @@ const onSubmit = handleSubmit((values) => {
     yeast_g: vol * yeastPerL,
     nutrient_g: vol * nutrientPerL,
     tannin_g: tannin ? vol * 0.16 : undefined,
-    estimatedABV: (honey_g / vol) / 26,
-    estimatedBrix: (honey_g / vol) / 14,
     recommendOsmosis: false,
     stepFeedHoney_g: honey_g * 0.1,
   };
