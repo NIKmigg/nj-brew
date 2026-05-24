@@ -94,6 +94,11 @@
         </template>
       </InfoModal>
     </BaseCard>
+
+    <!-- Nachsüßen / Step Feeding Card -->
+    <BaseCard v-if="result" title="Nachsüßen / Step Feeding">
+      <!-- <GeneratorBaseStatCard label="Honig / Schritt" :value="`${stepFeedHoney_g} g`" hint="15% der Basismenge" /> -->
+    </BaseCard>
   </div>
 </template>
 
