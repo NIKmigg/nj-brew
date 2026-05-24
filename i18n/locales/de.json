@@ -11,6 +11,7 @@
     "github": "Mit GitHub anmelden",
     "failed": "Auth fehlgeschlagen."
   },
+  "info": "Info",
   "footer": {
     "tagline": "Braukunst nach alter Tradition.",
     "copyright": "Copyright © {year} - Alle Rechte vorbehalten"
@@ -29,12 +30,15 @@
     "nutrient": "Hefenährsalz",
     "tannin": "Tannin",
     "fermentationValues": "Gärwertziele",
-    "brixInfo": "Brix-Info",
+    "brixInfoTitle": "Brix-Info",
+    "brixInfo": "Der °Brix-Wert ist einer der wichtigsten Qualitätsindikatoren des Startansatzes.",
     "brixWeak": "Zu schwach",
     "brixOk": "Akzeptabel",
     "brixIdeal": "Ideal",
     "brixRisk": "Hohes Risiko",
-    "alcohol": "Alkohol"
+    "alcohol": "Alkohol",
+    "alcoholInfo": "Alkohol-Info",
+    "alcoholInfoText": "Der geschätzte Alkoholgehalt zeigt, wie stark der Met nach der Gärung ungefähr werden kann."
   },
   "home": {
     "title": "NJ Brew",

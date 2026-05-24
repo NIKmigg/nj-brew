@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-row gap-2">
     <slot />
-    <button class="btn btn-ghost" @click="modal?.showModal()">
+    <button class="btn btn-ghost btn-circle tooltip" :data-tip="$t('info')" @click="modal?.showModal()">
       <Icon name="mdi:info" size="24" class="text-base-content/40 cursor-help" />
     </button>
   </div>

@@ -49,7 +49,7 @@
 
     <!-- Gärwerte Card -->
     <BaseCard v-if="result" :title="$t('generator.fermentationValues')">
-      <InfoModal :title="$t('generator.brixInfo')">
+      <InfoModal :title="$t('generator.brixInfoTitle')">
         <div class="flex flex-col gap-1 w-full">
           <div class="flex justify-between text-sm">
             <span class="text-base-content/60">°Brix</span>
@@ -63,43 +63,36 @@
         </div>
         <template #info>
           <div class="mt-2 flex flex-col gap-1.5">
-            <!-- Zu schwach -->
-            <div class="flex items-center justify-between px-3 py-2 rounded-lg border-l-[5px] bg-info/70 border-info">
-              <span class="text-info-content">{{ $t("generator.brixWeak") }}</span>
-              <span class="font-medium text-info-content">&lt; 24</span>
-            </div>
+            <p class="text-sm text-base-content/70 mb-2">
+              {{ $t("generator.brixInfo") }}
+            </p>
 
-            <!-- Akzeptabel -->
-            <div class="flex items-center justify-between px-3 py-2 rounded-lg border-l-[3px] bg-warning/70 border-warning">
-              <span class="text-warning-content">{{ $t("generator.brixOk") }}</span>
-              <span class="font-medium text-warning-content">24 – 26</span>
-            </div>
-
-            <!-- Ideal -->
-            <div class="flex items-center justify-between px-3 py-2 rounded-lg border-l-[3px] bg-success/70 border-success">
-              <span class="text-success-content">{{ $t("generator.brixIdeal") }}</span>
-              <span class="font-medium text-success-content">26 – 29</span>
-            </div>
-
-            <!-- Hohes Risiko -->
-            <div class="flex items-center justify-between px-3 py-2 rounded-lg border-l-[3px] bg-error/70 border-error">
-              <span class="text-error-content">{{ $t("generator.brixRisk") }}</span>
-              <span class="font-medium text-error-content">&gt; 30</span>
-            </div>
+            <GeneratorBrixRatingRow :label="$t('generator.brixWeak')" range="< 24" color="info" />
+            <GeneratorBrixRatingRow :label="$t('generator.brixOk')" range="24–26" color="warning" />
+            <GeneratorBrixRatingRow :label="$t('generator.brixIdeal')" range="26–29" color="success" />
+            <GeneratorBrixRatingRow :label="$t('generator.brixRisk')" range="> 30" color="error" />
           </div>
         </template>
       </InfoModal>
-      <div class="flex flex-col gap-1 pt-3">
-        <div class="flex justify-between text-sm">
-          <span class="text-base-content/60">{{ $t("generator.alcohol") }}</span>
-          <span class="font-medium">{{ estimatedAlc.toFixed(1) }} %</span>
+
+      <InfoModal :title="$t('generator.alcoholInfo')">
+        <div class="flex flex-col gap-1 w-full">
+          <div class="flex justify-between text-sm">
+            <span class="text-base-content/60">{{ $t("generator.alcohol") }}</span>
+            <span class="font-medium">{{ estimatedAlc.toFixed(1) }} %</span>
+          </div>
+          <progress
+            class="progress progress-info w-full"
+            :value="estimatedAlc"
+            max="25"
+          />
         </div>
-        <progress
-          class="progress progress-info w-full"
-          :value="estimatedAlc"
-          max="25"
-        />
-      </div>
+        <template #info>
+          <p class="text-sm text-base-content/60">
+            {{ $t("generator.alcoholInfoText") }}
+          </p>
+        </template>
+      </InfoModal>
     </BaseCard>
   </div>
 </template>
