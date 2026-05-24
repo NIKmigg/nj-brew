@@ -1,4 +1,15 @@
 {
+  "global": {
+    "loading": "Lädt...",
+    "missingFeature": "Diese Funktion ist noch nicht verfügbar."
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "products": "Produkte verwalten",
+    "addProduct": "Produkt hinzufügen",
+    "orders": "Bestellungen verwalten",
+    "users": "Benutzer verwalten"
+  },
   "auth": {
     "login": "Login",
     "logout": "Logout",

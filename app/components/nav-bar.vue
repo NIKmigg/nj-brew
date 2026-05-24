@@ -123,11 +123,16 @@
 
             <AuthButton v-else />
 
-            <div v-if="isAdmin" class="mt-4">
+            <div v-if="isAdmin">
               <div class="divider my-3" />
-              <button v-if="user" class="btn btn-ghost" @click="signOut">
+              <NuxtLink
+                :to="localePath('/admin')"
+                class="bnt btn-ghost flex items-center justify-center gap-2 w-full hover:scale-110"
+                :class="{ 'text-primary/80': isActive('/admin') }"
+              >
+                <Icon name="mdi:shield-crown" class="text-xl" />
                 {{ $t("nav.admin") }}
-              </button>
+              </NuxtLink>
             </div>
           </div>
         </div>

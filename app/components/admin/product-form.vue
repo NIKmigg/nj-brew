@@ -79,7 +79,7 @@
     <button
       type="submit"
       :disabled="loading"
-      class="bg-black text-white px-4 py-2 rounded disabled:opacity-50"
+      class="btn btn-primary w-full"
     >
       {{ loading ? "Speichern..." : "Produkt anlegen" }}
     </button>
