@@ -11,6 +11,7 @@
     "github": "Sign in with GitHub",
     "failed": "Authentication failed."
   },
+  "info": "Info",
   "footer": {
     "tagline": "Brewing craft in the old tradition.",
     "copyright": "Copyright © {year} - All rights reserved"
@@ -19,6 +20,7 @@
     "recipe": "Recipe",
     "targetVolume": "Batch volume (L)",
     "targetVolumePlaceholder": "e.g. 8",
+    "targetVolumeError": "Please enter a valid amount.",
     "useTannin": "Use tannin",
     "calculate": "Calculate",
     "ingredients": "Ingredients",
@@ -27,10 +29,16 @@
     "yeast": "Yeast",
     "nutrient": "Yeast nutrient",
     "tannin": "Tannin",
-    "fermentationValues": "Fermentation values",
-    "brixTarget": "Target: 26–29 °Brix",
+    "fermentationValues": "Fermentation targets",
+    "brixInfoTitle": "Brix info",
+    "brixInfo": "Brix info",
+    "brixWeak": "Too weak",
+    "brixOk": "Acceptable",
+    "brixIdeal": "Ideal",
+    "brixRisk": "High risk",
     "alcohol": "Alcohol",
-    "abvExpected": "~14% ABV expected"
+    "alcoholInfo": "Alcohol info",
+    "alcoholInfoText": "The estimated alcohol content shows roughly how strong the mead can become after fermentation."
   },
   "home": {
     "title": "NJ Brew",
