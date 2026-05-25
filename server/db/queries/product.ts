@@ -1,4 +1,4 @@
-import type { InsertProductSchema } from "@shared/schemas/product";
+import type { ProductInput } from "~~/shared/schemas/product";
 import { eq } from "drizzle-orm";
 import { customAlphabet } from "nanoid";
 import slugify from "slugify";
@@ -31,7 +31,7 @@ export async function createUniqueSlug(name: string) {
   return slug;
 }
 
-export async function insertProduct(insertable: InsertProductSchema, slug: string) {
+export async function insertProduct(insertable: ProductInput, slug: string) {
   return await db.insert(products).values({
     ...insertable,
     slug,
