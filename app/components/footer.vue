@@ -1,16 +1,16 @@
 <template>
   <footer class="relative footer footer-horizontal footer-center bg-primary/70 p-10">
     <div
-      class="pointer-events-none absolute top-0 left-0 w-full h-1/2 bg-linear-to-b from-black/40 to-transparent"
+      class="pointer-events-none absolute top-0 left-0 w-full h-1/2 bg-linear-to-b from-black/85 to-transparent"
     />
     <aside>
-      <img src="/logo.png" alt="NJ Logo" class="w-8 h-8">
+      <img src="/logo.png" alt="NJ Logo" class="w-8 h-8 drop-shadow-[0_0_20px_rgba(255,255,255,1)]">
       <p class="font-bold">
         NJ Brew
         <span class="block">{{ $t("footer.tagline") }}</span>
       </p>
 
-      <p class="text-base-content/50">
+      <p class="text-base-content/70">
         {{ $t("footer.copyright", { year: new Date().getFullYear() }) }}
       </p>
     </aside>

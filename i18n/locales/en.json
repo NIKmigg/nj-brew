@@ -1,4 +1,15 @@
 {
+  "global": {
+    "loading": "Loading...",
+    "missingFeature": "This feature is not available yet."
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "products": "Manage Products",
+    "addProduct": "Add Product",
+    "orders": "Manage Orders",
+    "users": "Manage Users"
+  },
   "auth": {
     "login": "Login",
     "logout": "Logout",
@@ -84,6 +95,7 @@
   "nav": {
     "home": "Home",
     "generator": "Recipe Generator",
-    "market": "Market"
+    "market": "Market",
+    "admin": "Admin Dashboard"
   }
 }

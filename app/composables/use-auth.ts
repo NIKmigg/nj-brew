@@ -1,20 +1,27 @@
-import { createAuthClient } from "better-auth/vue";
+import { authClient } from "~/lib/auth-client";
 
-const authClient = createAuthClient();
+export async function useAuth() {
+  const session = await authClient.useSession(useFetch);
 
-export const useAuthStore = defineStore("useAuthStore", () => {
-  const session = ref<Awaited<ReturnType<typeof authClient.useSession>> | null>(null);
+  const user = computed(() =>
+    session.data.value?.user,
+  );
 
-  async function init() {
-    const data = await authClient.useSession(useFetch);
-    session.value = data;
-  }
+  const loading = computed(() =>
+    session.isPending,
+  );
 
-  const user = computed(() => session.value?.data?.user);
-  const loading = computed(() => session.value?.isPending);
+  const isAuthenticated = computed(() =>
+    !!user.value,
+  );
+
+  const isAdmin = computed(() =>
+    user.value?.role === "admin",
+  );
 
   async function signInWithGitHub(callbackURL = "/") {
     const { csrf } = useCsrf();
+
     const headers = new Headers();
 
     headers.append("csrf-token", csrf);
@@ -23,6 +30,7 @@ export const useAuthStore = defineStore("useAuthStore", () => {
       provider: "github",
       callbackURL,
       errorCallbackURL: "/error",
+
       fetchOptions: {
         headers,
       },
@@ -31,6 +39,7 @@ export const useAuthStore = defineStore("useAuthStore", () => {
 
   async function signInWithEmail(email: string, password: string) {
     const { csrf } = useCsrf();
+
     const headers = new Headers();
 
     headers.append("csrf-token", csrf);
@@ -39,20 +48,26 @@ export const useAuthStore = defineStore("useAuthStore", () => {
       email,
       password,
       rememberMe: true,
+
       fetchOptions: {
         headers,
       },
     });
 
     if (result.error) {
-      throw new Error(result.error.message || "Login fehlgeschlagen.");
+      throw new Error(
+        result.error.message || "Login fehlgeschlagen.",
+      );
     }
-
-    await init();
   }
 
-  async function signUpWithEmail(name: string, email: string, password: string) {
+  async function signUpWithEmail(
+    name: string,
+    email: string,
+    password: string,
+  ) {
     const { csrf } = useCsrf();
+
     const headers = new Headers();
 
     headers.append("csrf-token", csrf);
@@ -61,37 +76,43 @@ export const useAuthStore = defineStore("useAuthStore", () => {
       name,
       email,
       password,
+
       fetchOptions: {
         headers,
       },
     });
 
     if (result.error) {
-      throw new Error(result.error.message || "Registrierung fehlgeschlagen.");
+      throw new Error(
+        result.error.message || "Registrierung fehlgeschlagen.",
+      );
     }
-
-    await init();
   }
 
   async function signOut() {
     const { csrf } = useCsrf();
+
     const headers = new Headers();
+
     headers.append("csrf-token", csrf);
+
     await authClient.signOut({
       fetchOptions: {
         headers,
       },
     });
-    await init();
   }
 
   return {
-    init,
-    loading,
+    session,
     user,
+    loading,
+    isAuthenticated,
+    isAdmin,
+
     signInWithGitHub,
     signInWithEmail,
     signUpWithEmail,
     signOut,
   };
-});
+}

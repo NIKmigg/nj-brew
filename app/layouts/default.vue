@@ -17,7 +17,4 @@
 
 <script setup lang="ts">
 const route = useRoute();
-const authStore = useAuthStore();
-
-await authStore.init();
 </script>
