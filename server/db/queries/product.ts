@@ -37,3 +37,7 @@ export async function insertProduct(insertable: ProductInput, slug: string) {
     slug,
   }).returning();
 }
+
+export async function findProducts() {
+  return await db.query.products.findMany();
+}

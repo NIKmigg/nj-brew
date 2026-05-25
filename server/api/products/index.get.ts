@@ -1,6 +1,5 @@
-import { db } from "@server/db";
-import { products } from "@server/db/schema";
+import { findProducts } from "@server/db/queries/product";
 
-export default defineEventHandler(async () => {
-  return await db.select().from(products);
+export default defineEventHandler(() => {
+  return findProducts();
 });
