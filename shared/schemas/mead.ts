@@ -12,13 +12,10 @@ export const meadRecipeOutputSchema = z.object({
   yeast_g: z.number().positive(),
   nutrient_g: z.number().positive(),
   tannin_g: z.number().positive().optional(),
-
-  // estimatedABV: z.number().min(0).max(100),
-  // estimatedBrix: z.number().min(0),
-
   recommendOsmosis: z.boolean(),
   osmosisRatio: z.number().min(0).max(1).optional(),
-
+  osmosisRationInPercent: z.number().min(0).max(100).optional(),
+  tapWaterRatioInPercent: z.number().min(0).max(100).optional(),
   stepFeedHoney_g: z.number().positive(),
 });
 
