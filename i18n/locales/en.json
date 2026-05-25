@@ -12,7 +12,6 @@
     "failed": "Authentication failed."
   },
   "info": "Info",
-  "info": "Info",
   "footer": {
     "tagline": "Brewing craft in the old tradition.",
     "copyright": "Copyright © {year} - All rights reserved"
@@ -22,7 +21,6 @@
     "targetVolume": "Batch volume (L)",
     "targetVolumePlaceholder": "e.g. 8",
     "targetVolumeError": "Please enter a valid amount.",
-    "targetVolumeError": "Please enter a valid amount.",
     "useTannin": "Use tannin",
     "calculate": "Calculate",
     "ingredients": "Ingredients",
@@ -31,13 +29,6 @@
     "yeast": "Yeast",
     "nutrient": "Yeast nutrient",
     "tannin": "Tannin",
-    "fermentationValues": "Fermentation targets",
-    "brixInfoTitle": "Brix info",
-    "brixInfo": "Brix info",
-    "brixWeak": "Too weak",
-    "brixOk": "Acceptable",
-    "brixIdeal": "Ideal",
-    "brixRisk": "High risk",
     "fermentationValues": "Fermentation targets",
     "brixInfoTitle": "Brix info",
     "brixInfo": "Brix info",
