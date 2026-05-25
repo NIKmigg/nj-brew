@@ -2,6 +2,7 @@ import { db } from "@server/db/index";
 import * as schema from "@server/db/schema/index";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { admin } from "better-auth/plugins";
 import { env } from "./env";
 
 export const auth = betterAuth({
@@ -18,4 +19,7 @@ export const auth = betterAuth({
       clientSecret: env.GITHUB_CLIENT_SECRET,
     },
   },
+  plugins: [
+    admin(),
+  ],
 });
