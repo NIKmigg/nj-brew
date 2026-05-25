@@ -54,7 +54,7 @@
     "stepWarningHint": "Hefestress bei zu viel Zucker auf einmal",
     "waterHardness": "Wasserhärte",
     "waterHardnessPlaceholder": "z.B. 12",
-    "waterHardnessTitle": "Wasserhärte",
+    "waterHardnessInfo": "Wasserhärte-Info",
     "waterHardnessSoftLabel": "Sehr weich",
     "waterHardnessSoftRange": "0 - 4 °dH",
     "waterHardnessIdealLabel": "Ideal",

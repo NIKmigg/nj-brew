@@ -21,9 +21,24 @@
       </fieldset>
 
       <fieldset class="fieldset">
-        <legend class="fieldset-legend">
-          {{ $t("generator.waterHardness") }}
-        </legend>
+        <InfoModal :title="$t('generator.waterHardnessInfo')">
+          <legend class="fieldset-legend w-full">
+            {{ $t("generator.waterHardness") }}
+          </legend>
+          <template #info>
+            <div class="mt-2 flex flex-col gap-1.5">
+              <!-- <p class="text-sm text-base-content/70 mb-2">
+                {{ $t("generator.waterHardnessTitle") }}
+              </p> -->
+
+              <GeneratorRatingRow :label="$t('generator.waterHardnessSoftLabel')" range="0–4 °dH" color="info" />
+              <GeneratorRatingRow :label="$t('generator.waterHardnessIdealLabel')" range="5–8 °dH" color="success" />
+              <GeneratorRatingRow :label="$t('generator.waterHardnessOkLabel')" range="9–14 °dH" color="warning" />
+              <GeneratorRatingRow :label="$t('generator.waterHardnessHardLabel')" range="15–20 °dH" color="error" />
+              <GeneratorRatingRow :label="$t('generator.waterHardnessVeryHardLabel')" range="> 20 °dH" color="error" />
+            </div>
+          </template>
+        </InfoModal>
         <div class="w-full input">
           <input
             v-model="waterHardness"
@@ -84,10 +99,10 @@
               {{ $t("generator.brixInfo") }}
             </p>
 
-            <GeneratorBrixRatingRow :label="$t('generator.brixWeak')" range="< 24" color="info" />
-            <GeneratorBrixRatingRow :label="$t('generator.brixOk')" range="24–26" color="warning" />
-            <GeneratorBrixRatingRow :label="$t('generator.brixIdeal')" range="26–29" color="success" />
-            <GeneratorBrixRatingRow :label="$t('generator.brixRisk')" range="> 30" color="error" />
+            <GeneratorRatingRow :label="$t('generator.brixWeak')" range="< 24" color="info" />
+            <GeneratorRatingRow :label="$t('generator.brixOk')" range="24–26" color="warning" />
+            <GeneratorRatingRow :label="$t('generator.brixIdeal')" range="26–29" color="success" />
+            <GeneratorRatingRow :label="$t('generator.brixRisk')" range="> 30" color="error" />
           </div>
         </template>
       </InfoModal>
