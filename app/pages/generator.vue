@@ -22,6 +22,23 @@
 
       <fieldset class="fieldset">
         <legend class="fieldset-legend">
+          {{ $t("generator.waterHardness") }}
+        </legend>
+        <div class="w-full input">
+          <input
+            v-model="waterHardness"
+            v-bind="waterHardnessAttrs"
+            type="number"
+            min="0"
+            class="w-full"
+            :placeholder="$t('generator.waterHardnessPlaceholder')"
+          >
+          <span class="">°dH</span>
+        </div>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">
           {{ $t("generator.useTannin") }}
         </legend>
         <input v-model="useTannin" type="checkbox" class="toggle toggle-primary">
@@ -140,6 +157,38 @@
         />
       </div>
     </BaseCard>
+
+    <!-- Osmosis Empfehlung Card -->
+    <BaseCard v-if="result?.recommendOsmosis && result?.osmosisRatio !== undefined" :title="$t('generator.osmosisTitle')">
+      <div class="grid grid-cols-2 gap-2">
+        <GeneratorBaseStatCard
+          :label="$t('generator.osmosisWater')"
+          :value="`${result.osmosisRationInPercent} %`"
+          :hint="$t('generator.osmosisWaterHint')"
+        />
+        <GeneratorBaseStatCard
+          :label="$t('generator.tapWater')"
+          :value="`${result.tapWaterRatioInPercent} %`"
+          :hint="$t('generator.tapWaterHint')"
+        />
+      </div>
+      <progress
+        class="progress progress-info w-full mt-4"
+        :value="result.osmosisRatio"
+        max="1"
+      />
+      <div class="flex justify-between text-xs text-base-content/40">
+        <span>{{ $t('generator.osmosisWater') }}</span>
+        <span>{{ $t('generator.tapWater') }}</span>
+      </div>
+
+      <GeneratorBaseInfoRow
+        icon="mdi:information-outline"
+        :title="$t('generator.osmosisInfo')"
+        color="warning"
+        class="mt-4"
+      />
+    </BaseCard>
   </div>
 </template>
 
@@ -157,6 +206,8 @@ const { defineField, handleSubmit, errors } = useForm({
 });
 
 const [targetVolumeL, targetVolumeLAttrs] = defineField("targetVolumeL");
+const [waterHardness, waterHardnessAttrs] = defineField("waterHardness_dH");
+
 const useTannin = ref(false);
 
 const onSubmit = handleSubmit((values) => {
@@ -171,7 +222,10 @@ const onSubmit = handleSubmit((values) => {
     yeast_g: vol * yeastPerL,
     nutrient_g: vol * nutrientPerL,
     tannin_g: tannin ? vol * 0.16 : undefined,
-    recommendOsmosis: false,
+    recommendOsmosis: (waterHardness.value ?? 0) > 15,
+    osmosisRatio: waterHardness.value ? 1 - (8 / waterHardness.value) : undefined,
+    osmosisRationInPercent: waterHardness.value ? Math.max(0, Math.min(100, (1 - (8 / waterHardness.value)) * 100)) : undefined,
+    tapWaterRatioInPercent: waterHardness.value ? Math.max(0, Math.min(100, (8 / waterHardness.value) * 100)) : undefined,
     stepFeedHoney_g: honey_g * 0.15,
   };
 
