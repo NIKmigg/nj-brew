@@ -1,5 +1,8 @@
 <template>
-  <form class="space-y-4" @submit.prevent="onSubmit">
+  <form
+    class="space-y-6"
+    @submit="onSubmit"
+  >
     <div>
       <label class="block mb-1 font-medium">
         Name
@@ -7,13 +10,14 @@
 
       <input
         v-model="name"
+        v-bind="nameAttrs"
         type="text"
         class="w-full border rounded px-3 py-2"
       >
 
       <p
         v-if="errors.name"
-        class="text-sm text-red-500 mt-1"
+        class="text-red-500 text-sm mt-1"
       >
         {{ errors.name }}
       </p>
@@ -26,12 +30,14 @@
 
       <textarea
         v-model="description"
+        v-bind="descriptionAttrs"
         class="w-full border rounded px-3 py-2"
+        rows="5"
       />
 
       <p
         v-if="errors.description"
-        class="text-sm text-red-500 mt-1"
+        class="text-red-500 text-sm mt-1"
       >
         {{ errors.description }}
       </p>
@@ -43,15 +49,17 @@
       </label>
 
       <input
-        v-model.number="price"
+        v-model="price"
+        v-bind="priceAttrs"
         type="number"
         step="0.01"
+        min="0"
         class="w-full border rounded px-3 py-2"
       >
 
       <p
         v-if="errors.price"
-        class="text-sm text-red-500 mt-1"
+        class="text-red-500 text-sm mt-1"
       >
         {{ errors.price }}
       </p>
@@ -63,88 +71,114 @@
       </label>
 
       <input
-        v-model.number="stock"
+        v-model="stock"
+        v-bind="stockAttrs"
         type="number"
+        min="0"
         class="w-full border rounded px-3 py-2"
       >
 
       <p
         v-if="errors.stock"
-        class="text-sm text-red-500 mt-1"
+        class="text-red-500 text-sm mt-1"
       >
         {{ errors.stock }}
       </p>
     </div>
 
+    <div>
+      <label class="block mb-1 font-medium">
+        Bild URL
+      </label>
+
+      <input
+        v-model="imageUrl"
+        v-bind="imageUrlAttrs"
+        type="text"
+        class="w-full border rounded px-3 py-2"
+      >
+
+      <p
+        v-if="errors.imageUrl"
+        class="text-red-500 text-sm mt-1"
+      >
+        {{ errors.imageUrl }}
+      </p>
+    </div>
+
     <button
       type="submit"
-      :disabled="loading"
-      class="btn btn-primary w-full"
+      :disabled="isLoading"
+      class="bg-black text-white px-4 py-2 rounded disabled:opacity-50"
     >
-      {{ loading ? "Speichern..." : "Produkt anlegen" }}
+      {{ isLoading ? "Speichern..." : "Produkt speichern" }}
     </button>
   </form>
 </template>
 
 <script setup lang="ts">
+import type { InsertProductSchema } from "@shared/schemas/product";
 import { insertProductSchema } from "@shared/schemas/product";
-import { toTypedSchema } from "@vee-validate/zod";
 
+import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
 
+const props = defineProps<{
+  initialValues?: Partial<InsertProductSchema>;
+}>();
+
 const emit = defineEmits<{
-  created: [];
+  submitted: [];
 }>();
 
 const { $csrfFetch } = useNuxtApp();
 
-const loading = ref(false);
+const isLoading = ref(false);
 
-const {
-  defineField,
-  errors,
-  handleSubmit,
-  resetForm,
-  setErrors,
-} = useForm({
-  validationSchema: toTypedSchema(insertProductSchema),
+const validationSchema = toTypedSchema(insertProductSchema);
+
+const { defineField, handleSubmit, errors, resetForm } = useForm({
+  validationSchema,
+
   initialValues: {
-    name: "",
-    description: "",
-    price: 0,
-    stock: 0,
+    name: props.initialValues?.name ?? "",
+    description: props.initialValues?.description ?? "",
+    price: props.initialValues?.price ?? 0,
+    stock: props.initialValues?.stock ?? 1,
+    imageUrl: props.initialValues?.imageUrl ?? "",
   },
 });
 
-const [name] = defineField("name");
-const [description] = defineField("description");
-const [price] = defineField("price");
-const [stock] = defineField("stock");
+const [name, nameAttrs] = defineField("name");
+const [description, descriptionAttrs] = defineField("description");
+const [price, priceAttrs] = defineField("price");
+const [stock, stockAttrs] = defineField("stock");
+const [imageUrl, imageUrlAttrs] = defineField("imageUrl");
 
 const onSubmit = handleSubmit(async (values) => {
-  loading.value = true;
-
   try {
+    isLoading.value = true;
+
     await $csrfFetch("/api/products", {
       method: "POST",
-      body: values,
+      body: {
+        ...values,
+
+        imageUrl: values.imageUrl
+          ? `/products/${values.imageUrl}`
+          : null,
+      },
     });
 
-    resetForm();
+    emit("submitted");
 
-    emit("created");
+    resetForm();
   }
-  catch (error: any) {
-    // Backend Validation Errors übernehmen
-    if (error?.data?.data) {
-      setErrors(error.data.data);
-    }
-    else {
-      console.error(error);
-    }
+  catch (error) {
+    console.error(error);
   }
   finally {
-    loading.value = false;
+    isLoading.value = false;
   }
 });
 </script>

@@ -16,5 +16,5 @@ export const insertProductSchema = createInsertSchema(products, {
 });
 export const productSchema = createSelectSchema(products);
 
-export type ProductInput = z.infer<typeof insertProductSchema>;
-export type Product = z.infer<typeof productSchema>;
+export type InsertProductSchema = z.infer<typeof insertProductSchema>;
+export type SelectProductSchema = z.infer<typeof productSchema>;
