@@ -22,6 +22,7 @@
     "github": "Mit GitHub anmelden",
     "failed": "Auth fehlgeschlagen."
   },
+  "info": "Info",
   "footer": {
     "tagline": "Braukunst nach alter Tradition.",
     "copyright": "Copyright © {year} - Alle Rechte vorbehalten"
@@ -30,6 +31,7 @@
     "recipe": "Rezept",
     "targetVolume": "Ansatzvolumen (L)",
     "targetVolumePlaceholder": "z.B. 8",
+    "targetVolumeError": "Bitte geben Sie eine gültige Menge ein.",
     "useTannin": "Tannin verwenden",
     "calculate": "Berechnen",
     "ingredients": "Zutaten",
@@ -38,10 +40,16 @@
     "yeast": "Hefe",
     "nutrient": "Hefenährsalz",
     "tannin": "Tannin",
-    "fermentationValues": "Gärwerte",
-    "brixTarget": "Ziel: 26–29 °Brix",
+    "fermentationValues": "Gärwertziele",
+    "brixInfoTitle": "Brix-Info",
+    "brixInfo": "Der °Brix-Wert ist einer der wichtigsten Qualitätsindikatoren des Startansatzes.",
+    "brixWeak": "Zu schwach",
+    "brixOk": "Akzeptabel",
+    "brixIdeal": "Ideal",
+    "brixRisk": "Hohes Risiko",
     "alcohol": "Alkohol",
-    "abvExpected": "~14% ABV erwartet"
+    "alcoholInfo": "Alkohol-Info",
+    "alcoholInfoText": "Der geschätzte Alkoholgehalt zeigt, wie stark der Met nach der Gärung ungefähr werden kann."
   },
   "home": {
     "title": "NJ Brew",
