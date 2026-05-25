@@ -12,6 +12,7 @@
     "failed": "Authentication failed."
   },
   "info": "Info",
+  "info": "Info",
   "footer": {
     "tagline": "Brewing craft in the old tradition.",
     "copyright": "Copyright © {year} - All rights reserved"
@@ -20,6 +21,7 @@
     "recipe": "Recipe",
     "targetVolume": "Batch volume (L)",
     "targetVolumePlaceholder": "e.g. 8",
+    "targetVolumeError": "Please enter a valid amount.",
     "targetVolumeError": "Please enter a valid amount.",
     "useTannin": "Use tannin",
     "calculate": "Calculate",
@@ -36,9 +38,29 @@
     "brixOk": "Acceptable",
     "brixIdeal": "Ideal",
     "brixRisk": "High risk",
+    "fermentationValues": "Fermentation targets",
+    "brixInfoTitle": "Brix info",
+    "brixInfo": "Brix info",
+    "brixWeak": "Too weak",
+    "brixOk": "Acceptable",
+    "brixIdeal": "Ideal",
+    "brixRisk": "High risk",
     "alcohol": "Alcohol",
     "alcoholInfo": "Alcohol info",
-    "alcoholInfoText": "The estimated alcohol content shows roughly how strong the mead can become after fermentation."
+    "alcoholInfoText": "The estimated alcohol content shows roughly how strong the mead can become after fermentation.",
+    "stepHoneyLabel": "Honey / Step",
+    "stepHoneyHint": "15% of base amount",
+    "stepAlcLabel": "Alcohol +",
+    "stepAlcHint": "per step",
+    "stepMaxLabel": "Max. Addition",
+    "stepMaxHint": "of base amount",
+    "stepWhenTitle": "When to add?",
+    "stepWhenBubble": "Bubbling < 1× per 30 sec.",
+    "stepWhenBubbleHint": "Primary fermentation clearly slowed down",
+    "stepWhenSG": "Stable SG readings",
+    "stepWhenSGHint": "Consistent over several days",
+    "stepWarning": "Don't add too early",
+    "stepWarningHint": "Yeast stress from too much sugar at once"
   },
   "home": {
     "title": "NJ Brew",

@@ -94,6 +94,52 @@
         </template>
       </InfoModal>
     </BaseCard>
+
+    <!-- Nachsüßen / Step Feeding Card -->
+    <BaseCard v-if="result" title="Nachsüßen / Step Feeding" class="min-w-fit">
+      <div class="grid grid-cols-3 gap-2">
+        <GeneratorBaseStatCard
+          :label="$t('generator.stepHoneyLabel')"
+          :value="`${result.stepFeedHoney_g.toFixed(0)} g`"
+          :hint="$t('generator.stepHoneyHint')"
+        />
+        <GeneratorBaseStatCard
+          :label="$t('generator.stepAlcLabel')"
+          value="≈ 2 %"
+          :hint="$t('generator.stepAlcHint')"
+        />
+        <GeneratorBaseStatCard
+          :label="$t('generator.stepMaxLabel')"
+          value="15-20 %"
+          :hint="$t('generator.stepMaxHint')"
+        />
+      </div>
+      <div class="divider my-0" />
+
+      <div class="flex flex-col gap-2">
+        <span class="text-xs font-medium text-base-content/50">
+          {{ $t('generator.stepWhenTitle') }}
+        </span>
+        <GeneratorBaseInfoRow
+          icon="mdi:clock-outline"
+          :title="$t('generator.stepWhenBubble')"
+          :description="$t('generator.stepWhenBubbleHint')"
+          color="success"
+        />
+        <GeneratorBaseInfoRow
+          icon="mdi:chart-line"
+          :title="$t('generator.stepWhenSG')"
+          :description="$t('generator.stepWhenSGHint')"
+          color="success"
+        />
+        <GeneratorBaseInfoRow
+          icon="mdi:alert-outline"
+          :title="$t('generator.stepWarning')"
+          :description="$t('generator.stepWarningHint')"
+          color="warning"
+        />
+      </div>
+    </BaseCard>
   </div>
 </template>
 
@@ -126,7 +172,7 @@ const onSubmit = handleSubmit((values) => {
     nutrient_g: vol * nutrientPerL,
     tannin_g: tannin ? vol * 0.16 : undefined,
     recommendOsmosis: false,
-    stepFeedHoney_g: honey_g * 0.1,
+    stepFeedHoney_g: honey_g * 0.15,
   };
 
   sessionStorage.setItem("meadResult", JSON.stringify(result.value));
