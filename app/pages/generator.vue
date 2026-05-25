@@ -27,9 +27,9 @@
           </legend>
           <template #info>
             <div class="mt-2 flex flex-col gap-1.5">
-              <!-- <p class="text-sm text-base-content/70 mb-2">
-                {{ $t("generator.waterHardnessTitle") }}
-              </p> -->
+              <p class="text-sm text-base-content/70 mb-2">
+                {{ $t("generator.waterHardnessInfoText") }}
+              </p>
 
               <GeneratorRatingRow :label="$t('generator.waterHardnessSoftLabel')" range="0–4 °dH" color="info" />
               <GeneratorRatingRow :label="$t('generator.waterHardnessIdealLabel')" range="5–8 °dH" color="success" />

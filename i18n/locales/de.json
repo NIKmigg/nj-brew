@@ -55,6 +55,7 @@
     "waterHardness": "Wasserhärte",
     "waterHardnessPlaceholder": "z.B. 12",
     "waterHardnessInfo": "Wasserhärte-Info",
+    "waterHardnessInfoText": "Die Wasserhärte hat einen großen Einfluss auf die Hefeaktivität und damit auf die Gärung. Ideal ist eine Gesamthärte von ca. 8 °dH.",
     "waterHardnessSoftLabel": "Sehr weich",
     "waterHardnessSoftRange": "0 - 4 °dH",
     "waterHardnessIdealLabel": "Ideal",

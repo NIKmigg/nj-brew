@@ -55,6 +55,7 @@
     "waterHardness": "Water Hardness",
     "waterHardnessPlaceholder": "e.g. 12",
     "waterHardnessInfo": "Water Hardness Info",
+    "waterHardnessInfoText": "Water hardness has a big impact on yeast activity and thus fermentation. Ideally, a total hardness of around 8 °dH is recommended.",
     "waterHardnessSoftLabel": "Very soft",
     "waterHardnessSoftRange": "0 - 4 °dH",
     "waterHardnessIdealLabel": "Ideal",
