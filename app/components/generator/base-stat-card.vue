@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-base-200 rounded-lg p-3 flex flex-col gap-1">
-    <span class="text-xs text-base-content/40 uppercase tracking-wide">{{ label }}</span>
-    <span class="text-xl font-medium">{{ value }}</span>
-    <span v-if="hint" class="text-xs text-base-content/40">{{ hint }}</span>
+  <div class="bg-base-200 rounded-lg p-3 flex flex-col gap-1 w-full">
+    <span class="text-xs text-base-content/40 uppercase tracking-wide whitespace-nowrap">{{ label }}</span>
+    <span class="text-xl font-medium whitespace-nowrap">{{ value }}</span>
+    <span v-if="hint" class="text-xs text-base-content/40 whitespace-nowrap">{{ hint }}</span>
   </div>
 </template>
 

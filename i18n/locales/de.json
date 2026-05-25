@@ -38,7 +38,20 @@
     "brixRisk": "Hohes Risiko",
     "alcohol": "Alkohol",
     "alcoholInfo": "Alkohol-Info",
-    "alcoholInfoText": "Der geschätzte Alkoholgehalt zeigt, wie stark der Met nach der Gärung ungefähr werden kann."
+    "alcoholInfoText": "Der geschätzte Alkoholgehalt zeigt, wie stark der Met nach der Gärung ungefähr werden kann.",
+    "stepHoneyLabel": "Honig / Schritt",
+    "stepHoneyHint": "15% der Basismenge",
+    "stepAlcLabel": "Alkohol +",
+    "stepAlcHint": "pro Schritt",
+    "stepMaxLabel": "Max. Zugabe",
+    "stepMaxHint": "der Basismenge",
+    "stepWhenTitle": "Wann nachlassen?",
+    "stepWhenBubble": "Blubbern < 1x pro 30 Sek.",
+    "stepWhenBubbleHint": "Hauptgärung deutlich abgeklungen",
+    "stepWhenSG": "Stabile SG-Werte",
+    "stepWhenSGHint": "Gleichbleibend über mehrere Tage messen",
+    "stepWarning": "Nicht zu früh nachsüßen",
+    "stepWarningHint": "Hefestress bei zu viel Zucker auf einmal"
   },
   "home": {
     "title": "NJ Brew",

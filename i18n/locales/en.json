@@ -38,7 +38,20 @@
     "brixRisk": "High risk",
     "alcohol": "Alcohol",
     "alcoholInfo": "Alcohol info",
-    "alcoholInfoText": "The estimated alcohol content shows roughly how strong the mead can become after fermentation."
+    "alcoholInfoText": "The estimated alcohol content shows roughly how strong the mead can become after fermentation.",
+    "stepHoneyLabel": "Honey / Step",
+    "stepHoneyHint": "15% of base amount",
+    "stepAlcLabel": "Alcohol +",
+    "stepAlcHint": "per step",
+    "stepMaxLabel": "Max. Addition",
+    "stepMaxHint": "of base amount",
+    "stepWhenTitle": "When to add?",
+    "stepWhenBubble": "Bubbling < 1× per 30 sec.",
+    "stepWhenBubbleHint": "Primary fermentation clearly slowed down",
+    "stepWhenSG": "Stable SG readings",
+    "stepWhenSGHint": "Consistent over several days",
+    "stepWarning": "Don't add too early",
+    "stepWarningHint": "Yeast stress from too much sugar at once"
   },
   "home": {
     "title": "NJ Brew",
