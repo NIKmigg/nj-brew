@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const meadRecipeInputSchema = z.object({
-  targetVolumeL: z.number({ error: "generator.targetVolumeError" }).positive({ error: "generator.targetVolumeError" }),
+  targetVolumeL: z.number({ error: "generator.inputs.targetVolumeError" }).positive({ error: "generator.inputs.targetVolumeError" }),
   waterHardness_dH: z.number().min(0).optional(),
   useTannin: z.boolean().optional(),
 });
