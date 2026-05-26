@@ -37,11 +37,9 @@
         <h2 class="card-title text-base">
           {{ $t("admin.meadConstants") }}
         </h2>
-        {{ $t("global.missingFeature") }}
-
-        <!-- <NuxtLink :to="localePath('/admin/mead-constants')" class="btn btn-secondary">
-          {{ $t("admin.editMeadConstants") }}
-        </NuxtLink> -->
+        <NuxtLink :to="localePath('/admin/generator/edit')" class="btn btn-primary mb-4">
+          {{ $t("admin.editConstants") }}
+        </NuxtLink>
       </div>
     </div>
   </div>

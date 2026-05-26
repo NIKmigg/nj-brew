@@ -9,7 +9,8 @@
     "addProduct": "Add Product",
     "orders": "Manage Orders",
     "users": "Manage Users",
-    "meadConstants": "Manage Mead Constants"
+    "meadConstants": "Manage Mead Constants",
+    "editConstants": "Edit Constants"
   },
   "auth": {
     "login": "Login",

@@ -50,6 +50,27 @@
       "when": 1779558852628,
       "tag": "0006_misty_richard_fisk",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1779797240011,
+      "tag": "0007_hesitant_millenium_guard",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1779798163119,
+      "tag": "0008_lame_hiroim",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1779798180526,
+      "tag": "0009_ordinary_madame_hydra",
+      "breakpoints": true
     }
   ]
 }

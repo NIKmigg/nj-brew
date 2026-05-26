@@ -9,7 +9,8 @@
     "addProduct": "Produkt hinzufügen",
     "orders": "Bestellungen verwalten",
     "users": "Benutzer verwalten",
-    "meadConstants": "Met-Konstanten verwalten"
+    "meadConstants": "Met-Konstanten verwalten",
+    "editConstants": "Konstanten bearbeiten"
   },
   "auth": {
     "login": "Login",

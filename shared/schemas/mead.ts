@@ -1,4 +1,14 @@
+import { meadConstants } from "@server/db/schema/mead";
+import { createUpdateSchema } from "drizzle-zod";
 import { z } from "zod";
+
+export const updateMeadConstantsSchema = createUpdateSchema(meadConstants, {
+  honeyPerL: field => field.min(0),
+
+}).omit({
+  id: true,
+  updatedAt: true,
+});
 
 export const meadRecipeInputSchema = z.object({
   targetVolumeL: z.number({ error: "generator.inputs.targetVolumeError" }).positive({ error: "generator.inputs.targetVolumeError" }),
