@@ -209,7 +209,7 @@
 
 <script lang="ts" setup>
 import type { MeadRecipeOutput } from "@shared/schemas/mead";
-import { estimatedAlc, estimatedBrix, honeyPerL, meadRecipeInputSchema, nutrientPerL, volumePerKgHoney, yeastPerL } from "@shared/schemas/mead";
+import { estimatedAlc, estimatedBrix, meadRecipeInputSchema } from "@shared/schemas/mead";
 
 definePageMeta({
   middleware: "auth",
@@ -222,34 +222,22 @@ const { defineField, handleSubmit, errors } = useForm({
 
 const [targetVolumeL, targetVolumeLAttrs] = defineField("targetVolumeL");
 const [waterHardness, waterHardnessAttrs] = defineField("waterHardness_dH");
+const [useTannin] = defineField("useTannin");
 
-const useTannin = ref(false);
+const onSubmit = handleSubmit(async (values) => {
+  const { $csrfFetch } = useNuxtApp();
 
-const onSubmit = handleSubmit((values) => {
-  const { targetVolumeL: vol } = values;
-  const tannin = useTannin.value;
+  result.value = await $csrfFetch<MeadRecipeOutput>("/api/mead/calculate", {
+    method: "POST",
+    body: values,
+  });
 
-  const honey_g = vol * honeyPerL;
-
-  result.value = {
-    honey_g,
-    water_L: vol - ((honey_g / 1000) * volumePerKgHoney),
-    yeast_g: vol * yeastPerL,
-    nutrient_g: vol * nutrientPerL,
-    tannin_g: tannin ? vol * 0.16 : undefined,
-    recommendOsmosis: (waterHardness.value ?? 0) > 15,
-    osmosisRatio: waterHardness.value ? 1 - (8 / waterHardness.value) : undefined,
-    osmosisRationInPercent: waterHardness.value ? Math.max(0, Math.min(100, (1 - (8 / waterHardness.value)) * 100)) : undefined,
-    tapWaterRatioInPercent: waterHardness.value ? Math.max(0, Math.min(100, (8 / waterHardness.value) * 100)) : undefined,
-    stepFeedHoney_g: honey_g * 0.15,
-  };
-
-  sessionStorage.setItem("meadResult", JSON.stringify(result.value));
+  // sessionStorage.setItem("meadResult", JSON.stringify(result.value));
 });
 
-onMounted(() => {
-  const saved = sessionStorage.getItem("meadResult");
-  if (saved)
-    result.value = JSON.parse(saved);
-});
+// onMounted(() => {
+//   const saved = sessionStorage.getItem("meadResult");
+//   if (saved)
+//     result.value = JSON.parse(saved);
+// });
 </script>

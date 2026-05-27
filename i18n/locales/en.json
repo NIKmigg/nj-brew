@@ -10,7 +10,24 @@
     "orders": "Manage Orders",
     "users": "Manage Users",
     "meadConstants": "Manage Mead Constants",
-    "editConstants": "Edit Constants"
+    "editConstants": "Edit Constants",
+    "constants": {
+      "ingredients": "Ingredients",
+      "honeyPerL": "Honey per Litre",
+      "volumePerKgHoney": "Volume Displacement per kg Honey",
+      "yeastPerL": "Yeast per Litre",
+      "nutrientPerL": "Nutrient per Litre",
+      "tanninPerL": "Tannin per Litre",
+      "factors": "Factors",
+      "stepFeedRatio": "Step Feeding Ratio",
+      "osmosis": "Osmosis",
+      "osmosisThreshold": "Osmosis Threshold",
+      "targetHardness": "Target Water Hardness",
+      "displayValues": "Display Values",
+      "estimatedBrix": "Estimated °Brix",
+      "estimatedAlc": "Estimated Alcohol Content",
+      "save": "Save"
+    }
   },
   "auth": {
     "login": "Login",

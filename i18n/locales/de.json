@@ -10,7 +10,24 @@
     "orders": "Bestellungen verwalten",
     "users": "Benutzer verwalten",
     "meadConstants": "Met-Konstanten verwalten",
-    "editConstants": "Konstanten bearbeiten"
+    "editConstants": "Konstanten bearbeiten",
+    "constants": {
+      "ingredients": "Zutaten",
+      "honeyPerL": "Honig pro Liter",
+      "volumePerKgHoney": "Volumenverdrängung pro kg Honig",
+      "yeastPerL": "Hefe pro Liter",
+      "nutrientPerL": "Nährsalz pro Liter",
+      "tanninPerL": "Tannin pro Liter",
+      "factors": "Faktoren",
+      "stepFeedRatio": "Step-Feeding-Anteil",
+      "osmosis": "Osmose",
+      "osmosisThreshold": "Osmose-Schwellenwert",
+      "targetHardness": "Ziel-Wasserhärte",
+      "displayValues": "Anzeigewerte",
+      "estimatedBrix": "Geschätzter °Brix-Wert",
+      "estimatedAlc": "Geschätzter Alkoholgehalt",
+      "save": "Speichern"
+    }
   },
   "auth": {
     "login": "Login",

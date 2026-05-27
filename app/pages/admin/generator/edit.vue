@@ -5,6 +5,8 @@
         <h2 class="card-title text-base">
           {{ $t("admin.editConstants") }}
         </h2>
+
+        <AdminMeadConstantsForm />
       </div>
     </div>
   </div>
