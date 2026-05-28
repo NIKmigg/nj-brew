@@ -15,12 +15,22 @@ export const updateMeadConstantsSchema = createUpdateSchema(meadConstants, {
   estimatedAlc: field => field.positive(),
 }).omit({
   id: true,
+  honeyPerLDefault: true,
+  volumePerKgHoneyDefault: true,
+  yeastPerLDefault: true,
+  nutrientPerLDefault: true,
+  tanninPerLDefault: true,
+  stepFeedRatioDefault: true,
+  osmosisThresholdDefault: true,
+  targetHardnessDefault: true,
+  estimatedBrixDefault: true,
+  estimatedAlcDefault: true,
   updatedAt: true,
 });
 export const meadConstantsSchema = createSelectSchema(meadConstants);
 
 export type UpdateMeadConstantsSchema = z.infer<typeof updateMeadConstantsSchema>;
-export type SelectProductSchema = z.infer<typeof meadConstantsSchema>;
+export type SelectMeadConstantsSchema = z.infer<typeof meadConstantsSchema>;
 
 // --------------------------------------------------------
 export const meadRecipeInputSchema = z.object({
