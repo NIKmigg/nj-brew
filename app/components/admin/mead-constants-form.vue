@@ -5,105 +5,40 @@
       {{ $t("admin.constants.ingredients") }}
     </p>
 
-    <fieldset class="fieldset">
-      <legend class="fieldset-legend">
-        {{ $t("admin.constants.honeyPerL") }}
-      </legend>
-      <div class="input w-full">
-        <input
-          v-model="honeyPerL"
-          v-bind="honeyPerLAttrs"
-          type="number"
-          step="any"
-          min="0"
-          class="w-full"
-        >
-        <span>g/L</span>
-      </div>
-      <p v-if="errors.honeyPerL" class="text-error label">
-        {{ errors.honeyPerL }}
-      </p>
-    </fieldset>
+    <AdminNumberInputField
+      name="honeyPerL"
+      :label="$t('admin.constants.honeyPerL')"
+      unit="g/L"
+      @reset="resetField('honeyPerL')"
+    />
 
-    <fieldset class="fieldset">
-      <legend class="fieldset-legend">
-        {{ $t("admin.constants.volumePerKgHoney") }}
-      </legend>
-      <div class="input w-full">
-        <input
-          v-model="volumePerKgHoney"
-          v-bind="volumePerKgHoneyAttrs"
-          type="number"
-          step="any"
-          min="0"
-          class="w-full"
-        >
-        <span>L/kg</span>
-      </div>
-      <p v-if="errors.volumePerKgHoney" class="text-error label">
-        {{ errors.volumePerKgHoney }}
-      </p>
-    </fieldset>
+    <AdminNumberInputField
+      name="volumePerKgHoney"
+      :label="$t('admin.constants.volumePerKgHoney')"
+      unit="L/kg"
+      @reset="resetField('volumePerKgHoney')"
+    />
 
-    <fieldset class="fieldset">
-      <legend class="fieldset-legend">
-        {{ $t("admin.constants.yeastPerL") }}
-      </legend>
-      <div class="input w-full">
-        <input
-          v-model="yeastPerL"
-          v-bind="yeastPerLAttrs"
-          type="number"
-          step="any"
-          min="0"
-          class="w-full"
-        >
-        <span>g/L</span>
-      </div>
-      <p v-if="errors.yeastPerL" class="text-error label">
-        {{ errors.yeastPerL }}
-      </p>
-    </fieldset>
+    <AdminNumberInputField
+      name="yeastPerL"
+      :label="$t('admin.constants.yeastPerL')"
+      unit="g/L"
+      @reset="resetField('yeastPerL')"
+    />
 
-    <fieldset class="fieldset">
-      <legend class="fieldset-legend">
-        {{ $t("admin.constants.nutrientPerL") }}
-      </legend>
-      <div class="input w-full">
-        <input
-          v-model="nutrientPerL"
-          v-bind="nutrientPerLAttrs"
-          type="number"
-          step="any"
-          min="0"
-          class="w-full"
-        >
-        <span>g/L</span>
-      </div>
-      <p v-if="errors.nutrientPerL" class="text-error label">
-        {{ errors.nutrientPerL }}
-      </p>
-    </fieldset>
+    <AdminNumberInputField
+      name="nutrientPerL"
+      :label="$t('admin.constants.nutrientPerL')"
+      unit="g/L"
+      @reset="resetField('nutrientPerL')"
+    />
 
-    <fieldset class="fieldset">
-      <legend class="fieldset-legend">
-        {{ $t("admin.constants.tanninPerL") }}
-      </legend>
-      <div class="input w-full">
-        <input
-          v-model="tanninPerL"
-          v-bind="tanninPerLAttrs"
-          type="number"
-          step="any"
-          min="0"
-          class="w-full"
-        >
-        <span>g/L</span>
-      </div>
-      <p v-if="errors.tanninPerL" class="text-error label">
-        {{ errors.tanninPerL }}
-      </p>
-    </fieldset>
+    <AdminNumberInputField
+      name="tanninPerL"
+      :label="$t('admin.constants.tanninPerL')"
+      unit="g/L"
+      @reset="resetField('tanninPerL')"
+    />
 
     <div class="divider my-0" />
 
@@ -112,26 +47,13 @@
       {{ $t("admin.constants.factors") }}
     </p>
 
-    <fieldset class="fieldset">
-      <legend class="fieldset-legend">
-        {{ $t("admin.constants.stepFeedRatio") }}
-      </legend>
-      <div class="input w-full">
-        <input
-          v-model="stepFeedRatio"
-          v-bind="stepFeedRatioAttrs"
-          type="number"
-          step="any"
-          min="0"
-          max="1"
-          class="w-full"
-        >
-        <span>0–1</span>
-      </div>
-      <p v-if="errors.stepFeedRatio" class="text-error label">
-        {{ errors.stepFeedRatio }}
-      </p>
-    </fieldset>
+    <AdminNumberInputField
+      name="stepFeedRatio"
+      :label="$t('admin.constants.stepFeedRatio')"
+      :min="0"
+      :max="1"
+      @reset="resetField('stepFeedRatio')"
+    />
 
     <div class="divider my-0" />
 
@@ -140,45 +62,19 @@
       {{ $t("admin.constants.osmosis") }}
     </p>
 
-    <fieldset class="fieldset">
-      <legend class="fieldset-legend">
-        {{ $t("admin.constants.osmosisThreshold") }}
-      </legend>
-      <div class="input w-full">
-        <input
-          v-model="osmosisThreshold"
-          v-bind="osmosisThresholdAttrs"
-          type="number"
-          step="any"
-          min="0"
-          class="w-full"
-        >
-        <span>°dH</span>
-      </div>
-      <p v-if="errors.osmosisThreshold" class="text-error label">
-        {{ errors.osmosisThreshold }}
-      </p>
-    </fieldset>
+    <AdminNumberInputField
+      name="osmosisThreshold"
+      :label="$t('admin.constants.osmosisThreshold')"
+      unit="°dH"
+      @reset="resetField('osmosisThreshold')"
+    />
 
-    <fieldset class="fieldset">
-      <legend class="fieldset-legend">
-        {{ $t("admin.constants.targetHardness") }}
-      </legend>
-      <div class="input w-full">
-        <input
-          v-model="targetHardness"
-          v-bind="targetHardnessAttrs"
-          type="number"
-          step="any"
-          min="0"
-          class="w-full"
-        >
-        <span>°dH</span>
-      </div>
-      <p v-if="errors.targetHardness" class="text-error label">
-        {{ errors.targetHardness }}
-      </p>
-    </fieldset>
+    <AdminNumberInputField
+      name="targetHardness"
+      :label="$t('admin.constants.targetHardness')"
+      unit="°dH"
+      @reset="resetField('targetHardness')"
+    />
 
     <div class="divider my-0" />
 
@@ -187,45 +83,19 @@
       {{ $t("admin.constants.displayValues") }}
     </p>
 
-    <fieldset class="fieldset">
-      <legend class="fieldset-legend">
-        {{ $t("admin.constants.estimatedBrix") }}
-      </legend>
-      <div class="input w-full">
-        <input
-          v-model="estimatedBrix"
-          v-bind="estimatedBrixAttrs"
-          type="number"
-          step="any"
-          min="0"
-          class="w-full"
-        >
-        <span>°Brix</span>
-      </div>
-      <p v-if="errors.estimatedBrix" class="text-error label">
-        {{ errors.estimatedBrix }}
-      </p>
-    </fieldset>
+    <AdminNumberInputField
+      name="estimatedBrix"
+      :label="$t('admin.constants.estimatedBrix')"
+      unit="°Brix"
+      @reset="resetField('estimatedBrix')"
+    />
 
-    <fieldset class="fieldset">
-      <legend class="fieldset-legend">
-        {{ $t("admin.constants.estimatedAlc") }}
-      </legend>
-      <div class="input w-full">
-        <input
-          v-model="estimatedAlc"
-          v-bind="estimatedAlcAttrs"
-          type="number"
-          step="any"
-          min="0"
-          class="w-full"
-        >
-        <span>%vol</span>
-      </div>
-      <p v-if="errors.estimatedAlc" class="text-error label">
-        {{ errors.estimatedAlc }}
-      </p>
-    </fieldset>
+    <AdminNumberInputField
+      name="estimatedAlc"
+      :label="$t('admin.constants.estimatedAlc')"
+      unit="%vol"
+      @reset="resetField('estimatedAlc')"
+    />
 
     <button type="submit" class="btn btn-primary w-full mt-auto" :disabled="isSubmitting">
       <span v-if="isSubmitting" class="loading loading-spinner loading-sm" />
@@ -235,38 +105,31 @@
 </template>
 
 <script setup lang="ts">
-import type { UpdateMeadConstantsSchema } from "@shared/schemas/mead";
+import type { SelectMeadConstantsSchema, UpdateMeadConstantsSchema } from "@shared/schemas/mead";
 import { updateMeadConstantsSchema } from "@shared/schemas/mead";
 
 definePageMeta({
   middleware: "auth",
 });
 
-const { data: constants } = await useFetch<UpdateMeadConstantsSchema>("/api/mead");
-const { defineField, handleSubmit, errors, isSubmitting, setValues } = useForm({
+const { data: constants } = await useFetch<SelectMeadConstantsSchema>("/api/mead");
+
+const { handleSubmit, isSubmitting, setValues, setFieldValue } = useForm({
   validationSchema: toTypedSchema(updateMeadConstantsSchema),
 });
 
-if (constants.value)
-  setValues(constants.value);
-
-const [honeyPerL, honeyPerLAttrs] = defineField("honeyPerL");
-const [volumePerKgHoney, volumePerKgHoneyAttrs] = defineField("volumePerKgHoney");
-const [yeastPerL, yeastPerLAttrs] = defineField("yeastPerL");
-const [nutrientPerL, nutrientPerLAttrs] = defineField("nutrientPerL");
-const [tanninPerL, tanninPerLAttrs] = defineField("tanninPerL");
-const [stepFeedRatio, stepFeedRatioAttrs] = defineField("stepFeedRatio");
-const [osmosisThreshold, osmosisThresholdAttrs] = defineField("osmosisThreshold");
-const [targetHardness, targetHardnessAttrs] = defineField("targetHardness");
-const [estimatedBrix, estimatedBrixAttrs] = defineField("estimatedBrix");
-const [estimatedAlc, estimatedAlcAttrs] = defineField("estimatedAlc");
-const { $csrfFetch } = useNuxtApp();
-
-// Bestehende Werte aus DB ins Formular laden
 watchEffect(() => {
   if (constants.value)
     setValues(constants.value);
 });
+
+const { $csrfFetch } = useNuxtApp();
+
+function resetField(field: keyof UpdateMeadConstantsSchema) {
+  const defaultKey = `${field}Default` as keyof SelectMeadConstantsSchema;
+  if (constants.value?.[defaultKey] !== undefined)
+    setFieldValue(field, constants.value[defaultKey] as number);
+}
 
 const onSubmit = handleSubmit(async (values) => {
   await $csrfFetch("/api/mead", {
