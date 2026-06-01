@@ -58,7 +58,7 @@
         </p>
       </div>
     </section>
-    <section class="flex flex-wrap h-125 gap-5 overflow-hidden rounded-box justify-center my-16">
+    <section class="flex flex-col md:flex-row gap-5 min-h-125 md:h-125 py-16 max-w-7xl mx-auto">
       <HomeSectionCard
         v-for="item in items"
         :key="item.id"
@@ -66,6 +66,7 @@
         :description="item.description"
         :active="active === item.id"
         :background="item.background"
+        :link="item.link"
         @activate="active = item.id"
         @deactivate="active = null"
       />
@@ -90,12 +91,14 @@ const items = [
     title: "Brauerei",
     description: "Lerne die Kunst des Brauens kennen und entdecke die Geheimnisse hinter der Herstellung von Bier. Von der Auswahl der Zutaten bis hin zum Brauprozess bieten wir dir wertvolle Einblicke und Tipps, um dein eigenes Bier zu brauen.",
     background: "brewery-hero-bg",
+    link: "generator",
   },
   {
     id: 3,
     title: "Markt",
     description: "Finde die besten Zutaten und Ausrüstung für dein Brauhobby. Unser Markt bietet eine sorgfältig ausgewählte Auswahl an Malzen, Hopfen, Hefe und Brauzubehör, damit du alles hast, was du brauchst, um dein perfektes Bier zu brauen.",
     background: "market-hero-bg",
+    link: "market",
   },
 ];
 </script>
