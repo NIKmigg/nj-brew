@@ -1,7 +1,40 @@
+import { meadConstants } from "@server/db/schema/mead";
+import { createSelectSchema, createUpdateSchema } from "drizzle-zod";
 import { z } from "zod";
 
+export const updateMeadConstantsSchema = createUpdateSchema(meadConstants, {
+  honeyPerL: field => field.positive(),
+  volumePerKgHoney: field => field.positive(),
+  yeastPerL: field => field.positive(),
+  nutrientPerL: field => field.positive(),
+  tanninPerL: field => field.positive(),
+  stepFeedRatio: field => field.min(0).max(1),
+  osmosisThreshold: field => field.positive(),
+  targetHardness: field => field.positive(),
+  estimatedBrix: field => field.positive(),
+  estimatedAlc: field => field.positive(),
+}).omit({
+  id: true,
+  honeyPerLDefault: true,
+  volumePerKgHoneyDefault: true,
+  yeastPerLDefault: true,
+  nutrientPerLDefault: true,
+  tanninPerLDefault: true,
+  stepFeedRatioDefault: true,
+  osmosisThresholdDefault: true,
+  targetHardnessDefault: true,
+  estimatedBrixDefault: true,
+  estimatedAlcDefault: true,
+  updatedAt: true,
+});
+export const meadConstantsSchema = createSelectSchema(meadConstants);
+
+export type UpdateMeadConstantsSchema = z.infer<typeof updateMeadConstantsSchema>;
+export type SelectMeadConstantsSchema = z.infer<typeof meadConstantsSchema>;
+
+// --------------------------------------------------------
 export const meadRecipeInputSchema = z.object({
-  targetVolumeL: z.number({ error: "generator.targetVolumeError" }).positive({ error: "generator.targetVolumeError" }),
+  targetVolumeL: z.number({ error: "generator.inputs.targetVolumeError" }).positive({ error: "generator.inputs.targetVolumeError" }),
   waterHardness_dH: z.number().min(0).optional(),
   useTannin: z.boolean().optional(),
 });

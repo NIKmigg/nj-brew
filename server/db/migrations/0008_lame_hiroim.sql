@@ -1,0 +1,1 @@
+ALTER TABLE `mead_constants` RENAME TO `meadConstants`;
