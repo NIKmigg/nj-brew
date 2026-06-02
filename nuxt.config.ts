@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     "@nuxt/fonts",
     "nuxt-csurf",
     "@tresjs/nuxt",
+    "@vueuse/nuxt",
   ],
   eslint: {
     config: {

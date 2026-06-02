@@ -119,8 +119,22 @@
   },
   "home": {
     "title": "NJ Brew",
-    "body": "Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.",
-    "cta": "Loslegen"
+    "body": "Zwischen Honigfässern, alten Rezeptrollen und den Geschichten erfahrener Metbrauer findet Ihr alles, was Ihr für Euren nächsten Trunk benötigt. Entdeckt traditionelle und moderne Metrezepte, plant Eure eigenen Kreationen und taucht ein in die Kunst des Metbrauens. \n\nOb neugieriger Lehrling oder erfahrener Braumeister – die Taverne steht Euch offen.",
+    "cta": "Loslegen",
+    "cards": {
+      "tavern": {
+        "title": "Taverne",
+        "description": "Entdecke unsere vielfältige Auswahl an Rezepten, die von traditionellen bis zu modernen Kreationen reichen. Egal, ob du ein Anfänger oder ein erfahrener Braumeister bist, hier findest du Inspiration für dein nächstes Brauprojekt."
+      },
+      "brewery": {
+        "title": "Brauerei",
+        "description": "Lerne die Kunst des Brauens kennen und entdecke die Geheimnisse hinter der Herstellung von Bier. Von der Auswahl der Zutaten bis hin zum Brauprozess bieten wir dir wertvolle Einblicke und Tipps, um dein eigenes Bier zu brauen."
+      },
+      "market": {
+        "title": "Markt",
+        "description": "Finde die besten Zutaten und Ausrüstung für dein Brauhobby. Unser Markt bietet eine sorgfältig ausgewählte Auswahl an Malzen, Hopfen, Hefe und Brauzubehör, damit du alles hast, was du brauchst, um dein perfektes Bier zu brauen."
+      }
+    }
   },
   "market": {
     "title": "Markt"

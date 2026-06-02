@@ -119,8 +119,22 @@
   },
   "home": {
     "title": "NJ Brew",
-    "body": "Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.",
-    "cta": "Get Started"
+    "body": "Discover the art of brewing with NJ Brew, your ultimate companion for crafting delicious mead. Whether you're a beginner or an experienced brewer, our app provides you with all the tools and information you need to create your own unique mead recipes. From ingredient selection to fermentation tips, NJ Brew is here to guide you every step of the way. Start your brewing journey today and unleash your creativity with NJ Brew!",
+    "cta": "Get Started",
+    "cards": {
+      "tavern": {
+        "title": "Tavern",
+        "description": "Discover our diverse selection of recipes, ranging from traditional to modern creations. Whether you are a beginner or an experienced brewer, you will find inspiration for your next brewing project."
+      },
+      "brewery": {
+        "title": "Brewery",
+        "description": "Learn the art of brewing and discover the secrets behind the production of beer. From ingredient selection to the brewing process, we provide valuable insights and tips to help you brew your own beer."
+      },
+      "market": {
+        "title": "Market",
+        "description": "Find the best ingredients and equipment for your brewing hobby. Our market offers a carefully selected range of malts, hops, yeast, and brewing accessories, so you have everything you need to brew your perfect beer."
+      }
+    }
   },
   "market": {
     "title": "Market"

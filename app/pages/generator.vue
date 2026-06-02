@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap gap-4 p-6">
+  <div class="flex flex-wrap gap-4">
     <!-- Eingabe Card -->
     <BaseCard :title="$t('generator.inputs.recipe')">
       <fieldset class="fieldset">
