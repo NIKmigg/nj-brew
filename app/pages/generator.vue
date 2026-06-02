@@ -25,41 +25,41 @@
           </div>
 
           <div class="mt-auto pt-5">
-            <div class="chat chat-bubble">
-              <div class="">
-                Also, wie viel Liter Met möchtest du brauen?
-              </div>
+            <div class="chat chat-start">
+              <label
+                v-if="state.step === 'volume' && !isThinking"
+                class="chat-bubble"
+              >
+                <input
+                  v-model="targetVolumeL"
+                  class="app-number-input focus:outline-none"
+                  type="number"
+                  min="0.1"
+                  :disabled="isThinking"
+                  @keyup.enter="onEnter"
+                >
+                <span>Liter</span>              </label>
             </div>
-            <label
-              v-if="state.step === 'volume' && !isThinking"
-              class="chat chat-bubble chat-end"
-            >
-              <input
-                v-model="targetVolumeL"
-                type="text"
-                placeholder="8"
-                :disabled="isThinking"
-                @keyup.enter="onEnter"
-              >
-              <span>Liter</span>
-            </label>
 
-            <div v-if="state.step === 'tanninUsage' && !isThinking" class="flex gap-2">
-              <button
-                class="btn btn-success"
-                :disabled="isThinking"
-                @click="onTanninAnswer(true)"
-              >
-                Ja, Braumeister
-              </button>
-
-              <button
-                class="btn btn-outline"
-                :disabled="isThinking"
-                @click="onTanninAnswer(false)"
-              >
-                Nein, danke
-              </button>
+            <div v-if="state.step === 'tanninUsage' && !isThinking" class="felx gap-2">
+              <div class="chat chat-start">
+                <button
+                  class="btn btn-ghost chat-bubble"
+                  :disabled="isThinking"
+                  @click="onTanninAnswer(true)"
+                >
+                  Ja, bitte!
+                </button>
+              </div>
+              <div class="chat chat-start">
+                <button
+                  class="btn btn-ghost chat-bubble"
+                  :disabled="isThinking"
+                  @click="onTanninAnswer(false)"
+                >
+                  Nein, danke
+                </button>
+              </div>
             </div>
           </div>
         </div>
