@@ -4,16 +4,40 @@
 html,
 html[data-theme="nj-brew-light"] {
   --home-background-image: url("/background-light.png");
+  --hero-background-tavern: url("/tavern-light.png");
+  --hero-background-brewery: url("/brewery-light.png");
+  --hero-background-market: url("/market-light.png");
   --app-background-overlay: rgb(255 246 225 / 68%);
 }
 
 html[data-theme="nj-brew-dark"] {
   --home-background-image: url("/background-dark.png");
+  --hero-background-tavern: url("/tavern-dark.png");
+  --hero-background-brewery: url("/brewery-dark.png");
+  --hero-background-market: url("/market-dark.png");
   --app-background-overlay: rgb(0 0 0 / 62%);
 }
 
 .home-hero-bg {
   background-image: var(--home-background-image);
+  background-position: center;
+  background-size: cover;
+}
+
+.tavern-hero-bg {
+  background-image: var(--hero-background-tavern);
+  background-position: center;
+  background-size: cover;
+}
+
+.brewery-hero-bg {
+  background-image: var(--hero-background-brewery);
+  background-position: center;
+  background-size: cover;
+}
+
+.market-hero-bg {
+  background-image: var(--hero-background-market);
   background-position: center;
   background-size: cover;
 }

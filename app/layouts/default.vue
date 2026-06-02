@@ -1,9 +1,14 @@
 <template>
-  <div class="relative min-h-screen overflow-x-hidden bg-base-200">
+  <div class="relative min-h-screen  bg-base-200">
     <div v-if="route.path !== '/'" class="app-background" aria-hidden="true" />
 
-    <div class="relative z-50 top-4 flex justify-center px-4 pb-8 h-28">
-      <NavBar class="w-full max-w-7xl" />
+    <div class="sticky z-50 top-4 flex justify-center px-4 pb-8 transition-all duration-300">
+      <NavBar
+        class="w-full shadow-lg max-w-7xl"
+        :class="scrolled
+          ? 'md:opacity-70 hover:opacity-100'
+          : ''"
+      />
     </div>
 
     <!-- mindestens Bildschirmhöhe -->
@@ -17,4 +22,6 @@
 
 <script setup lang="ts">
 const route = useRoute();
+const { y } = useWindowScroll();
+const scrolled = computed(() => y.value > 50);
 </script>
