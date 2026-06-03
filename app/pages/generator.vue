@@ -1,8 +1,8 @@
 <template>
   <div>
-    <section class="mt-15">
-      <div class="flex">
-        <div class="flex-1 flex flex-col">
+    <section class="mt-15 max-w-7xl mx-auto px-4">
+      <div class="grid grid-rows-[1fr_auto] sm:grid-cols-[1fr_auto] sm:grid-rows-none items-end">
+        <div class="flex flex-col">
           <div class="chat chat-end">
             <div class="chat-bubble chat-bubble-primary">
               Willkommen in meiner Brauerei, Reisender!
@@ -32,13 +32,26 @@
               >
                 <input
                   v-model="targetVolumeL"
-                  class="app-number-input focus:outline-none"
+                  v-bind="targetVolumeLAttrs"
                   type="number"
                   min="0.1"
+                  class="app-number-input focus:outline-none max-w-30"
+                  :class="{ 'input-error': errors.targetVolumeL }"
                   :disabled="isThinking"
                   @keyup.enter="onEnter"
                 >
-                <span>Liter</span>              </label>
+                <span>Liter</span>
+                <button
+                  class="btn btn-ghost ml-5"
+                  :disabled="isThinking"
+                  @click="onEnter"
+                >
+                  <Icon name="mdi:send" />
+                </button>
+                <p v-if="errors.targetVolumeL" class="text-error label text-xs">
+                  {{ $t(errors.targetVolumeL) }}
+                </p>
+              </label>
             </div>
 
             <div v-if="state.step === 'tanninUsage' && !isThinking" class="felx gap-2">
@@ -62,7 +75,14 @@
               </div>
             </div>
           </div>
+
+          <div v-if="isThinking" class="chat chat-end">
+            <div class="chat-bubble chat-bubble-primary">
+              <span class="loading loading-dots loading-sm" />
+            </div>
+          </div>
         </div>
+
         <img
           src="/generator/brewmaster-1.png"
           alt="Braumeister"
@@ -309,8 +329,14 @@ function onEnter() {
 }
 
 function onTanninAnswer(useTannin: boolean) {
-  send(useTannin ? "Ja" : "Nein");
+  send(useTannin ? "Ja, bitte!" : "Nein, danke");
 }
+
+// watch(state, () => {
+//   if (state.value.step === "done") {
+//     onSubmit();
+//   }
+// });
 
 const onSubmit = handleSubmit(async (values) => {
   const { $csrfFetch } = useNuxtApp();

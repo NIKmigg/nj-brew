@@ -26,7 +26,7 @@ export function useBrewmasterChat() {
     chat.value.push({ role: "user", text: input });
 
     isThinking.value = true;
-    await delay(800);
+    await delay(1000);
 
     // STEP 1: VOLUME
     if (state.value.step === "volume") {
@@ -41,12 +41,12 @@ export function useBrewmasterChat() {
 
     // STEP 2: TANNIN USAGE
     else if (state.value.step === "tanninUsage") {
-      state.value.tanninUsage = input.toLowerCase() === "ja";
+      state.value.tanninUsage = input.toLowerCase().startsWith("ja");
       state.value.step = "done";
 
       chat.value.push({
         role: "npc",
-        text: `Sehr gut. Ich bereite nun ${state.value.volume} Liter Met für dich vor, Reisender.`,
+        text: `Sehr gut. Ich bereite nun ${state.value.volume} Liter Met für dich vor.`,
       });
 
       // hier könntest du später API call triggern
