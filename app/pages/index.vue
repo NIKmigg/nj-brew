@@ -27,12 +27,12 @@
       </div>
     </section>
     <WaveCard class="bg-black/30" />
-    <section class="bg-base-200 py-16">
+    <section v-section-reveal="{ markers: true }" class="bg-base-200 py-16">
       <div class="container my-auto text-center mx-auto max-w-3xl">
-        <p class="text-4xl font-bold mb-4 font-old-style">
+        <p data-split class="text-4xl font-bold mb-4 font-old-style">
           Willkommen Reisender!
         </p>
-        <p>
+        <p data-split>
           In der Taverne von NJ Brew findest du die besten Rezepte für deine Braukünste.
           Egal, ob du ein erfahrener Braumeister oder ein neugieriger Anfänger bist, wir haben etwas für jeden Geschmack.
           Tauche ein in die Welt des Brauens und entdecke neue Aromen und Techniken. Prost!
