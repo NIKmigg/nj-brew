@@ -85,6 +85,8 @@
 <script setup lang="ts">
 import type { SelectProductSchema } from "@shared/schemas/product";
 
+const toast = useToast();
+
 definePageMeta({
   middleware: "auth",
 });
@@ -103,6 +105,7 @@ const safeProducts = computed(
 let interval: ReturnType<typeof setInterval>;
 
 onMounted(() => {
+  toast.show("Der Markt wird umgebaut! Einige Funktionen könnten vorübergehend nicht verfügbar sein.", "warning", 9000);
   interval = setInterval(() => {
     refresh();
   }, 60_000);
