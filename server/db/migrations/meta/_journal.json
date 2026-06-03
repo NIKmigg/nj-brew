@@ -85,6 +85,13 @@
       "when": 1779967363243,
       "tag": "0011_dusty_network",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "6",
+      "when": 1780487383124,
+      "tag": "0012_simple_eternity",
+      "breakpoints": true
     }
   ]
 }

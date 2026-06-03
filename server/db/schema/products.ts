@@ -15,6 +15,8 @@ export const products = sqliteTable("products", {
 
   imageUrl: text("image_url"),
 
+  category: text("category"),
+
   createdAt: integer("created_at", { mode: "timestamp" })
     .$defaultFn(() => new Date())
     .notNull(),

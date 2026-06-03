@@ -8,6 +8,7 @@ export const insertProductSchema = createInsertSchema(products, {
   description: field => field.min(1).max(1000),
   price: field => field.min(0.01),
   stock: field => field.min(1),
+  category: field => field.min(1).max(50),
 }).omit({
   id: true,
   slug: true,
