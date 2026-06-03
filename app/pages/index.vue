@@ -10,14 +10,14 @@
       />
     </div>
 
-    <section class="hero min-h-screen -mt-28 relative">
+    <section v-section-reveal class="hero min-h-screen -mt-28 relative">
       <div class="hero-overlay bg-black/30" />
       <div class="hero-content text-neutral-content text-center">
         <div class="max-w-md">
-          <h1 class="mb-5 text-5xl font-bold font-old-style">
+          <h1 data-split class="mb-5 text-5xl font-bold font-old-style">
             {{ $t("home.title") }}
           </h1>
-          <p class="mb-5">
+          <p data-split="{ type: 'word', stagger: 0.015 }" class="mb-5">
             {{ $t("home.body") }}
           </p>
           <button class="btn btn-primary">
@@ -27,12 +27,12 @@
       </div>
     </section>
     <WaveCard class="bg-black/30" />
-    <section v-section-reveal="{ markers: true }" class="bg-base-200 py-16">
+    <section v-section-reveal class="bg-base-200 py-16">
       <div class="container my-auto text-center mx-auto max-w-3xl">
         <p data-split class="text-4xl font-bold mb-4 font-old-style">
           Willkommen Reisender!
         </p>
-        <p data-split>
+        <p data-split="{ type: 'word', stagger: 0.015 }">
           In der Taverne von NJ Brew findest du die besten Rezepte für deine Braukünste.
           Egal, ob du ein erfahrener Braumeister oder ein neugieriger Anfänger bist, wir haben etwas für jeden Geschmack.
           Tauche ein in die Welt des Brauens und entdecke neue Aromen und Techniken. Prost!
@@ -53,12 +53,12 @@
       </div>
     </section>
     <WaveCard class="rotate-180 bg-base-100/80" />
-    <section class="bg-base-100/80 py-16">
+    <section v-section-reveal class="bg-base-100/80 py-16">
       <div class="container my-auto text-center mx-auto max-w-3xl">
-        <p class="text-4xl font-bold mb-4 font-old-style">
+        <p data-split class="text-4xl font-bold mb-4 font-old-style">
           Der Met des Hauses
         </p>
-        <p>
+        <p data-split="{ type: 'word', stagger: 0.015 }">
           Wenn Ihr Euch nicht entscheiden könnt, beginnt mit dem Favoriten unserer Gäste. Dieser klassische Honigmet vereint die natürliche Süße ausgewählter Honige mit einer ausgewogenen Gärung und einem angenehm milden Abgang.
           <br><br>
           Ein zeitloses Rezept, das seit vielen Monden die Krüge unserer Taverne füllt und bereits zahlreiche angehende Metbrauer inspiriert hat.

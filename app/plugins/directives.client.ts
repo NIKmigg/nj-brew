@@ -7,8 +7,25 @@ type RevealOptions = {
   stagger?: number;
   start?: string;
   toggleActions?: string;
-  type?: "chars" | "words" | "lines";
+  type?: SplitTypeOption;
   yPercent?: number;
+};
+
+type SplitType = "chars" | "words" | "lines";
+type SplitTypeOption = SplitType | "char" | "word" | "line";
+
+type SplitTargetOptions = RevealOptions & {
+  aria?: "auto" | "hidden" | "none";
+  charsClass?: string;
+  linesClass?: string;
+  mask?: SplitTypeOption;
+  smartWrap?: boolean;
+  tag?: string;
+  wordsClass?: string;
+};
+
+type ResolvedRevealOptions = Required<Omit<RevealOptions, "type">> & {
+  type: SplitType;
 };
 
 type RevealElement = HTMLElement & {
@@ -31,11 +48,20 @@ const defaultOptions = {
   toggleActions: "play reverse play reverse",
   type: "chars",
   yPercent: 100,
-} satisfies Required<RevealOptions>;
+} satisfies ResolvedRevealOptions;
+
+const splitTypeMap = {
+  char: "chars",
+  chars: "chars",
+  line: "lines",
+  lines: "lines",
+  word: "words",
+  words: "words",
+} satisfies Record<SplitTypeOption, SplitType>;
 
 function getTargets(
   split: ReturnType<GsapTools["SplitText"]["create"]>,
-  type: Required<RevealOptions>["type"],
+  type: SplitType,
 ) {
   if (type === "lines") {
     return split.lines;
@@ -46,6 +72,120 @@ function getTargets(
   }
 
   return split.chars;
+}
+
+function isSplitType(value: unknown): value is SplitTypeOption {
+  return typeof value === "string" && value in splitTypeMap;
+}
+
+function normalizeSplitType(type: unknown): SplitType {
+  return isSplitType(type) ? splitTypeMap[type] : defaultOptions.type;
+}
+
+function parseDataValue(value: string): unknown {
+  if (value === "true") {
+    return true;
+  }
+
+  if (value === "false") {
+    return false;
+  }
+
+  const numberValue = Number(value);
+
+  if (!Number.isNaN(numberValue) && value !== "") {
+    return numberValue;
+  }
+
+  return value.replace(/^["']|["']$/g, "");
+}
+
+function parseObjectOptions(value: string) {
+  const options: Record<string, unknown> = {};
+  const entries = value.replace(/^\{|\}$/g, "").split(",");
+
+  entries.forEach((entry) => {
+    const [rawKey, ...rawValue] = entry.split(":");
+    const key = rawKey?.trim().replace(/^["']|["']$/g, "");
+    const optionValue = rawValue.join(":").trim();
+
+    if (!key || !optionValue) {
+      return;
+    }
+
+    options[key] = parseDataValue(optionValue);
+  });
+
+  return options;
+}
+
+function parseSplitOptions(el: HTMLElement): Partial<SplitTargetOptions> {
+  const rawOptions = el.dataset.split?.trim();
+
+  if (!rawOptions) {
+    return {};
+  }
+
+  if (isSplitType(rawOptions)) {
+    return {
+      type: rawOptions,
+    };
+  }
+
+  try {
+    return JSON.parse(rawOptions) as Partial<SplitTargetOptions>;
+  }
+  catch {
+    return parseObjectOptions(rawOptions) as Partial<SplitTargetOptions>;
+  }
+}
+
+function resolveOptions(
+  bindingOptions: RevealOptions | undefined,
+  splitOptions: Partial<SplitTargetOptions>,
+) {
+  return {
+    ...defaultOptions,
+    ...(bindingOptions ?? {}),
+    ...splitOptions,
+    type: normalizeSplitType(splitOptions.type ?? bindingOptions?.type),
+  };
+}
+
+function getSplitTextOptions(options: ResolvedRevealOptions & Partial<SplitTargetOptions>) {
+  const splitOptions: SplitText.Vars = {
+    type: options.type,
+  };
+
+  if (options.aria !== undefined) {
+    splitOptions.aria = options.aria;
+  }
+
+  if (options.charsClass !== undefined) {
+    splitOptions.charsClass = options.charsClass;
+  }
+
+  if (options.linesClass !== undefined) {
+    splitOptions.linesClass = options.linesClass;
+  }
+
+  if (options.mask !== undefined) {
+    splitOptions.mask = normalizeSplitType(options.mask);
+  }
+
+  if (options.smartWrap !== undefined) {
+    splitOptions.smartWrap = options.smartWrap;
+  }
+
+  if (options.tag !== undefined) {
+    splitOptions.tag = options.tag;
+  }
+
+  if (options.wordsClass !== undefined) {
+    splitOptions.wordsClass = options.wordsClass;
+  }
+
+  return splitOptions;
 }
 
 function cleanupReveal(el: RevealElement) {
@@ -66,18 +206,13 @@ function createSplitReveal(
 ) {
   cleanupReveal(el);
 
-  const options = {
-    ...defaultOptions,
-    ...(binding.value ?? {}),
-  };
+  const options = resolveOptions(binding.value, parseSplitOptions(el));
 
   el.__revealFrame = requestAnimationFrame(() => {
     let split: ReturnType<GsapTools["SplitText"]["create"]> | undefined;
 
     const context = tools.gsap.context(() => {
-      split = tools.SplitText.create(el, {
-        type: options.type,
-      });
+      split = tools.SplitText.create(el, getSplitTextOptions(options));
       const targets = getTargets(split, options.type);
 
       tools.gsap.set(el, {
