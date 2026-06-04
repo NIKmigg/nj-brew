@@ -20,7 +20,7 @@
         class="btn btn-ghost btn-xs"
         @click="$emit('reset')"
       >
-        <Icon name="lucide:rotate-ccw" class="size-3.5" />
+        <Icon name="mdi:restore" size="20" class="text-primary/60" />
       </button>
     </div>
     <p v-if="errorMessage" class="label text-error">

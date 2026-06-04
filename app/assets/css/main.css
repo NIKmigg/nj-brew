@@ -61,6 +61,14 @@ html[data-theme="nj-brew-dark"] {
   background: var(--app-background-overlay);
 }
 
+.app-number-input {
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
 @theme {
   --font-old-style: "Macondo", cursive;
 }
@@ -134,3 +142,4 @@ html[data-theme="nj-brew-dark"] {
   --depth: 1;
   --noise: 0;
 }
+
