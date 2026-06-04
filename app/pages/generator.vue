@@ -29,25 +29,29 @@
               <label
                 v-if="state.step === 'volume' && !isThinking"
                 class="chat-bubble"
+                :class="{ 'border-error border-e-2': errors.targetVolumeL }"
               >
-                <input
-                  v-model="targetVolumeL"
-                  v-bind="targetVolumeLAttrs"
-                  type="number"
-                  min="0.1"
-                  class="app-number-input focus:outline-none max-w-30"
-                  :class="{ 'input-error': errors.targetVolumeL }"
-                  :disabled="isThinking"
-                  @keyup.enter="onEnter"
-                >
-                <span>Liter</span>
-                <button
-                  class="btn btn-ghost ml-5"
-                  :disabled="isThinking"
-                  @click="onEnter"
-                >
-                  <Icon name="mdi:send" />
-                </button>
+                <div>
+
+                  <input
+                    v-model="targetVolumeL"
+                    v-bind="targetVolumeLAttrs"
+                    type="number"
+                    min="0.1"
+                    class="app-number-input focus:outline-none max-w-30 "
+                    :class="{ 'input-error': errors.targetVolumeL }"
+                    :disabled="isThinking"
+                    @keyup.enter="onEnter"
+                  >
+                  <span>Liter</span>
+                  <button
+                    class="btn btn-ghost ml-5"
+                    :disabled="isThinking"
+                    @click="onEnter"
+                  >
+                    <Icon name="mdi:send" />
+                  </button>
+                </div>
                 <p v-if="errors.targetVolumeL" class="text-error label text-xs">
                   {{ $t(errors.targetVolumeL) }}
                 </p>
@@ -320,24 +324,6 @@ const [targetVolumeL, targetVolumeLAttrs] = defineField("targetVolumeL");
 const [waterHardness, waterHardnessAttrs] = defineField("waterHardness_dH");
 const [useTannin] = defineField("useTannin");
 
-const { state, chat, send, isThinking } = useBrewmasterChat();
-function onEnter() {
-  if (!targetVolumeL.value)
-    return;
-
-  send(targetVolumeL.value.toString());
-}
-
-function onTanninAnswer(useTannin: boolean) {
-  send(useTannin ? "Ja, bitte!" : "Nein, danke");
-}
-
-// watch(state, () => {
-//   if (state.value.step === "done") {
-//     onSubmit();
-//   }
-// });
-
 const onSubmit = handleSubmit(async (values) => {
   const { $csrfFetch } = useNuxtApp();
 
@@ -345,13 +331,21 @@ const onSubmit = handleSubmit(async (values) => {
     method: "POST",
     body: values,
   });
-
-  // sessionStorage.setItem("meadResult", JSON.stringify(result.value));
 });
 
-// onMounted(() => {
-//   const saved = sessionStorage.getItem("meadResult");
-//   if (saved)
-//     result.value = JSON.parse(saved);
-// });
+const { state, chat, send, isThinking } = useBrewmasterChat(async () => {
+  await onSubmit();
+});
+
+function onEnter() {
+  if (!targetVolumeL.value)
+    return;
+
+  send(targetVolumeL.value.toString());
+}
+
+function onTanninAnswer(useTanninArg: boolean) {
+  send(useTanninArg ? "Ja, bitte!" : "Nein, danke");
+  useTannin.value = useTanninArg;
+}
 </script>

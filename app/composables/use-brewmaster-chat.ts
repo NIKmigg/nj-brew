@@ -3,68 +3,61 @@ type ChatMessage = {
   text: string;
 };
 
-type Step = "volume" | "tanninUsage" | "done";
+type Step = "volume" | "tanninUsage" | "calculate" | "done";
 
-export function useBrewmasterChat() {
-  const chat = ref<ChatMessage[]>([]);
-  const isThinking = ref(false);
+type BrewmasterState = {
+  step: Step;
+  volume: number | null;
+  tanninUsage: boolean | null;
+};
 
-  const state = ref<{
-    step: Step;
-    volume: number | null;
-    tanninUsage: boolean | null;
-  }>({
+export function useBrewmasterChat(onCalculate?: () => Promise<void>) {
+  const chat = useState<ChatMessage[]>("brewmaster-chat", () => []);
+  const isThinking = useState<boolean>("brewmaster-thinking", () => false);
+  const state = useState<BrewmasterState>("brewmaster-state", () => ({
     step: "volume",
     volume: null,
     tanninUsage: null,
-  });
+  }));
 
-  const delay = (ms: number) =>
-    new Promise(r => setTimeout(r, ms));
+  const delay = (ms: number) => new Promise(r => setTimeout(r, ms));
 
   const send = async (input: string) => {
     chat.value.push({ role: "user", text: input });
-
     isThinking.value = true;
     await delay(1000);
 
-    // STEP 1: VOLUME
     if (state.value.step === "volume") {
       state.value.volume = Number(input);
       state.value.step = "tanninUsage";
-
-      chat.value.push({
-        role: "npc",
-        text: `Soll ich etwas Tannin hinzufügen?`,
-      });
+      chat.value.push({ role: "npc", text: `Soll ich etwas Tannin hinzufügen?` });
     }
-
-    // STEP 2: TANNIN USAGE
     else if (state.value.step === "tanninUsage") {
       state.value.tanninUsage = input.toLowerCase().startsWith("ja");
-      state.value.step = "done";
-
+      state.value.step = "calculate";
       chat.value.push({
         role: "npc",
         text: `Sehr gut. Ich bereite nun ${state.value.volume} Liter Met für dich vor.`,
       });
 
-      // hier könntest du später API call triggern
+      await delay(1000);
+      await onCalculate?.();
+
+      chat.value.push({
+        role: "npc",
+        text: `Fertig! Dein Rezept ist bereit. Schau es dir unten an!`,
+      });
+      state.value.step = "done";
     }
+
     isThinking.value = false;
   };
+
   const reset = () => {
     chat.value = [];
-    state.value.step = "volume";
-    state.value.volume = null;
-    state.value.tanninUsage = null;
+    isThinking.value = false;
+    state.value = { step: "volume", volume: null, tanninUsage: null };
   };
 
-  return {
-    chat,
-    isThinking,
-    send,
-    reset,
-    state,
-  };
-};
+  return { chat, isThinking, send, reset, state };
+}
