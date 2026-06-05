@@ -96,7 +96,7 @@
         <img
           src="/generator/brewmaster-1.png"
           alt="Braumeister"
-          class="relative -bottom-20 h-60 -z-2"
+          class="relative -bottom-10 h-45 sm:h-60 -z-2 justify-self-end"
         >
       </div>
     </section>
@@ -121,71 +121,72 @@
       </div>
     </section>
 
-    <section class="w-full text-center bg-base-200 pt-5">
-      <div class="flex flex-wrap gap-4">
-        <!-- Zutaten Card -->
-        <BaseCard v-if="result" :title="$t('generator.ingredients.title')" icon="mdi:food-apple">
-          <GeneratorIngredientRow :label="$t('generator.ingredients.honey')" :value="`${result.honey_g} g`" />
-          <div class="divider my-0" />
-          <GeneratorIngredientRow :label="$t('generator.ingredients.water')" :value="`${result.water_L.toFixed(2)} L`" />
-          <div class="divider my-0" />
-          <GeneratorIngredientRow :label="$t('generator.ingredients.yeast')" :value="`${result.yeast_g.toFixed(1)} g`" />
-          <div class="divider my-0" />
-          <GeneratorIngredientRow :label="$t('generator.ingredients.nutrient')" :value="`${result.nutrient_g.toFixed(1)} g`" />
-          <template v-if="result.tannin_g !== undefined">
+    <section v-if="result" class="w-full text-center bg-base-200 pt-5 px-4 pb-5">
+      <div class="flex flex-col gap-4 max-w-7xl mx-auto">
+        <div class="flex flex-wrap gap-4">
+          <!-- Zutaten Card -->
+          <BaseCard :title="$t('generator.ingredients.title')" icon="mdi:food-apple">
+            <GeneratorIngredientRow :label="$t('generator.ingredients.honey')" :value="`${result.honey_g} g`" />
             <div class="divider my-0" />
-            <GeneratorIngredientRow :label="$t('generator.ingredients.tannin')" :value="`${result.tannin_g.toFixed(2)} g`" />
-          </template>
-        </BaseCard>
+            <GeneratorIngredientRow :label="$t('generator.ingredients.water')" :value="`${result.water_L.toFixed(2)} L`" />
+            <div class="divider my-0" />
+            <GeneratorIngredientRow :label="$t('generator.ingredients.yeast')" :value="`${result.yeast_g.toFixed(1)} g`" />
+            <div class="divider my-0" />
+            <GeneratorIngredientRow :label="$t('generator.ingredients.nutrient')" :value="`${result.nutrient_g.toFixed(1)} g`" />
+            <template v-if="result.tannin_g !== undefined">
+              <div class="divider my-0" />
+              <GeneratorIngredientRow :label="$t('generator.ingredients.tannin')" :value="`${result.tannin_g.toFixed(2)} g`" />
+            </template>
+          </BaseCard>
 
-        <!-- Gärwerte Card -->
-        <BaseCard v-if="result" :title="$t('generator.fermentation.title')" icon="mdi:chart-line">
-          <InfoModal :title="$t('generator.fermentation.brixInfoTitle')">
-            <div class="flex flex-col gap-1 w-full">
-              <div class="flex justify-between text-sm">
-                <span class="text-base-content/60">°Brix</span>
-                <span class="font-medium">{{ result.estimatedBrix.toFixed(1) }}</span>
+          <!-- Gärwerte Card -->
+          <BaseCard :title="$t('generator.fermentation.title')" icon="mdi:chart-line">
+            <InfoModal :title="$t('generator.fermentation.brixInfoTitle')">
+              <div class="flex flex-col gap-1 w-full">
+                <div class="flex justify-between text-sm">
+                  <span class="text-base-content/60">°Brix</span>
+                  <span class="font-medium">{{ result.estimatedBrix.toFixed(1) }}</span>
+                </div>
+                <progress
+                  class="progress progress-success w-full"
+                  :value="result.estimatedBrix"
+                  max="35"
+                />
               </div>
-              <progress
-                class="progress progress-success w-full"
-                :value="result.estimatedBrix"
-                max="35"
-              />
-            </div>
-            <template #info>
-              <div class="mt-2 flex flex-col gap-1.5">
-                <p class="text-sm text-base-content/70 mb-2">
-                  {{ $t("generator.fermentation.brixInfo") }}
+              <template #info>
+                <div class="mt-2 flex flex-col gap-1.5">
+                  <p class="text-sm text-base-content/70 mb-2">
+                    {{ $t("generator.fermentation.brixInfo") }}
+                  </p>
+
+                  <GeneratorRatingRow :label="$t('generator.fermentation.brixWeak')" range="< 24" color="info" />
+                  <GeneratorRatingRow :label="$t('generator.fermentation.brixOk')" range="24–26" color="warning" />
+                  <GeneratorRatingRow :label="$t('generator.fermentation.brixIdeal')" range="26–29" color="success" />
+                  <GeneratorRatingRow :label="$t('generator.fermentation.brixRisk')" range="> 30" color="error" />
+                </div>
+              </template>
+            </InfoModal>
+
+            <InfoModal :title="$t('generator.alcohol.info')">
+              <div class="flex flex-col gap-1 w-full">
+                <div class="flex justify-between text-sm">
+                  <span class="text-base-content/60">{{ $t("generator.alcohol.label") }}</span>
+                  <span class="font-medium">{{ result.estimatedAlc.toFixed(1) }} %</span>
+                </div>
+                <progress
+                  class="progress progress-info w-full"
+                  :value="result.estimatedAlc"
+                  max="25"
+                />
+              </div>
+              <template #info>
+                <p class="text-sm text-base-content/60">
+                  {{ $t("generator.alcohol.infoText") }}
                 </p>
-
-                <GeneratorRatingRow :label="$t('generator.fermentation.brixWeak')" range="< 24" color="info" />
-                <GeneratorRatingRow :label="$t('generator.fermentation.brixOk')" range="24–26" color="warning" />
-                <GeneratorRatingRow :label="$t('generator.fermentation.brixIdeal')" range="26–29" color="success" />
-                <GeneratorRatingRow :label="$t('generator.fermentation.brixRisk')" range="> 30" color="error" />
-              </div>
-            </template>
-          </InfoModal>
-
-          <InfoModal :title="$t('generator.alcohol.info')">
-            <div class="flex flex-col gap-1 w-full">
-              <div class="flex justify-between text-sm">
-                <span class="text-base-content/60">{{ $t("generator.alcohol.label") }}</span>
-                <span class="font-medium">{{ result.estimatedAlc.toFixed(1) }} %</span>
-              </div>
-              <progress
-                class="progress progress-info w-full"
-                :value="result.estimatedAlc"
-                max="25"
-              />
-            </div>
-            <template #info>
-              <p class="text-sm text-base-content/60">
-                {{ $t("generator.alcohol.infoText") }}
-              </p>
-            </template>
-          </InfoModal>
-        </BaseCard>
-
+              </template>
+            </InfoModal>
+          </BaseCard>
+        </div>
         <!-- Nachsüßen / Step Feeding Card -->
         <BaseCard
           v-if="result"
@@ -274,6 +275,10 @@
         </BaseCard>
       </div>
     </section>
+
+    <WaveCard class="rotate-180" />
+
+    <section class="min-h-50" />
   </div>
 </template>
 
