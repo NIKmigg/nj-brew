@@ -76,6 +76,22 @@
     "copyright": "Copyright © {year} - All rights reserved"
   },
   "generator": {
+    "chat": {
+      "welcome1": "Welcome to my brewery, traveler!",
+      "welcome2": "Tell me how much mead you wish to brew - and I shall prepare the right ingredients for you.",
+      "tanninQuestion": "Shall I add a touch of tannin?",
+      "preparing": "Very well. I am now preparing {volume} liters of mead for you.",
+      "done": "Done! Your recipe is ready. Take a look below!",
+      "yes": "Yes, please!",
+      "no": "No, thank you",
+      "liters": "liters"
+    },
+    "intro": {
+      "title": "Brewery",
+      "line1": "Here you can calculate the ingredients for your very own mead.",
+      "line2": "Simply tell me how many liters you want to brew, and I will reveal the required amounts of honey, water, yeast, and nutrient.",
+      "line3": "I will also give you an estimate of the alcohol content and fermentation strength of your future mead. Let us craft your perfect recipe together!"
+    },
     "inputs": {
       "recipe": "Recipe",
       "targetVolume": "Batch volume (L)",

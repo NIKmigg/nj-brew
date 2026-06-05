@@ -76,6 +76,22 @@
     "copyright": "Copyright © {year} - Alle Rechte vorbehalten"
   },
   "generator": {
+    "chat": {
+      "welcome1": "Willkommen in meiner Brauerei, Reisender!",
+      "welcome2": "Sag mir, wie viel Met du zu erschaffen gedenkst - und ich bereite dir die richtigen Zutaten vor.",
+      "tanninQuestion": "Soll ich etwas Tannin hinzufügen?",
+      "preparing": "Sehr gut. Ich bereite nun {volume} Liter Met für dich vor.",
+      "done": "Fertig! Dein Rezept ist bereit. Schau es dir unten an!",
+      "yes": "Ja, bitte!",
+      "no": "Nein, danke",
+      "liters": "Liter"
+    },
+    "intro": {
+      "title": "Brauerei",
+      "line1": "Hier kannst du die Zutaten für deinen eigenen Met berechnen lassen.",
+      "line2": "Sag mir einfach, wie viel Liter du brauen möchtest, und ich werde dir die benötigten Mengen an Honig, Wasser, Hefe und Nährstoff verraten.",
+      "line3": "Außerdem gebe ich dir eine Einschätzung zum Alkoholgehalt und zur Gärstärke deines zukünftigen Mets. Lass uns gemeinsam dein perfektes Rezept erschaffen!"
+    },
     "inputs": {
       "recipe": "Rezept",
       "targetVolume": "Ansatzvolumen (L)",
