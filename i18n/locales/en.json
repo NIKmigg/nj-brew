@@ -169,8 +169,8 @@
     "title": "Market"
   },
   "nav": {
-    "home": "Home",
-    "generator": "Recipe Generator",
+    "home": "Tavern",
+    "generator": "Brewery",
     "market": "Market",
     "admin": "Admin Dashboard"
   }
