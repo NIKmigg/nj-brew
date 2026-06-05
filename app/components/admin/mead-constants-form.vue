@@ -131,10 +131,20 @@ function resetField(field: keyof UpdateMeadConstantsSchema) {
     setFieldValue(field, constants.value[defaultKey] as number);
 }
 
+const toast = useToast();
+
 const onSubmit = handleSubmit(async (values) => {
-  await $csrfFetch("/api/mead", {
-    method: "PATCH",
-    body: values,
-  });
+  try {
+    await $csrfFetch("/api/mead", {
+      method: "PATCH",
+      body: values,
+    });
+
+    toast.show("Erfolgreich gespeichert!", "success", 3000);
+  }
+  catch (error: any) {
+    const message = error.data?.message ?? "Speichern fehlgeschlagen.";
+    toast.show(message, "error", 5000);
+  }
 });
 </script>
