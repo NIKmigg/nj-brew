@@ -1,8 +1,8 @@
 <template>
   <div>
     <section class="mt-15 max-w-250 mx-auto px-4">
-      <div class="grid grid-rows-[1fr_auto] sm:grid-cols-[1fr_auto] sm:grid-rows-none items-end">
-        <div class="flex flex-col">
+      <div class="grid grid-rows-[1fr_auto] sm:grid-cols-[1fr_auto] sm:grid-rows-none items-end ">
+        <div class="flex flex-col min-h-100">
           <div class="chat chat-end">
             <div class="chat-bubble chat-bubble-primary">
               Willkommen in meiner Brauerei, Reisender!

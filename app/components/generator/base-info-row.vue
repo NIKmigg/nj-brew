@@ -5,7 +5,7 @@
     style="border-radius: 0 0.5rem 0.5rem 0"
   >
     <Icon :name="icon" class="text-base mt-0.5 shrink-0" />
-    <div class="flex flex-col gap-0.5">
+    <div class="flex flex-col gap-0.5 items-start">
       <span class="text-sm font-medium">{{ title }}</span>
       <span class="text-xs opacity-80">{{ description }}</span>
     </div>
