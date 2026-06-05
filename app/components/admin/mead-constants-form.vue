@@ -50,7 +50,7 @@
     <AdminNumberInputField
       name="stepFeedRatio"
       :label="$t('admin.constants.stepFeedRatio')"
-      :min="0"
+      :min="0.1"
       :max="1"
       @reset="resetField('stepFeedRatio')"
     />

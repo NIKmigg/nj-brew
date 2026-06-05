@@ -37,8 +37,8 @@ type Props = {
   label: string;
   unit?: string;
   step?: number | string;
-  min?: number | string;
-  max?: number | string;
+  min?: number;
+  max?: number;
 };
 
 const props = withDefaults(defineProps<Props>(), {
