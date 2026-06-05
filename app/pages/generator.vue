@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="mt-15 max-w-7xl mx-auto px-4">
+    <section class="mt-15 max-w-250 mx-auto px-4">
       <div class="grid grid-rows-[1fr_auto] sm:grid-cols-[1fr_auto] sm:grid-rows-none items-end">
         <div class="flex flex-col">
           <div class="chat chat-end">
@@ -21,6 +21,13 @@
               :class="msg.role === 'user' ? 'chat-bubble-neutral' : 'chat-bubble-primary'"
             >
               {{ msg.text }}
+              <button
+                v-if="msg.step === 'volume'"
+                class="btn btn-ghost ml-2 hover:bg-transparent"
+                @click="onVolumeEdit"
+              >
+                <Icon name="mdi:edit" />
+              </button>
             </div>
           </div>
 
@@ -32,7 +39,6 @@
                 :class="{ 'border-error border-e-2': errors.targetVolumeL }"
               >
                 <div>
-
                   <input
                     v-model="targetVolumeL"
                     v-bind="targetVolumeLAttrs"
@@ -90,78 +96,33 @@
         <img
           src="/generator/brewmaster-1.png"
           alt="Braumeister"
-          class="relative -bottom-26 h-60 -z-2"
+          class="relative -bottom-20 h-60 -z-2"
         >
       </div>
     </section>
     <WaveCard />
 
+    <section
+      v-if="!result"
+      v-section-reveal
+      class="bg-base-200 py-16"
+    >
+      <div class="container my-auto text-center mx-auto max-w-3xl">
+        <p data-split class="text-4xl font-bold mb-4 font-old-style">
+          Brauerei
+        </p>
+        <p data-split="{ type: 'word', stagger: 0.015 }">
+          Hier kannst du die Zutaten für deinen eigenen Met berechnen lassen.
+          <br><br>
+          Sag mir einfach, wie viel Liter du brauen möchtest, und ich werde dir die benötigten Mengen an Honig, Wasser, Hefe und Nährstoff verraten.
+          <br>
+          Außerdem gebe ich dir eine Einschätzung zum Alkoholgehalt und zur Gärstärke deines zukünftigen Mets. Lass uns gemeinsam dein perfektes Rezept erschaffen!
+        </p>
+      </div>
+    </section>
+
     <section class="w-full text-center bg-base-200 pt-5">
       <div class="flex flex-wrap gap-4">
-        <!-- Eingabe Card -->
-        <BaseCard :title="$t('generator.inputs.recipe')">
-          <fieldset class="fieldset">
-            <legend class="fieldset-legend">
-              {{ $t("generator.inputs.targetVolume") }}
-            </legend>
-            <input
-              v-model="targetVolumeL"
-              v-bind="targetVolumeLAttrs"
-              type="number"
-              min="0"
-              class="input w-full"
-              :class="{ 'input-error': errors.targetVolumeL }"
-              :placeholder="$t('generator.inputs.targetVolumePlaceholder')"
-            >
-            <p v-if="errors.targetVolumeL" class="text-error label">
-              {{ $t(errors.targetVolumeL) }}
-            </p>
-          </fieldset>
-
-          <fieldset class="fieldset">
-            <InfoModal :title="$t('generator.water.hardnessInfo')">
-              <legend class="fieldset-legend w-full">
-                {{ $t("generator.water.hardness") }}
-              </legend>
-              <template #info>
-                <div class="mt-2 flex flex-col gap-1.5">
-                  <p class="text-sm text-base-content/70 mb-2">
-                    {{ $t("generator.water.hardnessInfoText") }}
-                  </p>
-
-                  <GeneratorRatingRow :label="$t('generator.water.softLabel')" range="0–4 °dH" color="info" />
-                  <GeneratorRatingRow :label="$t('generator.water.idealLabel')" range="5–8 °dH" color="success" />
-                  <GeneratorRatingRow :label="$t('generator.water.okLabel')" range="9–14 °dH" color="warning" />
-                  <GeneratorRatingRow :label="$t('generator.water.hardLabel')" range="15–20 °dH" color="error" />
-                  <GeneratorRatingRow :label="$t('generator.water.veryHardLabel')" range="> 20 °dH" color="error" />
-                </div>
-              </template>
-            </InfoModal>
-            <div class="w-full input">
-              <input
-                v-model="waterHardness"
-                v-bind="waterHardnessAttrs"
-                type="number"
-                min="0"
-                class="w-full"
-                :placeholder="$t('generator.water.hardnessPlaceholder')"
-              >
-              <span class="">°dH</span>
-            </div>
-          </fieldset>
-
-          <fieldset class="fieldset">
-            <legend class="fieldset-legend">
-              {{ $t("generator.inputs.useTannin") }}
-            </legend>
-            <input v-model="useTannin" type="checkbox" class="toggle toggle-primary">
-          </fieldset>
-
-          <button class="btn btn-primary w-full mt-auto" @click="onSubmit">
-            {{ $t("generator.inputs.calculate") }}
-          </button>
-        </BaseCard>
-
         <!-- Zutaten Card -->
         <BaseCard v-if="result" :title="$t('generator.ingredients.title')">
           <GeneratorIngredientRow :label="$t('generator.ingredients.honey')" :value="`${result.honey_g} g`" />
@@ -321,7 +282,7 @@ const { defineField, handleSubmit, errors } = useForm({
 });
 
 const [targetVolumeL, targetVolumeLAttrs] = defineField("targetVolumeL");
-const [waterHardness, waterHardnessAttrs] = defineField("waterHardness_dH");
+// const [waterHardness, waterHardnessAttrs] = defineField("waterHardness_dH");
 const [useTannin] = defineField("useTannin");
 
 const onSubmit = handleSubmit(async (values) => {
@@ -333,7 +294,7 @@ const onSubmit = handleSubmit(async (values) => {
   });
 });
 
-const { state, chat, send, isThinking } = useBrewmasterChat(async () => {
+const { state, chat, send, isThinking, reset } = useBrewmasterChat(async () => {
   await onSubmit();
 });
 
@@ -342,6 +303,11 @@ function onEnter() {
     return;
 
   send(targetVolumeL.value.toString());
+}
+
+function onVolumeEdit() {
+  result.value = null;
+  reset();
 }
 
 function onTanninAnswer(useTanninArg: boolean) {
