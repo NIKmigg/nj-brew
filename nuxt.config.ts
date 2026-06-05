@@ -7,6 +7,11 @@ import "./server/lib/env";
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  routeRules: {
+    "/api/auth/**": {
+      csurf: false,
+    },
+  } as any,
   alias: {
     "@server": resolve(__dirname, "./server"),
     "@shared": resolve(__dirname, "./shared"),

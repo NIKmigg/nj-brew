@@ -12,7 +12,7 @@
     </div>
 
     <!-- mindestens Bildschirmhöhe -->
-    <main class="relative z-10 min-h-[calc(100vh-7rem)]">
+    <main class="relative z-10 min-h-[calc(100vh-6.7rem)]">
       <slot />
     </main>
 

@@ -1,5 +1,28 @@
 import { authClient } from "~/lib/auth-client";
 
+type AuthClientError = {
+  code?: string;
+};
+
+type EmailAvailability = {
+  available: boolean;
+};
+
+const authErrorMessages: Record<string, string> = {
+  EMAIL_NOT_VERIFIED: "auth.emailNotVerified",
+  INVALID_EMAIL_OR_PASSWORD: "auth.invalidEmailOrPassword",
+  USER_ALREADY_EXISTS: "auth.emailAlreadyRegistered",
+  USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL: "auth.emailAlreadyRegistered",
+};
+
+function getAuthErrorMessage(error: AuthClientError | null | undefined, fallback: string) {
+  if (error?.code && authErrorMessages[error.code]) {
+    return authErrorMessages[error.code];
+  }
+
+  return fallback;
+}
+
 export async function useAuth() {
   const session = await authClient.useSession(useFetch);
 
@@ -20,43 +43,23 @@ export async function useAuth() {
   );
 
   async function signInWithGitHub(callbackURL = "/") {
-    const { csrf } = useCsrf();
-
-    const headers = new Headers();
-
-    headers.append("csrf-token", csrf);
-
     await authClient.signIn.social({
       provider: "github",
       callbackURL,
       errorCallbackURL: "/error",
-
-      fetchOptions: {
-        headers,
-      },
     });
   }
 
   async function signInWithEmail(email: string, password: string) {
-    const { csrf } = useCsrf();
-
-    const headers = new Headers();
-
-    headers.append("csrf-token", csrf);
-
     const result = await authClient.signIn.email({
       email,
       password,
       rememberMe: true,
-
-      fetchOptions: {
-        headers,
-      },
     });
 
     if (result.error) {
       throw new Error(
-        result.error.message || "Login fehlgeschlagen.",
+        getAuthErrorMessage(result.error, "auth.loginFailed"),
       );
     }
   }
@@ -65,42 +68,74 @@ export async function useAuth() {
     name: string,
     email: string,
     password: string,
+    callbackURL = "/",
   ) {
-    const { csrf } = useCsrf();
+    const availability = await $fetch<EmailAvailability>("/api/auth/email-available", {
+      method: "POST",
+      body: {
+        email,
+      },
+    });
 
-    const headers = new Headers();
-
-    headers.append("csrf-token", csrf);
+    if (!availability.available) {
+      throw new Error("auth.emailAlreadyRegistered");
+    }
 
     const result = await authClient.signUp.email({
       name,
       email,
       password,
-
-      fetchOptions: {
-        headers,
-      },
+      callbackURL,
     });
 
     if (result.error) {
       throw new Error(
-        result.error.message || "Registrierung fehlgeschlagen.",
+        getAuthErrorMessage(result.error, "auth.registerFailed"),
+      );
+    }
+  }
+
+  async function sendVerificationEmail(email: string, callbackURL = "/") {
+    const result = await authClient.sendVerificationEmail({
+      email,
+      callbackURL,
+    });
+
+    if (result.error) {
+      throw new Error(
+        getAuthErrorMessage(result.error, "auth.verificationEmailFailed"),
+      );
+    }
+  }
+
+  async function requestPasswordReset(email: string, redirectTo = "/login/reset-password") {
+    const result = await authClient.requestPasswordReset({
+      email,
+      redirectTo,
+    });
+
+    if (result.error) {
+      throw new Error(
+        getAuthErrorMessage(result.error, "auth.resetRequestFailed"),
+      );
+    }
+  }
+
+  async function resetPassword(newPassword: string, token: string) {
+    const result = await authClient.resetPassword({
+      newPassword,
+      token,
+    });
+
+    if (result.error) {
+      throw new Error(
+        getAuthErrorMessage(result.error, "auth.resetPasswordFailed"),
       );
     }
   }
 
   async function signOut() {
-    const { csrf } = useCsrf();
-
-    const headers = new Headers();
-
-    headers.append("csrf-token", csrf);
-
-    await authClient.signOut({
-      fetchOptions: {
-        headers,
-      },
-    });
+    await authClient.signOut();
   }
 
   return {
@@ -113,6 +148,9 @@ export async function useAuth() {
     signInWithGitHub,
     signInWithEmail,
     signUpWithEmail,
+    sendVerificationEmail,
+    requestPasswordReset,
+    resetPassword,
     signOut,
   };
 }
