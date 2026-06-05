@@ -32,7 +32,7 @@ export function useBrewmasterChat(onCalculate?: () => Promise<void>) {
   const send = async (input: string) => {
     switch (state.value.step) {
       case "volume":
-        chat.value.push({ role: "user", text: input, step: "volume" });
+        chat.value.push({ role: "user", text: `${input} Liter`, step: "volume" });
         break;
       case "tanninUsage":
         chat.value.push({ role: "user", text: input, step: "tanninUsage" });

@@ -302,7 +302,7 @@ function onEnter() {
   if (!targetVolumeL.value)
     return;
 
-  send(`${targetVolumeL.value.toString()} Liter`);
+  send(targetVolumeL.value.toString());
 }
 
 function onVolumeEdit() {
