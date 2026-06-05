@@ -8,7 +8,7 @@ export const updateMeadConstantsSchema = createUpdateSchema(meadConstants, {
   yeastPerL: field => field.positive(),
   nutrientPerL: field => field.positive(),
   tanninPerL: field => field.positive(),
-  stepFeedRatio: field => field.min(0).max(1),
+  stepFeedRatio: field => field.min(0.1).max(1),
   osmosisThreshold: field => field.positive(),
   targetHardness: field => field.positive(),
   estimatedBrix: field => field.positive(),
@@ -50,14 +50,10 @@ export const meadRecipeOutputSchema = z.object({
   osmosisRationInPercent: z.number().min(0).max(100).optional(),
   tapWaterRatioInPercent: z.number().min(0).max(100).optional(),
   stepFeedHoney_g: z.number().positive(),
+  stepFeedHoneyPercent: z.number().min(1).max(100),
+  estimatedBrix: z.number().positive(),
+  estimatedAlc: z.number().positive(),
 });
 
 export type MeadRecipeInput = z.infer<typeof meadRecipeInputSchema>;
 export type MeadRecipeOutput = z.infer<typeof meadRecipeOutputSchema>;
-
-export const honeyPerL = 364;
-export const volumePerKgHoney = 0.75;
-export const yeastPerL = 0.5;
-export const nutrientPerL = 0.375;
-export const estimatedBrix = 26;
-export const estimatedAlc = 14;

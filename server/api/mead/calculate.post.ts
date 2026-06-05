@@ -23,6 +23,7 @@ export default defineEventHandler(async (event) => {
     osmosisRationInPercent: hardness ? Math.max(0, Math.min(100, (1 - (c.targetHardness / hardness)) * 100)) : undefined,
     tapWaterRatioInPercent: hardness ? Math.max(0, Math.min(100, (c.targetHardness / hardness) * 100)) : undefined,
     stepFeedHoney_g: honey_g * c.stepFeedRatio,
+    stepFeedHoneyPercent: c.stepFeedRatio * 100,
     estimatedBrix: c.estimatedBrix,
     estimatedAlc: c.estimatedAlc,
   };

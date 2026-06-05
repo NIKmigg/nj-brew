@@ -107,8 +107,9 @@
       "infoText": "The estimated alcohol content shows roughly how strong the mead can become after fermentation."
     },
     "stepping": {
+      "title": "Step Feeding",
       "honeyLabel": "Honey / Step",
-      "honeyHint": "15% of base amount",
+      "honeyHint": "% of base amount",
       "alcLabel": "Alcohol +",
       "alcHint": "per step",
       "maxLabel": "Max. Addition",

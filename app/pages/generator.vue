@@ -144,11 +144,11 @@
             <div class="flex flex-col gap-1 w-full">
               <div class="flex justify-between text-sm">
                 <span class="text-base-content/60">°Brix</span>
-                <span class="font-medium">{{ estimatedBrix.toFixed(1) }}</span>
+                <span class="font-medium">{{ result.estimatedBrix.toFixed(1) }}</span>
               </div>
               <progress
                 class="progress progress-success w-full"
-                :value="estimatedBrix"
+                :value="result.estimatedBrix"
                 max="35"
               />
             </div>
@@ -170,11 +170,11 @@
             <div class="flex flex-col gap-1 w-full">
               <div class="flex justify-between text-sm">
                 <span class="text-base-content/60">{{ $t("generator.alcohol.label") }}</span>
-                <span class="font-medium">{{ estimatedAlc.toFixed(1) }} %</span>
+                <span class="font-medium">{{ result.estimatedAlc.toFixed(1) }} %</span>
               </div>
               <progress
                 class="progress progress-info w-full"
-                :value="estimatedAlc"
+                :value="result.estimatedAlc"
                 max="25"
               />
             </div>
@@ -189,7 +189,7 @@
         <!-- Nachsüßen / Step Feeding Card -->
         <BaseCard
           v-if="result"
-          title="Nachsüßen / Step Feeding"
+          :title="$t('generator.stepping.title')"
           class="min-w-fit"
           icon="mdi:foot-print"
         >
@@ -197,7 +197,7 @@
             <GeneratorBaseStatCard
               :label="$t('generator.stepping.honeyLabel')"
               :value="`${result.stepFeedHoney_g.toFixed(0)} g`"
-              :hint="$t('generator.stepping.honeyHint')"
+              :hint="`${result.stepFeedHoneyPercent.toFixed(0)}${$t('generator.stepping.honeyHint')}`"
             />
             <GeneratorBaseStatCard
               :label="$t('generator.stepping.alcLabel')"
@@ -279,7 +279,7 @@
 
 <script lang="ts" setup>
 import type { MeadRecipeOutput } from "@shared/schemas/mead";
-import { estimatedAlc, estimatedBrix, meadRecipeInputSchema } from "@shared/schemas/mead";
+import { meadRecipeInputSchema } from "@shared/schemas/mead";
 
 definePageMeta({
   middleware: "auth",
