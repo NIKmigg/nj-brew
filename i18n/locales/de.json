@@ -107,8 +107,9 @@
       "infoText": "Der geschätzte Alkoholgehalt zeigt, wie stark der Met nach der Gärung ungefähr werden kann."
     },
     "stepping": {
+      "title": "Nachsüßen / Step Feeding",
       "honeyLabel": "Honig / Schritt",
-      "honeyHint": "15% der Basismenge",
+      "honeyHint": "% der Basismenge",
       "alcLabel": "Alkohol +",
       "alcHint": "pro Schritt",
       "maxLabel": "Max. Zugabe",

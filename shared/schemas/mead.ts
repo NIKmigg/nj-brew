@@ -50,6 +50,7 @@ export const meadRecipeOutputSchema = z.object({
   osmosisRationInPercent: z.number().min(0).max(100).optional(),
   tapWaterRatioInPercent: z.number().min(0).max(100).optional(),
   stepFeedHoney_g: z.number().positive(),
+  stepFeedHoneyPercent: z.number().min(1).max(100),
   estimatedBrix: z.number().positive(),
   estimatedAlc: z.number().positive(),
 });

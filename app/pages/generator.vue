@@ -189,7 +189,7 @@
         <!-- Nachsüßen / Step Feeding Card -->
         <BaseCard
           v-if="result"
-          title="Nachsüßen / Step Feeding"
+          :title="$t('generator.stepping.title')"
           class="min-w-fit"
           icon="mdi:foot-print"
         >
@@ -197,7 +197,7 @@
             <GeneratorBaseStatCard
               :label="$t('generator.stepping.honeyLabel')"
               :value="`${result.stepFeedHoney_g.toFixed(0)} g`"
-              :hint="$t('generator.stepping.honeyHint')"
+              :hint="`${result.stepFeedHoneyPercent.toFixed(0)}${$t('generator.stepping.honeyHint')}`"
             />
             <GeneratorBaseStatCard
               :label="$t('generator.stepping.alcLabel')"
