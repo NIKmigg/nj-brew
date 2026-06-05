@@ -5,9 +5,9 @@
         <div class="flex flex-col">
           <div class="chat chat-end">
             <div class="chat-bubble chat-bubble-primary">
-              Willkommen in meiner Brauerei, Reisender!
+              {{ $t("generator.chat.welcome1") }}
               <br>
-              Sag mir, wie viel Met du zu erschaffen gedenkst - und ich bereite dir die richtigen Zutaten.
+              {{ $t("generator.chat.welcome2") }}
             </div>
           </div>
           <div
@@ -49,7 +49,7 @@
                     :disabled="isThinking"
                     @keyup.enter="onEnter"
                   >
-                  <span>Liter</span>
+                  <span>{{ $t("generator.chat.liters") }}</span>
                   <button
                     class="btn btn-ghost ml-5"
                     :disabled="isThinking"
@@ -71,7 +71,7 @@
                   :disabled="isThinking"
                   @click="onTanninAnswer(true)"
                 >
-                  Ja, bitte!
+                  {{ $t("generator.chat.yes") }}
                 </button>
               </div>
               <div class="chat chat-start">
@@ -80,7 +80,7 @@
                   :disabled="isThinking"
                   @click="onTanninAnswer(false)"
                 >
-                  Nein, danke
+                  {{ $t("generator.chat.no") }}
                 </button>
               </div>
             </div>
@@ -109,14 +109,14 @@
     >
       <div class="container my-auto text-center mx-auto max-w-3xl">
         <p data-split class="text-4xl font-bold mb-4 font-old-style">
-          Brauerei
+          {{ $t('generator.intro.title') }}
         </p>
         <p data-split="{ type: 'word', stagger: 0.015 }">
-          Hier kannst du die Zutaten für deinen eigenen Met berechnen lassen.
+          {{ $t('generator.intro.line1') }}
           <br><br>
-          Sag mir einfach, wie viel Liter du brauen möchtest, und ich werde dir die benötigten Mengen an Honig, Wasser, Hefe und Nährstoff verraten.
+          {{ $t('generator.intro.line2') }}
           <br>
-          Außerdem gebe ich dir eine Einschätzung zum Alkoholgehalt und zur Gärstärke deines zukünftigen Mets. Lass uns gemeinsam dein perfektes Rezept erschaffen!
+          {{ $t('generator.intro.line3') }}
         </p>
       </div>
     </section>
@@ -189,7 +189,7 @@
         <!-- Nachsüßen / Step Feeding Card -->
         <BaseCard
           v-if="result"
-          :title="$t('generator.stepping.title')"
+          title="Nachsüßen / Step Feeding"
           class="min-w-fit"
           icon="mdi:foot-print"
         >
@@ -320,7 +320,7 @@ function onVolumeEdit() {
 }
 
 function onTanninAnswer(useTanninArg: boolean) {
-  send(useTanninArg ? "Ja, bitte!" : "Nein, danke");
+  send(useTanninArg ? $t("generator.chat.yes") : $t("generator.chat.no"), useTanninArg);
   useTannin.value = useTanninArg;
 }
 </script>

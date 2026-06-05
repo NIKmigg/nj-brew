@@ -23,16 +23,18 @@ export function useBrewmasterChat(onCalculate?: () => Promise<void>) {
 
   const delay = (ms: number) => new Promise(r => setTimeout(r, ms));
 
-  const NPC_MESSAGES = {
-    tanninQuestion: "Soll ich etwas Tannin hinzufügen?",
-    preparing: (volume: number | null) => `Sehr gut. Ich bereite nun ${volume} Liter Met für dich vor.`,
-    done: "Fertig! Dein Rezept ist bereit. Schau es dir unten an!",
-  } as const;
+  const { t } = useI18n();
 
-  const send = async (input: string) => {
+  const NPC_MESSAGES = computed(() => ({
+    tanninQuestion: t("generator.chat.tanninQuestion"),
+    preparing: (volume: number | null) => t("generator.chat.preparing", { volume }),
+    done: t("generator.chat.done"),
+  }));
+
+  const send = async (input: string, useTannin?: boolean) => {
     switch (state.value.step) {
       case "volume":
-        chat.value.push({ role: "user", text: `${input} Liter`, step: "volume" });
+        chat.value.push({ role: "user", text: `${input} ${t("generator.chat.liters")}`, step: "volume" });
         break;
       case "tanninUsage":
         chat.value.push({ role: "user", text: input, step: "tanninUsage" });
@@ -48,14 +50,14 @@ export function useBrewmasterChat(onCalculate?: () => Promise<void>) {
       case "volume":
         state.value.volume = Number(input);
         state.value.step = "tanninUsage";
-        chat.value.push({ role: "npc", text: NPC_MESSAGES.tanninQuestion });
+        chat.value.push({ role: "npc", text: NPC_MESSAGES.value.tanninQuestion });
         break;
       case "tanninUsage":
-        state.value.tanninUsage = input.toLowerCase().startsWith("ja");
+        state.value.tanninUsage = useTannin ?? false;
         state.value.step = "calculate";
         chat.value.push({
           role: "npc",
-          text: NPC_MESSAGES.preparing(state.value.volume),
+          text: NPC_MESSAGES.value.preparing(state.value.volume),
         });
 
         await delay(1000);
@@ -63,7 +65,7 @@ export function useBrewmasterChat(onCalculate?: () => Promise<void>) {
 
         chat.value.push({
           role: "npc",
-          text: NPC_MESSAGES.done,
+          text: NPC_MESSAGES.value.done,
         });
         state.value.step = "done";
         break;
