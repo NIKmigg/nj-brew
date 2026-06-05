@@ -124,7 +124,7 @@
     <section class="w-full text-center bg-base-200 pt-5">
       <div class="flex flex-wrap gap-4">
         <!-- Zutaten Card -->
-        <BaseCard v-if="result" :title="$t('generator.ingredients.title')">
+        <BaseCard v-if="result" :title="$t('generator.ingredients.title')" icon="mdi:food-apple">
           <GeneratorIngredientRow :label="$t('generator.ingredients.honey')" :value="`${result.honey_g} g`" />
           <div class="divider my-0" />
           <GeneratorIngredientRow :label="$t('generator.ingredients.water')" :value="`${result.water_L.toFixed(2)} L`" />
@@ -139,7 +139,7 @@
         </BaseCard>
 
         <!-- Gärwerte Card -->
-        <BaseCard v-if="result" :title="$t('generator.fermentation.title')">
+        <BaseCard v-if="result" :title="$t('generator.fermentation.title')" icon="mdi:chart-line">
           <InfoModal :title="$t('generator.fermentation.brixInfoTitle')">
             <div class="flex flex-col gap-1 w-full">
               <div class="flex justify-between text-sm">
@@ -187,7 +187,12 @@
         </BaseCard>
 
         <!-- Nachsüßen / Step Feeding Card -->
-        <BaseCard v-if="result" title="Nachsüßen / Step Feeding" class="min-w-fit">
+        <BaseCard
+          v-if="result"
+          title="Nachsüßen / Step Feeding"
+          class="min-w-fit"
+          icon="mdi:foot-print"
+        >
           <div class="grid grid-cols-3 gap-2">
             <GeneratorBaseStatCard
               :label="$t('generator.stepping.honeyLabel')"
@@ -233,7 +238,11 @@
         </BaseCard>
 
         <!-- Osmosis Empfehlung Card -->
-        <BaseCard v-if="result?.recommendOsmosis && result?.osmosisRatio !== undefined" :title="$t('generator.osmosis.title')">
+        <BaseCard
+          v-if="result?.recommendOsmosis && result?.osmosisRatio !== undefined"
+          :title="$t('generator.osmosis.title')"
+          icon="mdi:water-percent"
+        >
           <div class="grid grid-cols-2 gap-2">
             <GeneratorBaseStatCard
               :label="$t('generator.osmosis.water')"
