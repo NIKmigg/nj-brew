@@ -11,6 +11,14 @@ const envSchema = z.object({
   BETTER_AUTH_URL: z.string(),
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
+  SMTP_HOST: z.string(),
+  SMTP_PORT: z.coerce.number().int().positive(),
+  SMTP_SECURE: z
+    .string()
+    .transform(value => value === "true"),
+  SMTP_USER: z.string(),
+  SMTP_PASS: z.string(),
+  MAIL_FROM: z.string(),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;

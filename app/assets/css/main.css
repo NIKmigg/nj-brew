@@ -4,6 +4,7 @@
 html,
 html[data-theme="nj-brew-light"] {
   --home-background-image: url("/background-light.png");
+  --login-background-image: url("/login-light.png");
   --hero-background-tavern: url("/tavern-light.png");
   --hero-background-brewery: url("/brewery-light.png");
   --hero-background-market: url("/market-light.png");
@@ -12,6 +13,7 @@ html[data-theme="nj-brew-light"] {
 
 html[data-theme="nj-brew-dark"] {
   --home-background-image: url("/background-dark.png");
+  --login-background-image: url("/login-dark.png");
   --hero-background-tavern: url("/tavern-dark.png");
   --hero-background-brewery: url("/brewery-dark.png");
   --hero-background-market: url("/market-dark.png");
@@ -20,6 +22,12 @@ html[data-theme="nj-brew-dark"] {
 
 .home-hero-bg {
   background-image: var(--home-background-image);
+  background-position: center;
+  background-size: cover;
+}
+
+.login-hero-bg {
+  background-image: var(--login-background-image);
   background-position: center;
   background-size: cover;
 }
