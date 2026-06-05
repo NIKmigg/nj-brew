@@ -8,16 +8,16 @@
     <AuthCard :title="$t('auth.welcome')" :description="$t('auth.intro')">
       <div class="join w-full">
         <button
-          class="btn join-item flex-1"
-          :class="{ 'btn-active': mode === 'login' }"
+          class="btn btn-soft join-item flex-1"
+          :class="{ 'btn-neutral': mode === 'login' }"
           type="button"
           @click="selectMode('login')"
         >
           {{ $t("auth.login") }}
         </button>
         <button
-          class="btn join-item flex-1"
-          :class="{ 'btn-active': mode === 'signup' }"
+          class="btn btn-soft join-item flex-1"
+          :class="{ 'btn-neutral': mode === 'signup' }"
           type="button"
           @click="selectMode('signup')"
         >
@@ -25,45 +25,93 @@
         </button>
       </div>
       <form class="flex flex-col gap-3" @submit.prevent="onSubmit">
-        <label v-if="mode === 'signup'" class="form-control w-full">
-          <span class="label pb-1">
-            <span class="label-text">{{ $t("auth.name") }}</span>
-          </span>
-          <input
-            v-model="name"
-            v-bind="nameAttrs"
-            class="input w-full"
-            autocomplete="name"
-            type="text"
-          >
-          <FormMessage :message="errors.name" />
-        </label>
-        <label class="form-control w-full">
-          <span class="label pb-1">
-            <span class="label-text">{{ $t("auth.email") }}</span>
-          </span>
-          <input
-            v-model="email"
-            v-bind="emailAttrs"
-            class="input w-full"
-            autocomplete="email"
-            type="email"
-          >
-          <FormMessage :message="errors.email" />
-        </label>
-        <label class="form-control w-full">
-          <span class="label pb-1">
-            <span class="label-text">{{ $t("auth.password") }}</span>
-          </span>
-          <input
-            v-model="password"
-            v-bind="passwordAttrs"
-            class="input w-full"
-            :autocomplete="mode === 'signup' ? 'new-password' : 'current-password'"
-            type="password"
-          >
-          <FormMessage :message="errors.password" />
-        </label>
+        <div v-if="mode === 'signup'" class="form-control w-full">
+          <label class="label pl-3 pb-1">
+            <span class="label-text">{{ $t('auth.name') }}</span>
+          </label>
+          <div class="relative">
+            <Icon name="mdi:account" class="absolute z-60 left-3 top-1/2 -translate-y-1/2 opacity-60" />
+            <input
+              v-model="name"
+              v-bind="nameAttrs"
+              class="input input-neutral w-full pl-10 pr-10"
+              autocomplete="name"
+              type="text"
+            >
+          </div>
+          <FormMessage :message="errors.name" class="pl-3" />
+        </div>
+        <div class="form-control w-full">
+          <label class="label pl-3 pb-1">
+            <span class="label-text">{{ $t('auth.email') }}</span>
+          </label>
+          <div class="relative">
+            <Icon name="mdi:at" class="absolute z-60 left-3 top-1/2 -translate-y-1/2 opacity-60" />
+            <input
+              v-model="email"
+              v-bind="emailAttrs"
+              class="input input-neutral w-full pl-10 pr-10"
+              autocomplete="email"
+              type="email"
+            >
+          </div>
+          <FormMessage :message="errors.email" class="pl-3" />
+        </div>
+        <div class="form-control w-full">
+          <label class="label pl-3 pb-1">
+            <span class="label-text">{{ $t('auth.password') }}</span>
+          </label>
+          <div class="relative">
+            <Icon name="mdi:lock" class="absolute z-60 left-3 top-1/2 -translate-y-1/2 opacity-60" />
+            <input
+              v-model="password"
+              v-bind="passwordAttrs"
+              class="input input-neutral w-full pl-10 pr-10"
+              :autocomplete="mode === 'signup' ? 'new-password' : 'current-password'"
+              :type="showPassword ? 'text' : 'password'"
+            >
+            <span
+              tabindex="0"
+              role="button"
+              class="absolute right-3 top-5.5 -translate-y-1/2 cursor-pointer hover:text-neutral focus:text-neutral"
+              @click="showPassword = !showPassword"
+              @keydown.enter="showPassword = !showPassword"
+            >
+              <Icon :name="showPassword ? 'mdi-eye' : 'mdi-eye-off'" class="opacity-60 text-2xl" />
+            </span>
+          </div>
+          <FormMessage :message="errors.password" class="pl-3" />
+        </div>
+        <div v-if="mode === 'signup'" class="form-control w-full">
+          <label class="label pl-3 pb-1">
+            <span class="label-text">{{ $t('auth.confirmPassword') }}</span>
+          </label>
+
+          <div class="relative">
+            <Icon
+              name="mdi:lock-check"
+              class="absolute z-60 left-3 top-1/2 -translate-y-1/2 opacity-60"
+            />
+
+            <input
+              v-model="confirmPassword"
+              v-bind="confirmPasswordAttrs"
+              class="input input-neutral w-full pl-10 pr-10"
+              autocomplete="new-password"
+              :type="showConfirmPassword ? 'text' : 'password'"
+            >
+            <span
+              tabindex="0"
+              role="button"
+              class="absolute right-3 top-5.5 -translate-y-1/2 cursor-pointer hover:text-neutral focus:text-neutral"
+              @click="showConfirmPassword = !showConfirmPassword"
+              @keydown.enter="showConfirmPassword = !showConfirmPassword"
+            >
+              <Icon :name="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'" class="opacity-60 text-2xl" />
+            </span>
+          </div>
+          <FormMessage :message="errors.confirmPassword" class="pl-3" />
+        </div>
         <FormMessage :message="formState.errorMessage.value" />
         <FormMessage :message="formState.successMessage.value" type="success" />
         <AuthVerificationAction
@@ -139,6 +187,7 @@ const {
     mode: "login",
     name: "",
     password: "",
+    confirmPassword: "",
   },
 });
 
@@ -146,6 +195,10 @@ const [mode] = defineField("mode");
 const [name, nameAttrs] = defineField("name");
 const [email, emailAttrs] = defineField("email");
 const [password, passwordAttrs] = defineField("password");
+const [confirmPassword, confirmPasswordAttrs] = defineField("confirmPassword");
+
+const showPassword = ref(false);
+const showConfirmPassword = ref(false);
 
 watch(
   user,

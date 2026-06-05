@@ -96,7 +96,7 @@ html[data-theme="nj-brew-dark"] {
   --color-secondary-content: oklch(89.196% 0.049 305.03);
   --color-accent: oklch(64.8% 0.223 136.073);
   --color-accent-content: oklch(0% 0 0);
-  --color-neutral: oklch(40% 0.123 38.172);
+  --color-neutral: oklch(44% 0.043 257.281);
   --color-neutral-content: oklch(84.874% 0.009 65.681);
   --color-info: oklch(54.615% 0.215 262.88);
   --color-info-content: oklch(90.923% 0.043 262.88);
@@ -131,7 +131,7 @@ html[data-theme="nj-brew-dark"] {
   --color-secondary-content: oklch(89.699% 0.022 355.095);
   --color-accent: oklch(56.273% 0.054 154.39);
   --color-accent-content: oklch(100% 0 0);
-  --color-neutral: oklch(75% 0.183 55.934);
+  --color-neutral: oklch(44% 0.043 257.281);
   --color-neutral-content: oklch(92.951% 0.002 17.197);
   --color-info: oklch(72.06% 0.191 231.6);
   --color-info-content: oklch(0% 0 0);

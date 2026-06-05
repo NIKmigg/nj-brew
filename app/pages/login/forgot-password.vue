@@ -1,34 +1,41 @@
 <template>
-  <AuthCard :title="$t('auth.resetPassword')" :description="$t('auth.resetPasswordIntro')">
-    <form class="flex flex-col gap-3" @submit.prevent="onSubmit">
-      <label class="form-control w-full">
-        <span class="label pb-1">
-          <span class="label-text">{{ $t("auth.email") }}</span>
-        </span>
-        <input
-          v-model="email"
-          v-bind="emailAttrs"
-          class="input w-full"
-          autocomplete="email"
-          type="email"
-        >
-        <FormMessage :message="errors.email" />
-      </label>
-
-      <FormMessage :message="formState.errorMessage.value" />
-      <FormMessage :message="formState.successMessage.value" type="success" />
-
-      <button :disabled="formState.pending.value" class="btn btn-accent w-full" type="submit">
-        <span v-if="formState.pending.value" class="loading loading-spinner loading-sm" />
-        <Icon v-else name="mdi:email-fast" size="20" />
-        {{ $t("auth.sendResetLink") }}
-      </button>
-
-      <NuxtLink class="link-hover link text-center text-sm" :to="localePath('/login')">
-        {{ $t("auth.backToLogin") }}
-      </NuxtLink>
-    </form>
-  </AuthCard>
+  <div>
+    <div class="fixed inset-0 -z-1">
+      <div
+        class="login-hero-bg h-full w-full"
+      />
+    </div>
+    <AuthCard :title="$t('auth.resetPassword')" :description="$t('auth.resetPasswordIntro')">
+      <form class="flex flex-col gap-3" @submit.prevent="onSubmit">
+        <div class="form-control w-full">
+          <label class="label pl-3 pb-1">
+            <span class="label-text">{{ $t('auth.email') }}</span>
+          </label>
+          <div class="relative">
+            <Icon name="mdi:at" class="absolute z-60 left-3 top-1/2 -translate-y-1/2 opacity-60" />
+            <input
+              v-model="email"
+              v-bind="emailAttrs"
+              class="input input-neutral w-full pl-10 pr-10"
+              autocomplete="email"
+              type="email"
+            >
+          </div>
+          <FormMessage :message="errors.email" class="pl-3" />
+        </div>
+        <FormMessage :message="formState.errorMessage.value" />
+        <FormMessage :message="formState.successMessage.value" type="success" />
+        <button :disabled="formState.pending.value" class="btn btn-accent w-full" type="submit">
+          <span v-if="formState.pending.value" class="loading loading-spinner loading-sm" />
+          <Icon v-else name="mdi:email-fast" size="20" />
+          {{ $t("auth.sendResetLink") }}
+        </button>
+        <NuxtLink class="link-hover link text-center text-sm" :to="localePath('/login')">
+          {{ $t("auth.backToLogin") }}
+        </NuxtLink>
+      </form>
+    </AuthCard>
+  </div>
 </template>
 
 <script setup lang="ts">

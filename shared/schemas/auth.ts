@@ -14,6 +14,7 @@ export const authEntrySchema = z
     ]),
     name: z.string(),
     password: passwordSchema,
+    confirmPassword: passwordSchema,
   })
   .superRefine((values, ctx) => {
     if (values.mode === "signup" && !values.name.trim()) {
@@ -21,6 +22,13 @@ export const authEntrySchema = z
         code: "custom",
         message: "auth.nameRequired",
         path: ["name"],
+      });
+    }
+    if (values.mode === "signup" && values.password !== values.confirmPassword) {
+      ctx.addIssue({
+        code: "custom",
+        message: "auth.passwordsDoNotMatch",
+        path: ["confirmPassword"],
       });
     }
   });
@@ -31,6 +39,15 @@ export const forgotPasswordSchema = z.object({
 
 export const resetPasswordSchema = z.object({
   password: passwordSchema,
+  confirmPassword: passwordSchema,
+}).superRefine((values, ctx) => {
+  if (values.password !== values.confirmPassword) {
+    ctx.addIssue({
+      code: "custom",
+      message: "auth.passwordsDoNotMatch",
+      path: ["confirmPassword"],
+    });
+  }
 });
 
 export type AuthEntrySchema = z.infer<typeof authEntrySchema>;
