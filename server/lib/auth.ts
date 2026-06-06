@@ -13,6 +13,7 @@ function sendAuthEmail(email: Parameters<typeof sendEmail>[0]) {
 }
 
 export const auth = betterAuth({
+  trustedOrigins: env.TRUSTED_ORIGINS,
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,

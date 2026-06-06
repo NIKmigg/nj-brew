@@ -14,7 +14,7 @@ export const authEntrySchema = z
     ]),
     name: z.string(),
     password: passwordSchema,
-    confirmPassword: passwordSchema,
+    confirmPassword: z.string().optional(),
   })
   .superRefine((values, ctx) => {
     if (values.mode === "signup" && !values.name.trim()) {

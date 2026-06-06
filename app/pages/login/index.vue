@@ -226,6 +226,7 @@ const onSubmit = handleSubmit(async (values) => {
       showVerificationResend.value = true;
       setFieldValue("mode", "login");
       setFieldValue("password", "");
+      setFieldValue("confirmPassword", "");
       return;
     }
 

@@ -19,6 +19,7 @@ const envSchema = z.object({
   SMTP_USER: z.string(),
   SMTP_PASS: z.string(),
   MAIL_FROM: z.string(),
+  TRUSTED_ORIGINS: z.string().transform(value => value.split(",").map(origin => origin.trim()).filter(Boolean)),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;
