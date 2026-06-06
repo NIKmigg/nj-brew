@@ -1,8 +1,8 @@
 <template>
   <div>
-    <section class="mt-15 max-w-250 mx-auto px-4">
+    <section class="max-w-250 mx-auto px-4">
       <div class="grid grid-rows-[1fr_auto] sm:grid-cols-[1fr_auto] sm:grid-rows-none items-end ">
-        <div class="flex flex-col min-h-100">
+        <div class="flex flex-col min-h-120 sm:min-h-100">
           <div class="chat chat-end">
             <div class="chat-bubble chat-bubble-primary">
               {{ $t("generator.chat.welcome1") }}
@@ -94,9 +94,9 @@
         </div>
 
         <img
-          src="/generator/brewmaster-1.png"
+          src="/generator/brewmaster-5.png"
           alt="Braumeister"
-          class="relative -bottom-10 h-45 sm:h-60 -z-2 justify-self-end"
+          class="relative -bottom-15 h-45 sm:h-60 -z-2 justify-self-end pl-10 -mt-15"
         >
       </div>
     </section>
@@ -279,6 +279,55 @@
     <WaveCard class="rotate-180" />
 
     <section class="min-h-50" />
+    <BaseCard
+      v-if="result"
+      title="Nachsüßen / Step Feeding"
+      class="min-w-fit"
+      icon="mdi:foot-print"
+    >
+      <div class="grid grid-cols-3 gap-2">
+        <GeneratorBaseStatCard
+          :label="$t('generator.stepping.honeyLabel')"
+          :value="`${result.stepFeedHoney_g.toFixed(0)} g`"
+          :hint="`${result.stepFeedHoneyPercent.toFixed(0)}${$t('generator.stepping.honeyHint')}`"
+        />
+        <GeneratorBaseStatCard
+          :label="$t('generator.stepping.alcLabel')"
+          value="≈ 2 %"
+          :hint="$t('generator.stepping.alcHint')"
+        />
+        <GeneratorBaseStatCard
+          :label="$t('generator.stepping.maxLabel')"
+          value="15-20 %"
+          :hint="$t('generator.stepping.maxHint')"
+        />
+      </div>
+      <div class="divider my-0" />
+
+      <div class="flex flex-col gap-2">
+        <span class="text-xs font-medium text-base-content/50">
+          {{ $t('generator.stepping.whenTitle') }}
+        </span>
+        <GeneratorBaseInfoRow
+          icon="mdi:clock-outline"
+          :title="$t('generator.stepping.whenBubble')"
+          :description="$t('generator.stepping.whenBubbleHint')"
+          color="success"
+        />
+        <GeneratorBaseInfoRow
+          icon="mdi:chart-line"
+          :title="$t('generator.stepping.whenSG')"
+          :description="$t('generator.stepping.whenSGHint')"
+          color="success"
+        />
+        <GeneratorBaseInfoRow
+          icon="mdi:alert-outline"
+          :title="$t('generator.stepping.warning')"
+          :description="$t('generator.stepping.warningHint')"
+          color="warning"
+        />
+      </div>
+    </BaseCard>
   </div>
 </template>
 
