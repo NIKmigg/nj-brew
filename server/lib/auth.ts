@@ -30,7 +30,7 @@ export const auth = betterAuth({
     revokeSessionsOnPasswordReset: true,
     sendResetPassword: async ({ user, url }) => {
       sendAuthEmail({
-        to: user.email,
+        to: env.NODE_ENV === "development" ? env.DEV_MAILS_TO : user.email,
         subject: "NJ Brew Passwort zurücksetzen",
         text: `Klicke auf diesen Link, um dein Passwort zurückzusetzen: ${url}`,
       });
@@ -43,7 +43,7 @@ export const auth = betterAuth({
     sendOnSignUp: true,
     sendVerificationEmail: async ({ user, url }) => {
       sendAuthEmail({
-        to: user.email,
+        to: env.NODE_ENV === "development" ? env.DEV_MAILS_TO : user.email,
         subject: "NJ Brew E-Mail-Adresse bestätigen",
         text: `Klicke auf diesen Link, um deine E-Mail-Adresse zu bestätigen: ${url}`,
       });

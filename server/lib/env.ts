@@ -8,7 +8,6 @@ const envSchema = z.object({
   ]),
   DB_FILE_NAME: z.string(),
   BETTER_AUTH_SECRET: z.string(),
-  BETTER_AUTH_URL: z.string(),
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
   SMTP_HOST: z.string(),
@@ -20,6 +19,7 @@ const envSchema = z.object({
   SMTP_PASS: z.string(),
   MAIL_FROM: z.string(),
   TRUSTED_ORIGINS: z.string().transform(value => value.split(",").map(origin => origin.trim()).filter(Boolean)),
+  DEV_MAILS_TO: z.string(),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;
