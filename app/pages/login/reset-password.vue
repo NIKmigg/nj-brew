@@ -135,6 +135,7 @@ const onSubmit = handleSubmit(async (values) => {
     await resetPassword(values.password, token.value);
     formState.setSuccess("auth.passwordUpdated");
     resetForm();
+    navigateTo(localePath("/login"));
   });
 });
 </script>

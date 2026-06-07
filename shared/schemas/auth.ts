@@ -8,28 +8,36 @@ const passwordSchema = z
 export const authEntrySchema = z
   .object({
     email: emailSchema,
-    mode: z.enum([
-      "login",
-      "signup",
-    ]),
+    mode: z.enum(["login", "signup"]),
     name: z.string(),
-    password: passwordSchema,
+    password: z.string(),
     confirmPassword: z.string().optional(),
   })
   .superRefine((values, ctx) => {
-    if (values.mode === "signup" && !values.name.trim()) {
-      ctx.addIssue({
-        code: "custom",
-        message: "auth.nameRequired",
-        path: ["name"],
-      });
-    }
-    if (values.mode === "signup" && values.password !== values.confirmPassword) {
-      ctx.addIssue({
-        code: "custom",
-        message: "auth.passwordsDoNotMatch",
-        path: ["confirmPassword"],
-      });
+    if (values.mode === "signup") {
+      if (!values.name.trim()) {
+        ctx.addIssue({
+          code: "custom",
+          message: "auth.nameRequired",
+          path: ["name"],
+        });
+      }
+
+      if (values.password.length < 8) {
+        ctx.addIssue({
+          code: "custom",
+          message: "auth.passwordMin",
+          path: ["password"],
+        });
+      }
+
+      if (values.password !== values.confirmPassword) {
+        ctx.addIssue({
+          code: "custom",
+          message: "auth.passwordsDoNotMatch",
+          path: ["confirmPassword"],
+        });
+      }
     }
   });
 

@@ -192,10 +192,18 @@ const {
 });
 
 const [mode] = defineField("mode");
-const [name, nameAttrs] = defineField("name");
-const [email, emailAttrs] = defineField("email");
-const [password, passwordAttrs] = defineField("password");
-const [confirmPassword, confirmPasswordAttrs] = defineField("confirmPassword");
+const [name, nameAttrs] = defineField("name", {
+  validateOnModelUpdate: false,
+});
+const [email, emailAttrs] = defineField("email", {
+  validateOnModelUpdate: false,
+});
+const [password, passwordAttrs] = defineField("password", {
+  validateOnModelUpdate: false,
+});
+const [confirmPassword, confirmPasswordAttrs] = defineField("confirmPassword", {
+  validateOnModelUpdate: false,
+});
 
 const showPassword = ref(false);
 const showConfirmPassword = ref(false);
@@ -230,15 +238,7 @@ const onSubmit = handleSubmit(async (values) => {
       return;
     }
 
-    try {
-      await signInWithEmail(values.email, values.password);
-    }
-    catch (error) {
-      showVerificationResend.value = !!values.email;
-      throw error;
-    }
-
-    await navigateTo(redirect.value);
+    await signInWithEmail(values.email, values.password);
   });
 });
 
