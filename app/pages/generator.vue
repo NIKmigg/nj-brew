@@ -187,6 +187,35 @@
             </InfoModal>
           </BaseCard>
         </div>
+
+        <!-- Utensilien Card -->
+        <BaseCard title="Utensilien" icon="mdi:tools">
+          <NuxtLink
+            v-for="item in utensils"
+            :key="item.title"
+            :to="item.to"
+          >
+            <ListTile
+              :title="item.title"
+              :subtitle="item.subtitle"
+              :clickable="item.to ? true : false"
+            >
+              <template #leading>
+                <Icon :name="item.icon" />
+              </template>
+              <template v-if="item.to" #trailing>
+                <Icon name="mdi:chevron-right" class="text-base-content/30" />
+              </template>
+            </ListTile>
+          </NuxtLink>
+          <p class="text-sm text-base-content/60 px-4 pt-3 pb-1">
+            Viele dieser Utensilien findest du direkt bei uns im
+            <NuxtLink to="/market" class="link link-primary">
+              Markt
+            </NuxtLink>.
+          </p>
+        </BaseCard>
+
         <!-- Nachsüßen / Step Feeding Card -->
         <BaseCard
           v-if="result"
@@ -279,61 +308,14 @@
     <WaveCard class="rotate-180" />
 
     <section class="min-h-50" />
-    <BaseCard
-      v-if="result"
-      title="Nachsüßen / Step Feeding"
-      class="min-w-fit"
-      icon="mdi:foot-print"
-    >
-      <div class="grid grid-cols-3 gap-2">
-        <GeneratorBaseStatCard
-          :label="$t('generator.stepping.honeyLabel')"
-          :value="`${result.stepFeedHoney_g.toFixed(0)} g`"
-          :hint="`${result.stepFeedHoneyPercent.toFixed(0)}${$t('generator.stepping.honeyHint')}`"
-        />
-        <GeneratorBaseStatCard
-          :label="$t('generator.stepping.alcLabel')"
-          value="≈ 2 %"
-          :hint="$t('generator.stepping.alcHint')"
-        />
-        <GeneratorBaseStatCard
-          :label="$t('generator.stepping.maxLabel')"
-          value="15-20 %"
-          :hint="$t('generator.stepping.maxHint')"
-        />
-      </div>
-      <div class="divider my-0" />
-
-      <div class="flex flex-col gap-2">
-        <span class="text-xs font-medium text-base-content/50">
-          {{ $t('generator.stepping.whenTitle') }}
-        </span>
-        <GeneratorBaseInfoRow
-          icon="mdi:clock-outline"
-          :title="$t('generator.stepping.whenBubble')"
-          :description="$t('generator.stepping.whenBubbleHint')"
-          color="success"
-        />
-        <GeneratorBaseInfoRow
-          icon="mdi:chart-line"
-          :title="$t('generator.stepping.whenSG')"
-          :description="$t('generator.stepping.whenSGHint')"
-          color="success"
-        />
-        <GeneratorBaseInfoRow
-          icon="mdi:alert-outline"
-          :title="$t('generator.stepping.warning')"
-          :description="$t('generator.stepping.warningHint')"
-          color="warning"
-        />
-      </div>
-    </BaseCard>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { MeadRecipeOutput } from "@shared/schemas/mead";
 import { meadRecipeInputSchema } from "@shared/schemas/mead";
+import { utensils } from "@shared/schemas/utensils";
+import ListTile from "~/components/list-tile.vue";
 
 definePageMeta({
   middleware: "auth",
@@ -370,6 +352,7 @@ function onEnter() {
 
 function onVolumeEdit() {
   result.value = null;
+  sessionStorage.removeItem("generator");
   reset();
 }
 
@@ -377,4 +360,22 @@ function onTanninAnswer(useTanninArg: boolean) {
   send(useTanninArg ? $t("generator.chat.yes") : $t("generator.chat.no"), useTanninArg);
   useTannin.value = useTanninArg;
 }
+
+// State aus SessionStorage laden
+onMounted(() => {
+  const saved = sessionStorage.getItem("generator");
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    result.value = parsed.result;
+    chat.value = parsed.chat;
+  }
+});
+
+// State in SessionStorage speichern
+watch([result, chat], () => {
+  sessionStorage.setItem("generator", JSON.stringify({
+    result: result.value,
+    chat: chat.value,
+  }));
+}, { deep: true });
 </script>
