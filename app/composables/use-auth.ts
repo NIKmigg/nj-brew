@@ -24,6 +24,8 @@ function getAuthErrorMessage(error: AuthClientError | null | undefined, fallback
 }
 
 export async function useAuth() {
+  const toast = useToast();
+
   const session = await authClient.useSession(useFetch);
 
   const user = computed(() =>
@@ -43,11 +45,20 @@ export async function useAuth() {
   );
 
   async function signInWithGitHub(callbackURL = "/") {
-    await authClient.signIn.social({
+    const result = await authClient.signIn.social({
       provider: "github",
       callbackURL,
       errorCallbackURL: "/error",
     });
+
+    if (result.error) {
+      throw new Error(
+        getAuthErrorMessage(result.error, "auth.loginFailed"),
+      );
+    }
+    else {
+      toast.show("auth.loginSuccess");
+    }
   }
 
   async function signInWithEmail(email: string, password: string) {
@@ -61,6 +72,9 @@ export async function useAuth() {
       throw new Error(
         getAuthErrorMessage(result.error, "auth.loginFailed"),
       );
+    }
+    else {
+      toast.show("auth.loginSuccess");
     }
   }
 
@@ -92,6 +106,9 @@ export async function useAuth() {
       throw new Error(
         getAuthErrorMessage(result.error, "auth.registerFailed"),
       );
+    }
+    else {
+      toast.show("auth.registerSuccess");
     }
   }
 
@@ -132,10 +149,22 @@ export async function useAuth() {
         getAuthErrorMessage(result.error, "auth.resetPasswordFailed"),
       );
     }
+    else {
+      toast.show("auth.resetPasswordSuccess");
+    }
   }
 
   async function signOut() {
-    await authClient.signOut();
+    const result = await authClient.signOut();
+
+    if (result.error) {
+      throw new Error(
+        getAuthErrorMessage(result.error, "auth.logoutFailed"),
+      );
+    }
+    else {
+      toast.show("auth.logoutSuccess");
+    }
   }
 
   return {
