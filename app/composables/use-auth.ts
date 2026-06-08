@@ -24,6 +24,7 @@ function getAuthErrorMessage(error: AuthClientError | null | undefined, fallback
 }
 
 export async function useAuth() {
+  const { t } = useI18n();
   const toast = useToast();
 
   const session = await authClient.useSession(useFetch);
@@ -57,7 +58,7 @@ export async function useAuth() {
       );
     }
     else {
-      toast.show("auth.loginSuccess");
+      toast.show(t("auth.loginSuccess"));
     }
   }
 
@@ -74,7 +75,7 @@ export async function useAuth() {
       );
     }
     else {
-      toast.show("auth.loginSuccess");
+      toast.show(t("auth.loginSuccess"));
     }
   }
 
@@ -92,7 +93,7 @@ export async function useAuth() {
     });
 
     if (!availability.available) {
-      throw new Error("auth.emailAlreadyRegistered");
+      throw new Error(t("auth.emailAlreadyRegistered"));
     }
 
     const result = await authClient.signUp.email({
@@ -108,7 +109,7 @@ export async function useAuth() {
       );
     }
     else {
-      toast.show("auth.registerSuccess");
+      toast.show(t("auth.registerSuccess"));
     }
   }
 
@@ -150,7 +151,7 @@ export async function useAuth() {
       );
     }
     else {
-      toast.show("auth.resetPasswordSuccess");
+      toast.show(t("auth.resetPasswordSuccess"));
     }
   }
 
@@ -163,7 +164,7 @@ export async function useAuth() {
       );
     }
     else {
-      toast.show("auth.logoutSuccess");
+      toast.show(t("auth.logoutSuccess"));
     }
   }
 
