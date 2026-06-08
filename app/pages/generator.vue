@@ -307,7 +307,14 @@
 
     <WaveCard class="rotate-180" />
 
-    <section class="min-h-50" />
+    <section class="min-h-50">
+      <GeneratorParchmentRoll
+        v-if="result"
+        title="Des Braumeisters Rezept"
+        seal="Gesiegelt vom Braumeister höchstpersönlich"
+        :result="result"
+      />
+    </section>
   </div>
 </template>
 
