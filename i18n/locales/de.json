@@ -89,7 +89,7 @@
       "done": "Fertig! Dein Rezept ist bereit. Schau es dir unten an!",
       "yes": "Ja, bitte!",
       "no": "Nein, danke",
-      "liters": "Liter"
+      "liters": "{volume} Liter"
     },
     "intro": {
       "title": "Brauerei",
@@ -166,6 +166,56 @@
       "tapWater": "Leitungswasser",
       "tapWaterHint": "aus dem Hahn",
       "info": "Zielhärte 8 °dH - Mischung aus Osmose- und Leitungswasser verwenden."
+    },
+    "utensils": {
+      "fermentationBalloonTitle": "Gärballon",
+      "brewingPaddleTitle": "Braupaddel",
+      "measuringCupTitle": "Messbecher",
+      "precisionScaleTitle": "Feinwaage",
+      "sanitizingCleanerTitle": "Desinfizierendes Reinigungsmittel",
+      "funnelTitle": "Trichter",
+      "funnelSubtitle": "optional, zum einfachen Befüllen",
+      "airlockTitle": "Gärglocke",
+      "airlockSubtitle": "falls nicht am Gärballon vorhanden",
+      "refractometerTitle": "Refraktometer",
+      "refractometerSubtitle": "zum Bestimmen des Brix-Wertes",
+      "market": "Markt",
+      "note": "Viele dieser Utensilien findest du direkt bei uns im"
+    },
+    "parchmentRoll": {
+      "title": "Des Braumeisters Rezept",
+      "seal": "Gesiegelt vom Braumeister höchstpersönlich",
+      "clickToUnroll": "✦ Klicken zum Ausrollen ✦",
+      "printRecipe": "Rezept drucken",
+      "divider": "— ✦ —",
+      "ornament": "✦",
+      "intro": "Auf Befehl des Braumeisters seien folgende Zutaten für ein Volumen von {waterL} Litern Met bereitzustellen:",
+      "ingredients": {
+        "honey": "Honig",
+        "water": "Wasser",
+        "yeast": "Hefe",
+        "nutrient": "Hefenährstoff",
+        "tannin": "Tannin"
+      },
+      "fermentation": {
+        "heading": "Gärwerte & Prophezeiungen",
+        "description": "Die Weisheit des Braumeisters lässt einen Zuckergehalt von {brix}°Brix erwarten, woraus ein Alkoholgehalt von ungefähr {alc} % entstehen wird."
+      },
+      "osmosis": {
+        "heading": "Wasserrat des Alchemisten",
+        "description": "Es wird empfohlen, das Wasser zu mischen: {osmosisPercent} % Osmosewasser und {tapPercent} % Leitungswasser, um die reinste Gärung zu erzielen."
+      },
+      "stepFeeding": {
+        "heading": "Über das Nachsüßen (Step Feeding)",
+        "description": "Zur Steigerung des Alkohols füge jeweils {honey}g Honig hinzu — dies entspricht {percent} % der ursprünglichen Menge. Jede Zugabe erhöht den Alkohol um etwa 2 %. Die Hefe verträgt bis zu 15–20 % — überschreite dies nicht."
+      },
+      "utensils": {
+        "heading": "Benötigte Utensilien"
+      },
+      "units": {
+        "grams": "g",
+        "liters": "L"
+      }
     }
   },
   "home": {

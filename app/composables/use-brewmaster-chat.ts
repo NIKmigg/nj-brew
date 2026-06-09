@@ -1,6 +1,7 @@
 type ChatMessage = {
   role: "user" | "npc";
-  text: string;
+  textKey: string;
+  textParams?: Record<string, unknown>;
   step?: Step;
 };
 
@@ -23,21 +24,13 @@ export function useBrewmasterChat(onCalculate?: () => Promise<void>) {
 
   const delay = (ms: number) => new Promise(r => setTimeout(r, ms));
 
-  const { t } = useI18n();
-
-  const NPC_MESSAGES = computed(() => ({
-    tanninQuestion: t("generator.chat.tanninQuestion"),
-    preparing: (volume: number | null) => t("generator.chat.preparing", { volume }),
-    done: t("generator.chat.done"),
-  }));
-
   const send = async (input: string, useTannin?: boolean) => {
     switch (state.value.step) {
       case "volume":
-        chat.value.push({ role: "user", text: `${input} ${t("generator.chat.liters")}`, step: "volume" });
+        chat.value.push({ role: "user", textKey: "generator.chat.liters", textParams: { volume: input }, step: "volume" });
         break;
       case "tanninUsage":
-        chat.value.push({ role: "user", text: input, step: "tanninUsage" });
+        chat.value.push({ role: "user", textKey: useTannin ? "generator.chat.yes" : "generator.chat.no", step: "tanninUsage" });
         break;
       default:
         return;
@@ -50,14 +43,15 @@ export function useBrewmasterChat(onCalculate?: () => Promise<void>) {
       case "volume":
         state.value.volume = Number(input);
         state.value.step = "tanninUsage";
-        chat.value.push({ role: "npc", text: NPC_MESSAGES.value.tanninQuestion });
+        chat.value.push({ role: "npc", textKey: "generator.chat.tanninQuestion" });
         break;
       case "tanninUsage":
         state.value.tanninUsage = useTannin ?? false;
         state.value.step = "calculate";
         chat.value.push({
           role: "npc",
-          text: NPC_MESSAGES.value.preparing(state.value.volume),
+          textKey: "generator.chat.preparing",
+          textParams: { volume: state.value.volume },
         });
 
         await delay(1000);
@@ -65,7 +59,7 @@ export function useBrewmasterChat(onCalculate?: () => Promise<void>) {
 
         chat.value.push({
           role: "npc",
-          text: NPC_MESSAGES.value.done,
+          textKey: "generator.chat.done",
         });
         state.value.step = "done";
         break;

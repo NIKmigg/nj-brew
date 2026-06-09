@@ -20,7 +20,7 @@
               class="chat-bubble"
               :class="msg.role === 'user' ? 'chat-bubble-neutral' : 'chat-bubble-primary'"
             >
-              {{ msg.text }}
+              {{ $t(msg.textKey, msg.textParams ?? {}) }}
               <button
                 v-if="msg.step === 'volume'"
                 class="btn btn-ghost ml-2 hover:bg-transparent"
@@ -196,8 +196,8 @@
             :to="item.to"
           >
             <ListTile
-              :title="item.title"
-              :subtitle="item.subtitle"
+              :title="$t(item.title)"
+              :subtitle="$t(item.subtitle ?? '')"
               :clickable="item.to ? true : false"
             >
               <template #leading>
@@ -209,9 +209,9 @@
             </ListTile>
           </NuxtLink>
           <p class="text-sm text-base-content/60 px-4 pt-3 pb-1">
-            Viele dieser Utensilien findest du direkt bei uns im
+            {{ $t('generator.utensils.note') }}
             <NuxtLink to="/market" class="link link-primary">
-              Markt
+              {{ $t('generator.utensils.market') }}
             </NuxtLink>.
           </p>
         </BaseCard>
@@ -310,8 +310,8 @@
     <section class="min-h-50">
       <GeneratorParchmentRoll
         v-if="result"
-        title="Des Braumeisters Rezept"
-        seal="Gesiegelt vom Braumeister höchstpersönlich"
+        :title="$t('generator.parchmentRoll.title')"
+        :seal="$t('generator.parchmentRoll.seal')"
         :result="result"
       />
     </section>

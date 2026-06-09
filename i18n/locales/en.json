@@ -89,7 +89,7 @@
       "done": "Done! Your recipe is ready. Take a look below!",
       "yes": "Yes, please!",
       "no": "No, thank you",
-      "liters": "liters"
+      "liters": "{volume} liters"
     },
     "intro": {
       "title": "Brewery",
@@ -166,6 +166,56 @@
       "tapWater": "Tap water",
       "tapWaterHint": "from the tap",
       "info": "Target hardness 8 °dH - use a mix of osmosis and tap water."
+    },
+    "utensils": {
+      "fermentationBalloonTitle": "Fermentation Vessel",
+      "brewingPaddleTitle": "Brewing Paddle",
+      "measuringCupTitle": "Measuring Cup",
+      "precisionScaleTitle": "Precision Scale",
+      "sanitizingCleanerTitle": "Sanitizing Cleaner",
+      "funnelTitle": "Funnel",
+      "funnelSubtitle": "optional, for easier filling",
+      "airlockTitle": "Airlock",
+      "airlockSubtitle": "if not already attached to the fermentation vessel",
+      "refractometerTitle": "Refractometer",
+      "refractometerSubtitle": "for measuring the Brix value",
+      "market": "market",
+      "note": "Many of these utensils can be found directly in our"
+    },
+    "parchmentRoll": {
+      "title": "The Brewmaster's Recipe",
+      "seal": "Personally sealed by the Brewmaster",
+      "clickToUnroll": "✦ Click to Unroll ✦",
+      "printRecipe": "Print Recipe",
+      "divider": "— ✦ —",
+      "ornament": "✦",
+      "intro": "By order of the Brewmaster, the following ingredients shall be prepared for a volume of {waterL} litres of mead:",
+      "ingredients": {
+        "honey": "Honey",
+        "water": "Water",
+        "yeast": "Yeast",
+        "nutrient": "Yeast Nutrient",
+        "tannin": "Tannin"
+      },
+      "fermentation": {
+        "heading": "Fermentation Values & Prophecies",
+        "description": "The wisdom of the Brewmaster foresees a sugar content of {brix}°Brix, from which an alcohol content of approximately {alc} % shall arise."
+      },
+      "osmosis": {
+        "heading": "The Alchemist's Water Counsel",
+        "description": "It is recommended to blend the water: {osmosisPercent} % osmosis water and {tapPercent} % tap water, to achieve the purest fermentation."
+      },
+      "stepFeeding": {
+        "heading": "On Back-Sweetening (Step Feeding)",
+        "description": "To raise the alcohol, add {honey}g of honey at a time — this equals {percent} % of the original amount. Each addition raises the alcohol by approximately 2 %. The yeast tolerates up to 15–20 % — do not exceed this."
+      },
+      "utensils": {
+        "heading": "Required Utensils"
+      },
+      "units": {
+        "grams": "g",
+        "liters": "L"
+      }
     }
   },
   "home": {

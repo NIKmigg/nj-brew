@@ -1,4 +1,3 @@
-<!-- components/GeneratorParchmentRoll.vue -->
 <template>
   <div class="flex flex-col items-center py-8 px-4 select-none">
     <div id="print-area" class="scroll-wrap cursor-pointer" @click="open = !open">
@@ -18,105 +17,105 @@
               {{ title }}
             </h2>
             <div class="text-center text-[#7a4a10] opacity-70 tracking-widest mb-6">
-              — ✦ —
+              {{ t('generator.parchmentRoll.divider') }}
             </div>
 
             <!-- Zutaten -->
             <div v-if="result" class="scroll-body">
               <p class="drop-cap">
-                Auf Befehl des Braumeisters seien folgende Zutaten für ein Volumen von
-                <strong>{{ result.water_L.toFixed(0) }} Litern</strong> Met bereitzustellen:
+                {{ t('generator.parchmentRoll.intro', { waterL: result.water_L.toFixed(0) }) }}
               </p>
 
               <div class="ingredient-block my-4">
                 <div class="ingredient-row">
                   <span class="ingredient-icon">🍯</span>
-                  <span class="ingredient-label">Honig</span>
+                  <span class="ingredient-label">{{ t('generator.parchmentRoll.ingredients.honey') }}</span>
                   <span class="ingredient-dots" />
-                  <span class="ingredient-value">{{ result.honey_g }} g</span>
+                  <span class="ingredient-value">{{ result.honey_g }} {{ t('generator.parchmentRoll.units.grams') }}</span>
                 </div>
                 <div class="ingredient-row">
                   <span class="ingredient-icon">💧</span>
-                  <span class="ingredient-label">Wasser</span>
+                  <span class="ingredient-label">{{ t('generator.parchmentRoll.ingredients.water') }}</span>
                   <span class="ingredient-dots" />
-                  <span class="ingredient-value">{{ result.water_L.toFixed(2) }} L</span>
+                  <span class="ingredient-value">{{ result.water_L.toFixed(2) }} {{ t('generator.parchmentRoll.units.liters') }}</span>
                 </div>
                 <div class="ingredient-row">
                   <span class="ingredient-icon">🌿</span>
-                  <span class="ingredient-label">Hefe</span>
+                  <span class="ingredient-label">{{ t('generator.parchmentRoll.ingredients.yeast') }}</span>
                   <span class="ingredient-dots" />
-                  <span class="ingredient-value">{{ result.yeast_g.toFixed(1) }} g</span>
+                  <span class="ingredient-value">{{ result.yeast_g.toFixed(1) }} {{ t('generator.parchmentRoll.units.grams') }}</span>
                 </div>
                 <div class="ingredient-row">
                   <span class="ingredient-icon">⚗️</span>
-                  <span class="ingredient-label">Hefenährstoff</span>
+                  <span class="ingredient-label">{{ t('generator.parchmentRoll.ingredients.nutrient') }}</span>
                   <span class="ingredient-dots" />
-                  <span class="ingredient-value">{{ result.nutrient_g.toFixed(1) }} g</span>
+                  <span class="ingredient-value">{{ result.nutrient_g.toFixed(1) }} {{ t('generator.parchmentRoll.units.grams') }}</span>
                 </div>
                 <div v-if="result.tannin_g !== undefined" class="ingredient-row">
                   <span class="ingredient-icon">🌰</span>
-                  <span class="ingredient-label">Tannin</span>
+                  <span class="ingredient-label">{{ t('generator.parchmentRoll.ingredients.tannin') }}</span>
                   <span class="ingredient-dots" />
-                  <span class="ingredient-value">{{ result.tannin_g.toFixed(2) }} g</span>
+                  <span class="ingredient-value">{{ result.tannin_g.toFixed(2) }} {{ t('generator.parchmentRoll.units.grams') }}</span>
                 </div>
               </div>
 
               <div class="divider-ornament my-4">
-                ✦
+                {{ t('generator.parchmentRoll.ornament') }}
               </div>
 
               <!-- Gärwerte -->
               <p class="section-heading">
-                Gärwerte & Prophezeiungen
+                {{ t('generator.parchmentRoll.fermentation.heading') }}
               </p>
               <p>
-                Die Weisheit des Braumeisters lässt einen Zuckergehalt von
-                <strong>{{ result.estimatedBrix.toFixed(1) }}°Brix</strong> erwarten,
-                woraus ein Alkoholgehalt von ungefähr
-                <strong>{{ result.estimatedAlc.toFixed(1) }} %</strong> entstehen wird.
+                {{ t('generator.parchmentRoll.fermentation.description', {
+                  brix: result.estimatedBrix.toFixed(1),
+                  alc: result.estimatedAlc.toFixed(1),
+                }) }}
               </p>
 
               <template v-if="result.recommendOsmosis && result.osmosisRatio !== undefined">
                 <div class="divider-ornament my-4">
-                  ✦
+                  {{ t('generator.parchmentRoll.ornament') }}
                 </div>
                 <p class="section-heading">
-                  Wasserrat des Alchemisten
+                  {{ t('generator.parchmentRoll.osmosis.heading') }}
                 </p>
                 <p>
-                  Es wird empfohlen, das Wasser zu mischen: <strong>{{ result.osmosisRationInPercent }} % Osmosewasser</strong>
-                  und <strong>{{ result.tapWaterRatioInPercent }} % Leitungswasser</strong>,
-                  um die reinste Gärung zu erzielen.
+                  {{ t('generator.parchmentRoll.osmosis.description', {
+                    osmosisPercent: result.osmosisRationInPercent,
+                    tapPercent: result.tapWaterRatioInPercent,
+                  }) }}
                 </p>
               </template>
 
               <div class="divider-ornament my-4">
-                ✦
+                {{ t('generator.parchmentRoll.ornament') }}
               </div>
 
               <!-- Nachsüßen -->
               <p class="section-heading">
-                Über das Nachsüßen (Step Feeding)
+                {{ t('generator.parchmentRoll.stepFeeding.heading') }}
               </p>
               <p>
-                Zur Steigerung des Alkohols füge jeweils <strong>{{ result.stepFeedHoney_g.toFixed(0) }} g</strong>
-                Honig hinzu — dies entspricht <strong>{{ result.stepFeedHoneyPercent.toFixed(0) }} %</strong>
-                der ursprünglichen Menge. Jede Zugabe erhöht den Alkohol um etwa 2 %.
-                Die Hefe verträgt bis zu 15–20 % — überschreite dies nicht.
+                {{ t('generator.parchmentRoll.stepFeeding.description', {
+                  honey: result.stepFeedHoney_g.toFixed(0),
+                  percent: result.stepFeedHoneyPercent.toFixed(0),
+                }) }}
               </p>
 
               <div class="divider-ornament my-4">
-                ✦
+                {{ t('generator.parchmentRoll.ornament') }}
               </div>
 
               <!-- Utensilien -->
               <p class="section-heading">
-                Benötigte Utensilien
+                {{ t('generator.parchmentRoll.utensils.heading') }}
               </p>
               <ul class="utensil-list">
                 <li v-for="item in utensils" :key="item.title">
-                  ⚒ {{ item.title }}
-                  <span v-if="item.subtitle" class="utensil-sub"> — {{ item.subtitle }}</span>
+                  ⚒ {{ $t(item.title) }}
+                  <span v-if="item.subtitle" class="utensil-sub"> — {{ $t(item.subtitle ?? "") }}</span>
                 </li>
               </ul>
             </div>
@@ -143,14 +142,14 @@
       @click="onPrint"
     >
       <Icon name="mdi:printer" />
-      Rezept drucken
+      {{ t('generator.parchmentRoll.printRecipe') }}
     </button>
 
     <p
       class="hint-text italic text-sm mt-4 tracking-widest transition-opacity duration-300"
       :class="open ? 'opacity-0' : 'opacity-100'"
     >
-      ✦ Klicken zum Ausrollen ✦
+      {{ t('generator.parchmentRoll.clickToUnroll') }}
     </p>
   </div>
 </template>
@@ -165,6 +164,7 @@ defineProps<{
   result?: MeadRecipeOutput | null;
 }>();
 
+const { t } = useI18n();
 const open = ref(false);
 
 const { print } = usePrint();

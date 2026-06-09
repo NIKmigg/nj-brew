@@ -10,24 +10,41 @@ export const utensilSchema = z.object({
 export type Utensil = z.infer<typeof utensilSchema>;
 
 export const utensils = [
-  { title: "Gärballon", icon: "mdi:bottle-tonic", to: "/market/gaerballon" },
-  { title: "Braupaddel", icon: "mdi:spade", to: "/market/brau-paddel" },
-  { title: "Messbecher", icon: "mdi:cup" },
-  { title: "Feinwaage", icon: "mdi:scale" },
-  { title: "Desinfizierendes Reinigungsmittel", icon: "mdi:spray-bottle" },
   {
-    title: "Trichter",
-    subtitle: "optional, zum einfachen Befüllen",
+    title: "generator.utensils.fermentationBalloonTitle",
+    icon: "mdi:bottle-tonic",
+    to: "/market/gaerballon",
+  },
+  {
+    title: "generator.utensils.brewingPaddleTitle",
+    icon: "mdi:spade",
+    to: "/market/brau-paddel",
+  },
+  {
+    title: "generator.utensils.measuringCupTitle",
+    icon: "mdi:cup",
+  },
+  {
+    title: "generator.utensils.precisionScaleTitle",
+    icon: "mdi:scale",
+  },
+  {
+    title: "generator.utensils.sanitizingCleanerTitle",
+    icon: "mdi:spray-bottle",
+  },
+  {
+    title: "generator.utensils.funnelTitle",
+    subtitle: "generator.utensils.funnelSubtitle",
     icon: "mdi:filter-outline",
   },
   {
-    title: "Gärglocke",
-    subtitle: "falls nicht am Gärballon vorhanden",
+    title: "generator.utensils.airlockTitle",
+    subtitle: "generator.utensils.airlockSubtitle",
     icon: "mdi:bell-outline",
   },
   {
-    title: "Refraktometer",
-    subtitle: "zum Bestimmen des Brix-Wertes",
+    title: "generator.utensils.refractometerTitle",
+    subtitle: "generator.utensils.refractometerSubtitle",
     icon: "mdi:ruler",
   },
 ] satisfies Utensil[];
