@@ -24,9 +24,6 @@ function getAuthErrorMessage(error: AuthClientError | null | undefined, fallback
 }
 
 export async function useAuth() {
-  const { t } = useI18n();
-  const toast = useToast();
-
   const session = await authClient.useSession(useFetch);
 
   const user = computed(() =>
@@ -57,9 +54,6 @@ export async function useAuth() {
         getAuthErrorMessage(result.error, "auth.loginFailed"),
       );
     }
-    else {
-      toast.show(t("auth.loginSuccess"));
-    }
   }
 
   async function signInWithEmail(email: string, password: string) {
@@ -73,9 +67,6 @@ export async function useAuth() {
       throw new Error(
         getAuthErrorMessage(result.error, "auth.loginFailed"),
       );
-    }
-    else {
-      toast.show(t("auth.loginSuccess"));
     }
   }
 
@@ -93,7 +84,7 @@ export async function useAuth() {
     });
 
     if (!availability.available) {
-      throw new Error(t("auth.emailAlreadyRegistered"));
+      throw new Error("auth.emailAlreadyRegistered");
     }
 
     const result = await authClient.signUp.email({
@@ -107,9 +98,6 @@ export async function useAuth() {
       throw new Error(
         getAuthErrorMessage(result.error, "auth.registerFailed"),
       );
-    }
-    else {
-      toast.show(t("auth.registerSuccess"));
     }
   }
 
@@ -150,9 +138,6 @@ export async function useAuth() {
         getAuthErrorMessage(result.error, "auth.resetPasswordFailed"),
       );
     }
-    else {
-      toast.show(t("auth.resetPasswordSuccess"));
-    }
   }
 
   async function signOut() {
@@ -162,9 +147,6 @@ export async function useAuth() {
       throw new Error(
         getAuthErrorMessage(result.error, "auth.logoutFailed"),
       );
-    }
-    else {
-      toast.show(t("auth.logoutSuccess"));
     }
   }
 

@@ -157,6 +157,8 @@ import AuthCard from "~/components/auth/auth-card.vue";
 import AuthVerificationAction from "~/components/auth/verification-action.vue";
 import FormMessage from "~/components/form-message.vue";
 
+const toast = useToast();
+
 const {
   user,
   signInWithEmail,
@@ -229,20 +231,42 @@ const onSubmit = handleSubmit(async (values) => {
     showVerificationResend.value = false;
 
     if (values.mode === "signup") {
-      await signUpWithEmail(values.name, values.email, values.password, redirect.value);
-      formState.setSuccess("auth.checkVerificationEmail");
-      showVerificationResend.value = true;
-      setFieldValue("mode", "login");
-      setFieldValue("password", "");
-      setFieldValue("confirmPassword", "");
-      return;
+      try {
+        await signUpWithEmail(values.name, values.email, values.password, redirect.value);
+        toast.show($t("auth.registerSuccess"));
+        formState.setSuccess("auth.checkVerificationEmail");
+        showVerificationResend.value = true;
+        setFieldValue("mode", "login");
+        setFieldValue("password", "");
+        setFieldValue("confirmPassword", "");
+      }
+      catch (error) {
+        console.error(error);
+        toast.show($t("auth.registrationFailed"), "error");
+        formState.setError("auth.registrationFailed");
+      }
     }
 
-    await signInWithEmail(values.email, values.password);
+    try {
+      await signInWithEmail(values.email, values.password);
+      toast.show($t("auth.loginSuccess"));
+    }
+    catch (error) {
+      console.error(error);
+      formState.setError("auth.loginFailed");
+      toast.show($t("auth.loginFailed"), "error");
+    }
   });
 });
 
 async function callSignInWithGitHub() {
-  await signInWithGitHub(redirect.value || localePath("/"));
+  try {
+    await signInWithGitHub(redirect.value || localePath("/"));
+    toast.show($t("auth.loginSuccess"));
+  }
+  catch (error) {
+    console.error(error);
+    toast.show($t("auth.loginFailed"), "error");
+  }
 }
 </script>

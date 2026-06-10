@@ -127,7 +127,7 @@
               <div class="divider my-3" />
               <NuxtLink
                 :to="localePath('/admin')"
-                class="bnt btn-ghost flex items-center justify-center gap-2 w-full hover:scale-110"
+                class="btn btn-ghost flex items-center justify-center gap-2 w-full hover:scale-110"
                 :class="{ 'text-primary/80': isActive('/admin') }"
               >
                 <Icon name="mdi:shield-crown" class="text-xl" />

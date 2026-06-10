@@ -91,6 +91,8 @@ import { useForm } from "vee-validate";
 import AuthCard from "~/components/auth/auth-card.vue";
 import FormMessage from "~/components/form-message.vue";
 
+const toast = useToast();
+
 const { resetPassword } = await useAuth();
 const route = useRoute();
 const localePath = useLocalePath();
@@ -132,10 +134,18 @@ const [confirmPassword, confirmPasswordAttrs] = defineField("confirmPassword");
 
 const onSubmit = handleSubmit(async (values) => {
   await formState.submit(async () => {
-    await resetPassword(values.password, token.value);
-    formState.setSuccess("auth.passwordUpdated");
-    resetForm();
-    navigateTo(localePath("/login"));
+    try {
+      await resetPassword(values.password, token.value);
+      toast.show($t("auth.resetPasswordSuccess"));
+      formState.setSuccess("auth.passwordUpdated");
+      resetForm();
+      navigateTo(localePath("/login"));
+    }
+    catch (error) {
+      console.error(error);
+      toast.show($t("auth.resetPasswordFailed"), "error");
+      formState.setError("auth.resetPasswordFailed");
+    }
   });
 });
 </script>
