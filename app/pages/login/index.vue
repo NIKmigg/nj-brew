@@ -256,6 +256,8 @@ const onSubmit = handleSubmit(async (values) => {
       formState.setError("auth.loginFailed");
       toast.show($t("auth.loginFailed"), "error");
     }
+
+    await navigateTo(redirect.value);
   });
 });
 
