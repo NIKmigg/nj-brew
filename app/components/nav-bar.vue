@@ -134,6 +134,17 @@
                 {{ $t("nav.admin") }}
               </NuxtLink>
             </div>
+            <div v-if="user">
+              <div class="divider my-3" />
+              <NuxtLink
+                :to="localePath('/user')"
+                class="btn btn-ghost flex items-center justify-center gap-2 w-full hover:scale-110"
+                :class="{ 'text-primary/80': isActive('/user') }"
+              >
+                <Icon name="mdi:account" class="text-xl" />
+                {{ $t("nav.profile") }}
+              </NuxtLink>
+            </div>
           </div>
         </div>
       </div>
