@@ -38,7 +38,7 @@
         class="flex items-center ml-4"
       >
         <img
-          src="/logo.png"
+          src="/logo.webp"
           alt="NJ Logo"
           class="w-10 h-10"
         >
@@ -85,7 +85,7 @@
 
           <img
             v-else
-            src="/avatar.png"
+            src="/avatar.webp"
             alt="avatar"
             class="rounded-full"
           >
