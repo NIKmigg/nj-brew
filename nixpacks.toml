@@ -3,12 +3,13 @@ nixPkgs = ["nodejs_22", "openssl"]
 
 [phases.install]
 cmds = [
-  "npm install -g pnpm@11.1.3",
-  "pnpm install --frozen-lockfile"
+  "npx pnpm@11.1.3 install --frozen-lockfile"
 ]
 
 [phases.build]
-cmds = ["pnpm run build"]
+cmds = [
+  "npx pnpm@11.1.3 run build"
+]
 
 [start]
 cmd = "node .output/server/index.mjs"
