@@ -94,7 +94,7 @@
         </div>
 
         <img
-          src="/generator/brewmaster-5.png"
+          src="/generator/brewmaster.webp"
           alt="Braumeister"
           class="relative -bottom-15 h-45 sm:h-60 -z-2 justify-self-end pl-10 -mt-15"
         >
