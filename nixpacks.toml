@@ -1,0 +1,15 @@
+[phases.setup]
+nixPkgs = ["nodejs_24", "openssl"]
+
+[phases.install]
+cmds = [
+  "npx pnpm@11.1.3 install --frozen-lockfile"
+]
+
+[phases.build]
+cmds = [
+  "npx pnpm@11.1.3 run build"
+]
+
+[start]
+cmd = "node .output/server/index.mjs"
