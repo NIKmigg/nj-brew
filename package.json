@@ -18,6 +18,7 @@
     "db:seed": "tsx --env-file=.env --tsconfig .nuxt/tsconfig.server.json server/db/seed.ts"
   },
   "dependencies": {
+    "@libsql/client": "^0.17.3",
     "@nuxt/eslint": "1.15.2",
     "@nuxt/fonts": "0.14.0",
     "@nuxt/icon": "2.2.2",
@@ -45,7 +46,6 @@
     "@antfu/eslint-config": "^9.0.0",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/tabler": "^1.2.35",
-    "@libsql/client": "^0.17.3",
     "@tailwindcss/vite": "^4.3.0",
     "@types/node": "^25.8.0",
     "@types/nodemailer": "^8.0.0",
