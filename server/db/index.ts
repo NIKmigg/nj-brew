@@ -1,12 +1,12 @@
-import { createClient } from "@libsql/client";
 import * as schema from "@server/db/schema";
 import { env } from "@server/lib/env";
-import { drizzle } from "drizzle-orm/libsql";
+import Database from "better-sqlite3";
+import { drizzle } from "drizzle-orm/better-sqlite3";
 
-const client = createClient({
-  url: env.DB_FILE_NAME!,
-});
+const sqlite = new Database(
+  env.DB_FILE_NAME.replace("file:", ""),
+);
 
-export const db = drizzle(client, {
+export const db = drizzle(sqlite, {
   schema,
 });
