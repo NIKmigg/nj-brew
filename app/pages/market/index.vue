@@ -20,31 +20,121 @@
           <p>
             ... oder finde genau das, was du suchst! Benutze die Suche oder den Filter.
             <br>
-            SDer Ladenbesitzer hat alles ordentlich sortiert, damit du schnell findest, was du brauchst.
+            Der Ladenbesitzer hat alles ordentlich sortiert, damit du schnell findest, was du brauchst.
           </p>
         </div>
         <div class="mb-8 flex justify-center">
           <label class="input input-neutral border-none w-100">
             <Icon name="mdi:magnify" class="text-xl" />
             <input
+              v-model="filters.search"
               type="search"
               required
               placeholder="Suchen..."
               class=""
             >
           </label>
-          <button
-            type="button"
-            class="btn btn-ghost btn-circle ml-4 hover:bg-neutral"
-          >
-            <Icon
-              name="mdi:filter"
-              class="text-2xl cursor-pointer"
-            />
-          </button>
+          <div class="dropdown dropdown-end">
+            <button tabindex="0" type="button" class="btn btn-ghost btn-circle ml-4 hover:bg-neutral">
+              <Icon
+                name="mdi:filter"
+                class="text-2xl cursor-pointer"
+                :class="{
+                  'text-neutral': isFilterActive,
+                  'hover:text-base-content': isFilterActive,
+                }"
+              />
+            </button>
+
+            <div tabindex="0" class="dropdown-content menu bg-base-100 rounded-box shadow-lg p-4 w-64 mt-2 flex flex-col gap-4">
+              <div class="flex flex-col gap-1">
+                <span class="text-sm font-semibold text-start">Preis</span>
+                <div class="flex items-center gap-2">
+                  <input
+                    v-model.number="filters.minPrice"
+                    type="number"
+                    placeholder="Min"
+                    class="input input-sm input-bordered w-full"
+                  >
+                  <span>–</span>
+                  <input
+                    v-model.number="filters.maxPrice"
+                    type="number"
+                    placeholder="Max"
+                    class="input input-sm input-bordered w-full"
+                  >
+                </div>
+              </div>
+
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input v-model="filters.inStock" type="checkbox" class="checkbox checkbox-sm">
+                <span>Vorrätig</span>
+              </label>
+
+              <button type="button" class="btn btn-sm" @click="resetFilters('filter')">
+                Zurücksetzen
+              </button>
+            </div>
+          </div>
+          <div class="dropdown dropdown-start">
+            <button
+              tabindex="0"
+              type="button"
+              class="btn btn-ghost btn-circle ml-4 hover:bg-neutral"
+            >
+              <Icon
+                name="mdi:sort"
+                class="text-2xl cursor-pointer"
+                :class="{
+                  'text-neutral': isSortActive,
+                  'hover:text-base-content': isSortActive,
+                }"
+              />
+            </button>
+
+            <div tabindex="0" class="dropdown-content menu bg-base-100 rounded-box shadow-lg p-4 w-64 mt-2 flex flex-col gap-4">
+              <div class="flex flex-col gap-1">
+                <button
+                  class="btn btn-ghost justify-start"
+                  :class="{ 'bg-neutral': isActiveSort('price', 'asc') }"
+                  @click="setSort('price', 'asc')"
+                >
+                  <Icon name="mdi:sort-ascending" />
+                  Preis aufsteigen
+                </button>
+                <button
+                  class="btn btn-ghost justify-start"
+                  :class="{ 'bg-neutral': isActiveSort('price', 'desc') }"
+                  @click="setSort('price', 'desc')"
+                >
+                  <Icon name="mdi:sort-descending" />
+                  Preis absteigend
+                </button>
+                <button
+                  class="btn btn-ghost justify-start"
+                  :class="{ 'bg-neutral': isActiveSort('name', 'asc') }"
+                  @click="setSort('name', 'asc')"
+                >
+                  <Icon name="mdi:sort-alphabetical-ascending" />
+                  Name aufsteigend
+                </button>
+                <button
+                  class="btn btn-ghost justify-start"
+                  :class="{ 'bg-neutral': isActiveSort('name', 'desc') }"
+                  @click="setSort('name', 'desc')"
+                >
+                  <Icon name="mdi:sort-alphabetical-descending" />
+                  Name absteigend
+                </button>
+                <button class="btn btn-sm" @click="resetFilters('sort')">
+                  Zurücksetzen
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
         <div
-          v-if="pending"
+          v-if="status === 'idle' || (status === 'pending' && !products?.length)"
           class="flex justify-center"
         >
           <span class="loading loading-spinner loading-lg" />
@@ -57,9 +147,12 @@
           <span>{{ error.message }}</span>
         </div>
 
-        <div v-else class="flex flex-wrap gap-8 justify-center h-auto">
+        <div
+          v-else
+          class="flex flex-wrap gap-8 justify-center h-auto"
+        >
           <NuxtLink
-            v-for="product in safeProducts"
+            v-for="product in products"
             :key="product.id"
             :to="`/market/${product.slug}`"
           >
@@ -83,35 +176,15 @@
 </template>
 
 <script setup lang="ts">
-import type { SelectProductSchema } from "@shared/schemas/product";
-
 const toast = useToast();
 
 definePageMeta({
   middleware: "auth",
 });
 
-const {
-  data: products,
-  pending,
-  error,
-  refresh,
-} = await useFetch<SelectProductSchema[]>("/api/products");
-
-const safeProducts = computed(
-  () => products.value ?? [],
-);
-
-let interval: ReturnType<typeof setInterval>;
+const { filters, products, status, error, resetFilters, isActiveSort, setSort, isSortActive, isFilterActive } = useProductFilters();
 
 onMounted(() => {
   toast.show("Der Markt wird umgebaut! Einige Funktionen könnten vorübergehend nicht verfügbar sein.", "warning", 9000);
-  interval = setInterval(() => {
-    refresh();
-  }, 60_000);
-});
-
-onUnmounted(() => {
-  clearInterval(interval);
 });
 </script>
