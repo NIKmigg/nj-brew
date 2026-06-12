@@ -1,4 +1,5 @@
 import type { Toast, ToastType } from "@shared/schemas/toast";
+import { nanoid } from "nanoid";
 
 export function useToast() {
   const toasts = useState<Toast[]>("toasts", () => []);
@@ -8,7 +9,7 @@ export function useToast() {
     type: ToastType = "success",
     duration = 4000,
   ) {
-    const id = crypto.randomUUID();
+    const id = nanoid();
 
     toasts.value.push({
       id,
