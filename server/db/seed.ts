@@ -1,6 +1,12 @@
-import { db } from "../db";
-import { meadConstants } from "./schema/mead";
+import { seedMeadConstants } from "@server/db/seeds/mead-constants";
+import { seedProducts } from "@server/db/seeds/products";
 
-await db.insert(meadConstants)
-  .values({ id: 1 })
-  .onConflictDoNothing();
+async function main() {
+  await seedProducts();
+  await seedMeadConstants();
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
