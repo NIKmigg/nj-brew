@@ -1,17 +1,5 @@
 # NJ Brew 🍯🍺
 
----
-
-## Deployment
-https://njbrew.nj-server.ddns.net/
-
-### Demo Benutzer (falls man sich nicht Registrieren will)
-**Email:** vesarot741@afterdo.com
-
-**Passwort:** Init1234!
-
----
-
 Moderne Fullstack-Webapp mit **Nuxt 4**, **Vue 3**, **Pinia**, **TailwindCSS v4**, **daisyUI**, **Drizzle ORM** und **SQLite**.
 
 ---
