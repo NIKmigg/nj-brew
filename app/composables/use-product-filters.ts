@@ -1,10 +1,15 @@
 import type { ProductFilters, SelectProductSchema } from "~~/shared/schemas/product";
 
 export function useProductFilters() {
-  const filters = ref<ProductFilters>({});
+  const filters = ref<ProductFilters>({ categoryId: null });
+
+  const query = computed(() => ({
+    ...filters.value,
+    inStock: filters.value.inStock || undefined,
+  }));
 
   const { data: products, status, error, refresh } = useFetch<SelectProductSchema[]>("/api/products", {
-    query: filters,
+    query,
   });
 
   const safeProducts = computed(() => products.value ?? []);
@@ -16,13 +21,13 @@ export function useProductFilters() {
         filters.value.sortOrder = undefined;
         break;
       case "filter":
-        filters.value.category = undefined;
+        filters.value.categoryId = null;
         filters.value.inStock = undefined;
         filters.value.maxPrice = undefined;
         filters.value.minPrice = undefined;
         break;
       default:
-        filters.value = {};
+        filters.value = { categoryId: null };
         break;
     }
   }
@@ -45,8 +50,8 @@ export function useProductFilters() {
 
   const isFilterActive = computed(() =>
     !!(
-      filters.value.category
-      || filters.value.inStock
+      filters.value.categoryId != null
+      || filters.value.inStock === true
       || filters.value.maxPrice
       || filters.value.minPrice
     ),

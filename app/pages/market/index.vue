@@ -34,7 +34,8 @@
               class=""
             >
           </label>
-          <div class="dropdown dropdown-end">
+
+          <div class="dropdown">
             <button tabindex="0" type="button" class="btn btn-ghost btn-circle ml-4 hover:bg-neutral">
               <Icon
                 name="mdi:filter"
@@ -46,7 +47,33 @@
               />
             </button>
 
-            <div tabindex="0" class="dropdown-content menu bg-base-100 rounded-box shadow-lg p-4 w-64 mt-2 flex flex-col gap-4">
+            <div tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box shadow-lg p-4 w-64 mt-2 gap-4">
+              <div class="flex flex-col gap-1">
+                <span class="text-sm font-semibold text-start">Kategorie</span>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input
+                    v-model="filters.categoryId"
+                    type="radio"
+                    :value="null"
+                    class="radio radio-sm"
+                  >
+                  <span>Alle</span>
+                </label>
+                <label
+                  v-for="category in categories"
+                  :key="category.id"
+                  class="flex items-center gap-2 cursor-pointer"
+                >
+                  <input
+                    v-model="filters.categoryId"
+                    type="radio"
+                    :value="category.id"
+                    class="radio radio-sm"
+                  >
+                  <span>{{ category.name }}</span>
+                </label>
+              </div>
+
               <div class="flex flex-col gap-1">
                 <span class="text-sm font-semibold text-start">Preis</span>
                 <div class="flex items-center gap-2">
@@ -67,7 +94,13 @@
               </div>
 
               <label class="flex items-center gap-2 cursor-pointer">
-                <input v-model="filters.inStock" type="checkbox" class="checkbox checkbox-sm">
+                <input
+                  v-model="filters.inStock"
+                  type="checkbox"
+                  class="checkbox checkbox-sm"
+                  :true-value="true"
+                  :false-value="undefined"
+                >
                 <span>Vorrätig</span>
               </label>
 
@@ -92,7 +125,7 @@
               />
             </button>
 
-            <div tabindex="0" class="dropdown-content menu bg-base-100 rounded-box shadow-lg p-4 w-64 mt-2 flex flex-col gap-4">
+            <div tabindex="0" class="dropdown-content menu bg-base-100 rounded-box shadow-lg p-4 w-64 mt-2 gap-4">
               <div class="flex flex-col gap-1">
                 <button
                   class="btn btn-ghost justify-start"
@@ -183,6 +216,7 @@ definePageMeta({
 });
 
 const { filters, products, status, error, resetFilters, isActiveSort, setSort, isSortActive, isFilterActive } = useProductFilters();
+const { categories } = useCategories();
 
 onMounted(() => {
   toast.show("Der Markt wird umgebaut! Einige Funktionen könnten vorübergehend nicht verfügbar sein.", "warning", 9000);

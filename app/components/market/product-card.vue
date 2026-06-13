@@ -5,7 +5,7 @@
         class="absolute left-1/2 top-20 -translate-x-1/2 w-50 h-50 rounded-full blur-3xl bg-neutral/30 pointer-events-none z-0"
       />
       <div v-if="product.category" class="badge badge-soft badge-neutral absolute top-2 right-2 z-1">
-        {{ product.category }}
+        {{ product.category.name }}
       </div>
       <figure class="px-10 pt-10 z-1">
         <img
