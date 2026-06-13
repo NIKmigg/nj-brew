@@ -375,6 +375,8 @@ onMounted(() => {
     const parsed = JSON.parse(saved);
     result.value = parsed.result;
     chat.value = parsed.chat;
+    state.value = parsed.state;
+    targetVolumeL.value = parsed.targetVolumeL;
   }
 });
 
@@ -383,6 +385,8 @@ watch([result, chat], () => {
   sessionStorage.setItem("generator", JSON.stringify({
     result: result.value,
     chat: chat.value,
+    state: state.value,
+    targetVolumeL: targetVolumeL.value,
   }));
 }, { deep: true });
 </script>
