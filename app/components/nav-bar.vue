@@ -117,7 +117,7 @@
               </NuxtLink>
             </div>
 
-            <button v-if="user" class="btn btn-ghost" @click="signOut">
+            <button v-if="user" class="btn btn-ghost" @click="handleSignOut">
               {{ $t("auth.logout") }}
             </button>
 
@@ -148,6 +148,7 @@ const route = useRoute();
 const localePath = useLocalePath();
 const switchLocalePath = useSwitchLocalePath();
 const { locale } = useI18n();
+const toast = useToast();
 
 const languages = [
   { code: "de", label: "DE" },
@@ -156,5 +157,20 @@ const languages = [
 
 function isActive(path: string) {
   return route.path === localePath(path);
+}
+
+async function handleSignOut() {
+  try {
+    await signOut();
+
+    toast.show($t("auth.logoutSuccess"));
+
+    await navigateTo(localePath("/"));
+  }
+  catch (error) {
+    console.error(error);
+
+    toast.show($t("auth.logoutFailed"), "error");
+  }
 }
 </script>

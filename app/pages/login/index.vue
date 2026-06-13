@@ -117,7 +117,7 @@
         <AuthVerificationAction
           :callback-url="redirect"
           :disabled="formState.pending.value"
-          :email="email ?? ''"
+          :email="verificationEmail"
           :show="showVerificationResend"
           @error="formState.setError"
           @sent="formState.setSuccess('auth.verificationEmailSent')"
@@ -170,6 +170,7 @@ const localePath = useLocalePath();
 
 const formState = useFormState();
 const showVerificationResend = ref(false);
+const verificationEmail = ref("");
 
 const redirect = computed(() => {
   const value = route.query.redirect;
@@ -223,7 +224,9 @@ watch(
 function selectMode(nextMode: "login" | "signup") {
   setFieldValue("mode", nextMode);
   formState.clearMessages();
+
   showVerificationResend.value = false;
+  verificationEmail.value = "";
 }
 
 const onSubmit = handleSubmit(async (values) => {
@@ -233,31 +236,51 @@ const onSubmit = handleSubmit(async (values) => {
     if (values.mode === "signup") {
       try {
         await signUpWithEmail(values.name, values.email, values.password, redirect.value);
+
         toast.show($t("auth.registerSuccess"));
         formState.setSuccess("auth.checkVerificationEmail");
-        showVerificationResend.value = true;
+
         setFieldValue("mode", "login");
         setFieldValue("password", "");
         setFieldValue("confirmPassword", "");
       }
       catch (error) {
         console.error(error);
-        toast.show($t("auth.registrationFailed"), "error");
-        formState.setError("auth.registrationFailed");
+
+        if (error instanceof Error) {
+          formState.setError(error);
+        }
+        else {
+          formState.setError("auth.registrationFailed");
+        }
       }
     }
+    else {
+      try {
+        await signInWithEmail(values.email, values.password);
 
-    try {
-      await signInWithEmail(values.email, values.password);
-      toast.show($t("auth.loginSuccess"));
-    }
-    catch (error) {
-      console.error(error);
-      formState.setError("auth.loginFailed");
-      toast.show($t("auth.loginFailed"), "error");
-    }
+        showVerificationResend.value = false;
+        verificationEmail.value = "";
 
-    await navigateTo(redirect.value);
+        toast.show($t("auth.loginSuccess"));
+        await navigateTo(redirect.value);
+      }
+      catch (error) {
+        console.error(error);
+
+        if (error instanceof Error) {
+          formState.setError(error);
+
+          if (error.message === "auth.emailNotVerified") {
+            verificationEmail.value = values.email;
+            showVerificationResend.value = true;
+          }
+        }
+        else {
+          formState.setError("auth.loginFailed");
+        }
+      }
+    }
   });
 });
 

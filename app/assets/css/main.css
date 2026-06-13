@@ -2,7 +2,7 @@
 @plugin "daisyui";
 
 html,
-html[data-theme="nj-brew-light"] {
+html[data-theme="light"] {
   --home-background-image: url("/background-light.webp");
   --login-background-image: url("/login-light.webp");
   --hero-background-tavern: url("/tavern-light.webp");
@@ -11,7 +11,7 @@ html[data-theme="nj-brew-light"] {
   --app-background-overlay: rgb(255 246 225 / 68%);
 }
 
-html[data-theme="nj-brew-dark"] {
+html[data-theme="dark"] {
   --home-background-image: url("/background-dark.webp");
   --login-background-image: url("/login-dark.webp");
   --hero-background-tavern: url("/tavern-dark.webp");
@@ -82,7 +82,7 @@ html[data-theme="nj-brew-dark"] {
 }
 
 @plugin "daisyui/theme" {
-  name: "nj-brew-dark";
+  name: "dark";
   default: true;
   prefersdark: false;
   color-scheme: "dark";
@@ -117,7 +117,7 @@ html[data-theme="nj-brew-dark"] {
 }
 
 @plugin "daisyui/theme" {
-  name: "nj-brew-light";
+  name: "light";
   default: false;
   prefersdark: false;
   color-scheme: "light";
