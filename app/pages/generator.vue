@@ -34,7 +34,7 @@
           <div class="mt-auto pt-5">
             <div class="chat chat-start">
               <label
-                v-if="state.step === 'volume' && !isThinking"
+                v-if="state?.step === 'volume' && !isThinking"
                 class="chat-bubble"
                 :class="{ 'border-error border-e-2': errors.targetVolumeL }"
               >
@@ -64,7 +64,7 @@
               </label>
             </div>
 
-            <div v-if="state.step === 'tanninUsage' && !isThinking" class="felx gap-2">
+            <div v-if="state?.step === 'tanninUsage' && !isThinking" class="felx gap-2">
               <div class="chat chat-start">
                 <button
                   class="btn btn-ghost chat-bubble"
@@ -197,7 +197,7 @@
           >
             <ListTile
               :title="$t(item.title)"
-              :subtitle="$t(item.subtitle ?? '')"
+              :subtitle="item.subtitle ? $t(item.subtitle) : undefined"
               :clickable="item.to ? true : false"
             >
               <template #leading>

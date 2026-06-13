@@ -175,8 +175,6 @@ function onPrint() {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=IM+Fell+English:ital@0;1&display=swap");
-
 .scroll-wrap {
   width: min(800px, 94vw);
   filter: drop-shadow(0 8px 24px rgba(60, 30, 0, 0.38));

@@ -64,10 +64,9 @@ export default defineNuxtConfig({
   },
   fonts: {
     families: [
-      {
-        name: "Macondo",
-        provider: "google",
-      },
+      { name: "Macondo", provider: "google" },
+      { name: "UnifrakturMaguntia", provider: "google" },
+      { name: "IM Fell English", provider: "google" },
     ],
   },
 });
