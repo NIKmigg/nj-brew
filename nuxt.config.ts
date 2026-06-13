@@ -37,6 +37,8 @@ export default defineNuxtConfig({
     plugins: [tailwindcss() as any],
   },
   colorMode: {
+    preference: "system",
+    fallback: "dark",
     dataValue: "theme",
   },
   i18n: {

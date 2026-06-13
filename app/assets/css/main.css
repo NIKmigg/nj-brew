@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-html,
 html[data-theme="light"] {
   --home-background-image: url("/background-light.webp");
   --login-background-image: url("/login-light.webp");
