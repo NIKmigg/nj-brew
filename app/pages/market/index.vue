@@ -3,11 +3,9 @@
     <section class="py-16 mx-auto max-w-3xl px-4">
       <div class="container my-auto text-center mx-auto max-w-3xl">
         <p class="text-4xl font-bold mb-4 font-old-style">
-          Willkommen auf dem Markt!
+          {{ $t('market.hero.title') }}
         </p>
-        <p>
-          Auf dem Markt findest du eine Vielzahl von Produkten, die von talentierten Braumeistern angeboten werden. Stöbere durch die Auswahl und entdecke einzigartige Zutaten, exklusive Rezepte und handgefertigte Brauzubehör. Egal, ob du nach seltenen Hopfensorten, speziellen Malzen oder einzigartigen Hefestämmen suchst, hier wirst du fündig. Unterstütze die Braukunst und finde die perfekten Zutaten für dein nächstes Brauprojekt. Viel Spaß beim Einkaufen!
-        </p>
+        <p>{{ $t('market.hero.body') }}</p>
       </div>
     </section>
     <WaveCard />
@@ -15,12 +13,12 @@
       <div class="container my-auto text-center mx-auto max-w-7xl px-4">
         <div class="container my-auto text-center mx-auto max-w-3xl mb-8">
           <p class="text-4xl font-bold mb-4 font-old-style">
-            Stöbere durch alle Produkte...
+            {{ $t('market.browse.title') }}
           </p>
           <p>
-            ... oder finde genau das, was du suchst! Benutze die Suche oder den Filter.
+            {{ $t('market.browse.body') }}
             <br>
-            Der Ladenbesitzer hat alles ordentlich sortiert, damit du schnell findest, was du brauchst.
+            {{ $t('market.browse.hint') }}
           </p>
         </div>
         <div class="mb-8 flex justify-center">
@@ -30,7 +28,7 @@
               v-model="filters.search"
               type="search"
               required
-              placeholder="Suchen..."
+              :placeholder="$t('market.filter.search')"
               class=""
             >
           </label>
@@ -49,7 +47,7 @@
 
             <div tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box shadow-lg p-4 w-64 mt-2 gap-4">
               <div class="flex flex-col gap-1">
-                <span class="text-sm font-semibold text-start">Kategorie</span>
+                <span class="text-sm font-semibold text-start">{{ $t('market.filter.category') }}</span>
                 <label class="flex items-center gap-2 cursor-pointer">
                   <input
                     v-model="filters.categoryId"
@@ -57,7 +55,7 @@
                     :value="null"
                     class="radio radio-sm"
                   >
-                  <span>Alle</span>
+                  <span>{{ $t('market.filter.all') }}</span>
                 </label>
                 <label
                   v-for="category in categories"
@@ -70,12 +68,12 @@
                     :value="category.id"
                     class="radio radio-sm"
                   >
-                  <span>{{ category.name }}</span>
+                  <span>{{ localize(category.name) }}</span>
                 </label>
               </div>
 
               <div class="flex flex-col gap-1">
-                <span class="text-sm font-semibold text-start">Preis</span>
+                <span class="text-sm font-semibold text-start">{{ $t('market.filter.price') }}</span>
                 <div class="flex items-center gap-2">
                   <input
                     v-model.number="filters.minPrice"
@@ -83,7 +81,7 @@
                     placeholder="Min"
                     class="input input-sm input-bordered w-full"
                   >
-                  <span>–</span>
+                  <span>-</span>
                   <input
                     v-model.number="filters.maxPrice"
                     type="number"
@@ -101,11 +99,11 @@
                   :true-value="true"
                   :false-value="undefined"
                 >
-                <span>Vorrätig</span>
+                <span>{{ $t('market.filter.inStock') }}</span>
               </label>
 
               <button type="button" class="btn btn-sm" @click="resetFilters('filter')">
-                Zurücksetzen
+                {{ $t('market.filter.reset') }}
               </button>
             </div>
           </div>
@@ -133,7 +131,7 @@
                   @click="setSort('price', 'asc')"
                 >
                   <Icon name="mdi:sort-ascending" />
-                  Preis aufsteigen
+                  {{ $t('market.sort.priceAsc') }}
                 </button>
                 <button
                   class="btn btn-ghost justify-start"
@@ -141,7 +139,7 @@
                   @click="setSort('price', 'desc')"
                 >
                   <Icon name="mdi:sort-descending" />
-                  Preis absteigend
+                  {{ $t('market.sort.priceDesc') }}
                 </button>
                 <button
                   class="btn btn-ghost justify-start"
@@ -149,7 +147,7 @@
                   @click="setSort('name', 'asc')"
                 >
                   <Icon name="mdi:sort-alphabetical-ascending" />
-                  Name aufsteigend
+                  {{ $t('market.sort.nameAsc') }}
                 </button>
                 <button
                   class="btn btn-ghost justify-start"
@@ -157,10 +155,10 @@
                   @click="setSort('name', 'desc')"
                 >
                   <Icon name="mdi:sort-alphabetical-descending" />
-                  Name absteigend
+                  {{ $t('market.sort.nameDesc') }}
                 </button>
                 <button class="btn btn-sm" @click="resetFilters('sort')">
-                  Zurücksetzen
+                  {{ $t('market.sort.reset') }}
                 </button>
               </div>
             </div>
@@ -198,11 +196,9 @@
     <section class="bg-base-100/80 py-16">
       <div class="container my-auto text-center mx-auto max-w-3xl px-4">
         <p class="text-4xl font-bold mb-4 font-old-style">
-          Noch Fragen?
+          {{ $t('market.contact.title') }}
         </p>
-        <p>
-          Wenn du Fragen zu einem Produkt hast oder mehr über die Braukunst erfahren möchtest, zögere nicht, uns zu kontaktieren. Unser Team steht dir gerne zur Verfügung, um dir bei deinen Brauprojekten zu helfen und dich mit Rat und Tat zu unterstützen. Kontaktiere uns einfach über unser Kontaktformular oder sende uns eine E-Mail. Wir freuen uns darauf, von dir zu hören und dir bei deinem Brauabenteuer zu helfen!
-        </p>
+        <p>{{ $t('market.contact.body') }}</p>
       </div>
     </section>
   </div>
@@ -210,6 +206,7 @@
 
 <script setup lang="ts">
 const toast = useToast();
+const { localize } = useLocalize();
 
 definePageMeta({
   middleware: "auth",
@@ -219,6 +216,6 @@ const { filters, products, status, error, resetFilters, isActiveSort, setSort, i
 const { categories } = useCategories();
 
 onMounted(() => {
-  toast.show("Der Markt wird umgebaut! Einige Funktionen könnten vorübergehend nicht verfügbar sein.", "warning", 9000);
+  toast.show($t("market.toast"), "warning", 9000);
 });
 </script>

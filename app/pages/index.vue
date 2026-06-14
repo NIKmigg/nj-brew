@@ -28,14 +28,12 @@
     </section>
     <WaveCard class="bg-black/30" />
     <section v-section-reveal class="bg-base-200 py-16">
-      <div class="container my-auto text-center mx-auto max-w-3xl">
+      <div class="container my-auto text-center mx-auto max-w-3xl px-4">
         <p data-split class="text-4xl font-bold mb-4 font-old-style">
-          Willkommen Reisender!
+          {{ $t('home.welcome') }}
         </p>
         <p data-split="{ type: 'word', stagger: 0.015 }">
-          In der Taverne von NJ Brew findest du die besten Rezepte für deine Braukünste.
-          Egal, ob du ein erfahrener Braumeister oder ein neugieriger Anfänger bist, wir haben etwas für jeden Geschmack.
-          Tauche ein in die Welt des Brauens und entdecke neue Aromen und Techniken. Prost!
+          {{ $t('home.intro') }}
         </p>
       </div>
     </section>
@@ -54,25 +52,25 @@
     </section>
     <WaveCard class="rotate-180 bg-base-100/80" />
     <section v-section-reveal class="bg-base-100/80 py-16">
-      <div class="container my-auto text-center mx-auto max-w-3xl">
+      <div class="container my-auto text-center mx-auto max-w-3xl px-4">
         <p data-split class="text-4xl font-bold mb-4 font-old-style">
-          Der Met des Hauses
+          {{ $t('home.housemead.title') }}
         </p>
         <p data-split="{ type: 'word', stagger: 0.015 }">
-          Wenn Ihr Euch nicht entscheiden könnt, beginnt mit dem Favoriten unserer Gäste. Dieser klassische Honigmet vereint die natürliche Süße ausgewählter Honige mit einer ausgewogenen Gärung und einem angenehm milden Abgang.
+          {{ $t('home.housemead.intro') }}
           <br><br>
-          Ein zeitloses Rezept, das seit vielen Monden die Krüge unserer Taverne füllt und bereits zahlreiche angehende Metbrauer inspiriert hat.
+          {{ $t('home.housemead.body') }}
           <br><br>
-          Vielleicht wird es auch Euer neuer Favorit.
+          {{ $t('home.housemead.outro') }}
         </p>
       </div>
       <div class="card bg-base-100 shadow-sm flex-1 max-w-xl mx-auto mt-10">
         <div class="card-body gap-3">
           <h2 class="card-title text-base">
-            Rezept: Der Met des Hauses
+            {{ $t('home.housemead.cardTitle') }}
           </h2>
           <div class="card-body p-3">
-            Hier kommt noch was ;)
+            {{ $t('home.housemead.cardBody') }}
           </div>
         </div>
       </div>

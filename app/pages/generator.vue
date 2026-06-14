@@ -4,10 +4,8 @@
       <div class="grid grid-rows-[1fr_auto] sm:grid-cols-[1fr_auto] sm:grid-rows-none items-end ">
         <div class="flex flex-col min-h-120 sm:min-h-100">
           <div class="chat chat-end">
-            <div class="chat-bubble chat-bubble-primary">
-              {{ $t("generator.chat.welcome1") }}
-              <br>
-              {{ $t("generator.chat.welcome2") }}
+            <div class="chat-bubble chat-bubble-primary whitespace-pre-line">
+              {{ $t("generator.chat.welcome") }}
             </div>
           </div>
           <div
