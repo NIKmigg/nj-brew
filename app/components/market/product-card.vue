@@ -5,21 +5,21 @@
         class="absolute left-1/2 top-20 -translate-x-1/2 w-50 h-50 rounded-full blur-3xl bg-neutral/30 pointer-events-none z-0"
       />
       <div v-if="product.category" class="badge badge-soft badge-neutral absolute top-2 right-2 z-1">
-        {{ product.category.name }}
+        {{ localize(product.category.name) }}
       </div>
       <figure class="px-10 pt-10 z-1">
         <img
           :src="product.imageUrl || ''"
-          :alt="product.name"
+          :alt="localize(product.name)"
           class="rounded-xl w-48 h-48 object-cover"
         >
       </figure>
       <div class="card-body items-center text-center z-1">
         <h2 class="card-title line-clamp-1">
-          {{ product.name }}
+          {{ localize(product.name) }}
         </h2>
         <p class="line-clamp-2">
-          {{ product.description }}
+          {{ product.description ? localize(product.description) : "" }}
         </p>
         <div class="card-actions">
           <button
@@ -44,6 +44,7 @@
 import type { SelectProductSchema } from "@shared/schemas/product";
 
 const { product } = defineProps<{ product: SelectProductSchema }>();
+const { localize } = useLocalize();
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat("de-DE", {
@@ -53,6 +54,6 @@ function formatPrice(price: number) {
 }
 
 function handleAddToCart() {
-  console.warn(`Adding product ${product.name} to cart`);
+  console.warn(`Adding product ${localize(product.name)} to cart`);
 }
 </script>

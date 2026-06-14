@@ -1,3 +1,4 @@
+import type { LocalizedString } from "@shared/schemas/i18n";
 import { integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const products = sqliteTable("products", {
@@ -5,9 +6,9 @@ export const products = sqliteTable("products", {
 
   slug: text("slug").notNull().unique(),
 
-  name: text("name").notNull(),
+  name: text("name", { mode: "json" }).notNull().$type<LocalizedString>(),
 
-  description: text("description"),
+  description: text("description", { mode: "json" }).$type<LocalizedString>(),
 
   price: real("price").notNull(),
 

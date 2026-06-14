@@ -3,10 +3,11 @@ import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 import { z } from "zod";
 import { categorySchema } from "./category";
+import { localizedStringSchema } from "./i18n";
 
 export const insertProductSchema = createInsertSchema(products, {
-  name: field => field.min(1).max(100),
-  description: field => field.min(1).max(1000),
+  name: () => localizedStringSchema, // field => field.min(1).max(100),
+  description: () => localizedStringSchema, // field => field.min(1).max(1000),
   price: field => field.min(0.01),
   stock: field => field.min(1),
   categoryId: field => field.min(1),
