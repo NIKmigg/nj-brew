@@ -107,7 +107,7 @@
       v-section-reveal
       class="bg-base-200 py-16"
     >
-      <div class="container my-auto text-center mx-auto max-w-3xl">
+      <div class="container my-auto text-center mx-auto max-w-3xl px-4">
         <p data-split class="text-4xl font-bold mb-4 font-old-style">
           {{ $t('generator.intro.title') }}
         </p>

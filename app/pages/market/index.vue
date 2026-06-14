@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="py-16">
+    <section class="py-16 mx-auto max-w-3xl px-4">
       <div class="container my-auto text-center mx-auto max-w-3xl">
         <p class="text-4xl font-bold mb-4 font-old-style">
           Willkommen auf dem Markt!
@@ -12,7 +12,7 @@
     </section>
     <WaveCard />
     <section class="bg-base-200 py-16">
-      <div class="container my-auto text-center mx-auto max-w-7xl">
+      <div class="container my-auto text-center mx-auto max-w-7xl px-4">
         <div class="container my-auto text-center mx-auto max-w-3xl mb-8">
           <p class="text-4xl font-bold mb-4 font-old-style">
             Stöbere durch alle Produkte...
@@ -35,7 +35,7 @@
             >
           </label>
 
-          <div class="dropdown">
+          <div class="dropdown dropdown-end">
             <button tabindex="0" type="button" class="btn btn-ghost btn-circle ml-4 hover:bg-neutral">
               <Icon
                 name="mdi:filter"
@@ -109,7 +109,7 @@
               </button>
             </div>
           </div>
-          <div class="dropdown dropdown-start">
+          <div class="dropdown dropdown-end">
             <button
               tabindex="0"
               type="button"
@@ -196,7 +196,7 @@
     </section>
     <WaveCard class="rotate-180 bg-base-100/80" />
     <section class="bg-base-100/80 py-16">
-      <div class="container my-auto text-center mx-auto max-w-3xl">
+      <div class="container my-auto text-center mx-auto max-w-3xl px-4">
         <p class="text-4xl font-bold mb-4 font-old-style">
           Noch Fragen?
         </p>
