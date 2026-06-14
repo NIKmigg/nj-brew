@@ -5,17 +5,17 @@
         <div class="rounded-2xl overflow-hidden bg-base-100 border border-base-300">
           <img
             :src="product.imageUrl || ''"
-            :alt="product.name"
+            :alt="localize(product.name)"
             class="w-full h-full object-cover"
           >
         </div>
         <div class="space-y-6">
           <div>
             <h1 class="text-4xl font-bold">
-              {{ product.name }}
+              {{ localize(product.name) }}
             </h1>
             <p class="mt-4 text-base-content/70">
-              {{ product.description }}
+              {{ product.description ? localize(product.description) : "" }}
             </p>
           </div>
           <div class="text-3xl font-semibold">
@@ -46,6 +46,8 @@
 
 <script setup lang="ts">
 import type { SelectProductSchema } from "@shared/schemas/product";
+
+const { localize } = useLocalize();
 
 definePageMeta({
   middleware: "auth",
