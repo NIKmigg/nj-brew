@@ -14,6 +14,28 @@ function sendAuthEmail(email: Parameters<typeof sendEmail>[0]) {
 
 export const auth = betterAuth({
   trustedOrigins: env.TRUSTED_ORIGINS,
+  user: {
+    deleteUser: {
+      enabled: true,
+
+      sendDeleteAccountVerification: async ({ user, url }) => {
+        await sendEmail({
+          to: env.NODE_ENV === "development" ? env.DEV_MAILS_TO : user.email,
+          subject: "NJ Brew Konto löschen",
+          text: `Klicke auf den folgenden Link, um dein Konto zu löschen:
+
+          ${url}
+
+          Falls du die Löschung nicht angefordert hast, kannst du diese E-Mail ignorieren.`,
+          html: `
+          <p>Klicke auf den folgenden Link, um dein Konto zu löschen:</p>
+          <p><a href="${url}">Konto löschen</a></p>
+          <p>Falls du die Löschung nicht angefordert hast, kannst du diese E-Mail ignorieren.</p>
+          `,
+        });
+      },
+    },
+  },
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,

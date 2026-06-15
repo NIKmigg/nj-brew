@@ -117,9 +117,20 @@
               </NuxtLink>
             </div>
 
-            <button v-if="user" class="btn btn-ghost" @click="handleSignOut">
-              {{ $t("auth.logout") }}
-            </button>
+            <div v-if="user">
+              <NuxtLink
+                :to="localePath('/user')"
+                class="btn btn-ghost flex items-center justify-center gap-2 w-full hover:scale-110"
+                :class="{ 'text-primary/80': isActive('/admin') }"
+              >
+                <Icon name="mdi:cog" class="text-xl" />
+                {{ $t("nav.user") }}
+              </NuxtLink>
+
+              <button class="btn btn-ghost" @click="handleSignOut">
+                {{ $t("nav.logout") }}
+              </button>
+            </div>
 
             <AuthButton v-else />
 

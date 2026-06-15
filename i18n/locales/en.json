@@ -67,6 +67,9 @@
     "setNewPasswordIntro": "Choose a new password for your account.",
     "updatePassword": "Update password",
     "passwordUpdated": "Your password was updated. You can sign in now.",
+    "deleteAccount": "Delete Account",
+    "deleteAccountFailed": "Failed to delete account.",
+    "deleteAccountSuccess": "Your account will be deleted once you confirm it via email.",
     "invalidResetToken": "The reset link is invalid or expired.",
     "missingResetToken": "The reset link is incomplete.",
     "backToLogin": "Back to login",
@@ -244,6 +247,31 @@
     "home": "Tavern",
     "generator": "Brewery",
     "market": "Market",
-    "admin": "Admin Dashboard"
+    "admin": "Admin Dashboard",
+    "user": "Settings",
+    "logout": "Logout",
+    "back": "Back",
+    "userSettings": "User Settings",
+    "userOrders": "My Orders"
+  },
+  "settings": {
+    "welcomeTitle": "Welcome to the Tavern Guestbook, {name}!",
+    "welcomeText": "Before you lies the old guestbook of the tavern. Here you can review your entries, update personal information, and manage the records kept about you. Every change is carefully documented by the scribes of the house.",
+
+    "userProperties": {
+      "name": "Name in the Guestbook",
+      "email": "Messenger Address",
+      "createdAt": "First Visit to the Tavern"
+    },
+
+    "deleteTitle": "Strike Your Name from the Guestbook",
+
+    "deleteQuestion": "Do new adventures call for you, and do you wish to leave the tavern of NJ Brew behind?",
+
+    "deleteDescription": "Do you wish not only to leave the tavern, but also to erase all traces of your journey?\n\nAt your request, the scribes of the tavern will remove all records concerning you from the guestbook. Be aware that this action is permanent and cannot be undone."
+  },
+  "legal": {
+    "imprint": "Imprint",
+    "privacy": "Privacy Policy"
   }
 }
