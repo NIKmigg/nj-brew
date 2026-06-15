@@ -3,6 +3,7 @@ import { auth } from "@server/lib/auth";
 const protectedRoutes = [
   "/market",
   "/generator",
+  "/user",
 ];
 
 const localePrefixes = [

@@ -31,7 +31,7 @@
   },
   "auth": {
     "login": "Login",
-    "logout": "Logout",
+    "logout": "Ausloggen",
     "register": "Registrieren",
     "welcome": "Willkommen, Fremder!",
     "intro": "Sag dem Wachtmann wer du bist oder registriere dich beim Pförtner, um Zugang zu erhalten.",
@@ -47,7 +47,7 @@
     "github": "Mit GitHub anmelden",
     "loginFailed": "Login fehlgeschlagen.",
     "loginSuccess": "Erfolgreich eingeloggt.",
-    "logoutFailed": "Logout fehlgeschlagen.",
+    "logoutFailed": "Ausloggen fehlgeschlagen.",
     "logoutSuccess": "Erfolgreich abgemeldet.",
     "registerFailed": "Registrierung fehlgeschlagen.",
     "registerSuccess": "Registrierung erfolgreich.",
@@ -67,6 +67,9 @@
     "setNewPasswordIntro": "Wähle ein neues Passwort für dein Konto.",
     "updatePassword": "Passwort aktualisieren",
     "passwordUpdated": "Dein Passwort wurde aktualisiert. Du kannst dich jetzt anmelden.",
+    "deleteAccount": "Account löschen",
+    "deleteAccountFailed": "Konto konnte nicht gelöscht werden.",
+    "deleteAccountSuccess": "Dein Konto wird gelöscht, sobald du es per Email bestätigt hast.",
     "invalidResetToken": "Der Reset-Link ist ungültig oder abgelaufen.",
     "missingResetToken": "Der Reset-Link ist unvollständig.",
     "backToLogin": "Zurück zum Login",
@@ -282,6 +285,31 @@
     "home": "Taverne",
     "generator": "Brauerei",
     "market": "Markt",
-    "admin": "Admin Dashboard"
+    "admin": "Admin Dashboard",
+    "user": "Einstellungen",
+    "logout": "Ausloggen",
+    "back": "Zurück",
+    "userSettings": "Benutzer",
+    "userOrders": "Meine Bestellungen"
+  },
+  "settings": {
+    "welcomeTitle": "Willkommen im Gästebuch der Taverne, {name}!",
+    "welcomeText": "Vor dir liegt das alte Gästebuch der Taverne. Hier kannst du deine Einträge überprüfen, persönliche Angaben ändern und die Aufzeichnungen zu deiner Person verwalten. Jede Änderung wird sorgfältig von den Schreibern des Hauses dokumentiert.",
+
+    "userProperties": {
+      "name": "Name im Gästebuch",
+      "email": "Brieftauben-Adresse",
+      "createdAt": "Erster Besuch der Taverne"
+    },
+
+    "deleteTitle": "Deinen Namen aus dem Gästebuch streichen",
+
+    "deleteQuestion": "Rufen neue Abenteuer nach dir und möchtest du die Taverne von NJ Brew hinter dir lassen?",
+
+    "deleteDescription": "Möchtest du nicht nur die Taverne verlassen, sondern auch alle Spuren deiner Reise verwischen?\n\nDie Schreiber der Taverne werden auf deinen Wunsch hin sämtliche Einträge zu deiner Person aus dem Gästebuch entfernen. Bedenke, dass dieser Vorgang endgültig ist und nicht rückgängig gemacht werden kann."
+  },
+  "legal": {
+    "imprint": "Impressum",
+    "privacy": "Datenschutzerklärung"
   }
 }

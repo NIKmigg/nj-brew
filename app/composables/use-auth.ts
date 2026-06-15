@@ -150,6 +150,19 @@ export async function useAuth() {
     }
   }
 
+  async function deleteUser() {
+    const result = await authClient.deleteUser();
+
+    if (result.error) {
+      throw new Error(
+        getAuthErrorMessage(result.error, "auth.deleteAccountFailed"),
+      );
+    }
+    else {
+      await authClient.signOut();
+    }
+  }
+
   return {
     session,
     user,
@@ -164,5 +177,6 @@ export async function useAuth() {
     requestPasswordReset,
     resetPassword,
     signOut,
+    deleteUser,
   };
 }

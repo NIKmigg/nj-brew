@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "@tailwindcss/typography";
 
 html[data-theme="light"] {
   --home-background-image: url("/background-light.webp");
@@ -88,7 +89,7 @@ html[data-theme="dark"] {
   --color-base-100: oklch(21% 0.006 56.043);
   --color-base-200: oklch(26% 0.007 34.298);
   --color-base-300: oklch(0% 0 0);
-  --color-base-content: oklch(84.955% 0 0);
+  --color-base-content: oklch(95% 0.013 255.508);
   --color-primary: oklch(82% 0.189 84.429);
   --color-primary-content: oklch(12% 0.042 264.695);
   --color-secondary: oklch(44% 0.119 151.328);

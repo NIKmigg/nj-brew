@@ -15,6 +15,7 @@ export default defineNuxtConfig({
   alias: {
     "@server": resolve(__dirname, "./server"),
     "@shared": resolve(__dirname, "./shared"),
+    "@legal": resolve(__dirname, "./legal"),
   },
   modules: [
     "@nuxt/eslint",

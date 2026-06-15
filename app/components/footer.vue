@@ -15,20 +15,19 @@
       </p>
     </aside>
     <nav class="z-2">
-      <div class="grid grid-flow-col gap-4">
-        <a>
-          <Icon name="mdi:twitter" class="text-3xl" />
-        </a>
-        <a>
-          <Icon name="mdi:youtube" class="text-3xl" />
-        </a>
-        <a>
-          <Icon name="mdi:instagram" class="text-3xl" />
-        </a>
+      <div class="grid grid-flow-col gap-4 font-bold">
+        <NuxtLink :to="localePath('/legal/imprint')" class="hover:bg-transparent hover:scale-110">
+          {{ $t("legal.imprint") }}
+        </NuxtLink>
+        -
+        <NuxtLink :to="localePath('/legal/privacy')" class="hover:bg-transparent hover:scale-110">
+          {{ $t("legal.privacy") }}
+        </NuxtLink>
       </div>
     </nav>
   </footer>
 </template>
 
 <script setup lang="ts">
+const localePath = useLocalePath();
 </script>
