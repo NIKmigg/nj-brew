@@ -295,22 +295,22 @@
   },
   "home": {
     "title": "NJ Brew",
-    "body": "Discover the art of brewing with NJ Brew, your ultimate companion for crafting delicious mead. Whether you're a beginner or an experienced brewer, our app provides you with all the tools and information you need to create your own unique mead recipes. From ingredient selection to fermentation tips, NJ Brew is here to guide you every step of the way. Start your brewing journey today and unleash your creativity with NJ Brew!",
+    "body": "Discover the art of brewing with NJ Brew, your ultimate companion for crafting delicious mead.\n\nWhether you're a beginner or an experienced brewer, our app provides you with all the tools and information you need to create your own unique mead recipes.\n\nFrom ingredient selection to fermentation tips, NJ Brew is here to guide you every step of the way.\n\nStart your brewing journey today and unleash your creativity with NJ Brew!",
     "cta": "Get Started",
     "welcome": "Welcome, traveler!",
-    "intro": "In the tavern of NJ Brew you will find the best recipes for your brewing arts. Whether you are an experienced brewmaster or a curious beginner, we have something for every taste. Dive into the world of brewing and discover new flavors and techniques. Cheers!",
+    "intro": "In the tavern of NJ Brew you will find the best recipes for your brewing arts.\n\nWhether you are an experienced brewmaster or a curious beginner, we have something for every taste. Dive into the world of brewing and discover new flavors and techniques.\nCheers!",
     "cards": {
       "tavern": {
         "title": "Tavern",
-        "description": "Discover our diverse selection of recipes, ranging from traditional to modern creations. Whether you are a beginner or an experienced brewer, you will find inspiration for your next brewing project."
+        "description": "Discover our diverse selection of recipes, ranging from traditional to modern creations.\n\nWhether you are a beginner or an experienced brewer, you will find inspiration for your next brewing project."
       },
       "brewery": {
         "title": "Brewery",
-        "description": "Learn the art of brewing and discover the secrets behind the production of beer. From ingredient selection to the brewing process, we provide valuable insights and tips to help you brew your own beer."
+        "description": "Learn the art of brewing and discover the secrets behind the production of beer.\n\nFrom ingredient selection to the brewing process, we provide valuable insights and tips to help you brew your own beer."
       },
       "market": {
         "title": "Market",
-        "description": "Find the best ingredients and equipment for your brewing hobby. Our market offers a carefully selected range of malts, hops, yeast, and brewing accessories, so you have everything you need to brew your perfect beer."
+        "description": "Find the best ingredients and equipment for your brewing hobby.\n\nOur market offers a carefully selected range of malts, hops, yeast, and brewing accessories, so you have everything you need to brew your perfect beer."
       }
     },
     "housemead": {
@@ -326,7 +326,7 @@
     "title": "Market",
     "hero": {
       "title": "Welcome to the Market!",
-      "body": "At the market you will find a wide variety of products offered by talented brewmasters. Browse the selection and discover unique ingredients, exclusive recipes and handcrafted brewing accessories. Whether you are looking for rare hop varieties, special malts or unique yeast strains, you will find what you need here. Support the art of brewing and find the perfect ingredients for your next brewing project. Happy shopping!"
+      "body": "At the market you will find a wide variety of products offered by talented brewmasters.\n\nBrowse the selection and discover unique ingredients, exclusive recipes and handcrafted brewing accessories.\nWhether you are looking for rare hop varieties, special malts or unique yeast strains, you will find what you need here. Support the art of brewing and find the perfect ingredients for your next brewing project.\n\nHappy shopping!"
     },
     "browse": {
       "title": "Browse all products...",
@@ -374,7 +374,7 @@
   },
   "settings": {
     "welcomeTitle": "Welcome to the Tavern Guestbook, {name}!",
-    "welcomeText": "Before you lies the old guestbook of the tavern. Here you can review your entries, update personal information, and manage the records kept about you. Every change is carefully documented by the scribes of the house.",
+    "welcomeText": "Before you lies the old guestbook of the tavern.\nHere you can review your entries, update personal information, and manage the records kept about you. Every change is carefully documented by the scribes of the house.",
 
     "userProperties": {
       "name": "Name in the Guestbook",

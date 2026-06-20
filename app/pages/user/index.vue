@@ -1,11 +1,11 @@
 <template>
   <div>
-    <section class="py-16">
+    <section v-section-reveal class="py-16">
       <div class="container my-auto text-center mx-auto max-w-3xl">
-        <p class="text-4xl font-bold mb-4 font-old-style">
+        <h1 data-split class="text-4xl font-bold mb-4 font-old-style">
           {{ $t("settings.welcomeTitle", { name: user?.name }) }}
-        </p>
-        <p>
+        </h1>
+        <p data-split="{ type: 'word', stagger: 0.015 }">
           {{ $t("settings.welcomeText") }}
         </p>
       </div>
@@ -27,22 +27,42 @@
             class="rounded-full"
           >
         </div>
-        <br>
-        {{ $t("settings.userProperties.name") }}: {{ user?.name }}
-        <br>
-        {{ $t("settings.userProperties.email") }}: {{ user?.email }}
-        <br>
-        {{ $t("settings.userProperties.createdAt") }}: {{ user?.createdAt }}
+        <div class="divider my-3" />
+        <div class="grid grid-cols-[1fr_auto_1fr] gap-x-4">
+          <span class="text-right">
+            {{ $t("settings.userProperties.name") }}
+          </span>
+          <span>:</span>
+          <span class="text-left font-semibold">
+            {{ user?.name }}
+          </span>
+
+          <span class="text-right">
+            {{ $t("settings.userProperties.email") }}
+          </span>
+          <span>:</span>
+          <span class="text-left font-semibold">
+            {{ user?.email }}
+          </span>
+
+          <span class="text-right">
+            {{ $t("settings.userProperties.createdAt") }}
+          </span>
+          <span>:</span>
+          <span class="text-left font-semibold">
+            {{ formatDateTime(user?.createdAt) }}
+          </span>
+        </div>
       </div>
     </section>
     <WaveCard class="rotate-180 bg-base-100/80" />
-    <section class="bg-base-100/80 py-16">
+    <section v-section-reveal class="bg-base-100/80 py-16">
       <div class="container my-auto text-center mx-auto max-w-3xl">
-        <p class="text-4xl font-bold mb-4 font-old-style">
+        <h1 data-split class="text-4xl font-bold mb-4 font-old-style">
           {{ $t("settings.deleteTitle") }}
-        </p>
+        </h1>
 
-        <p>
+        <p data-split="{ type: 'word', stagger: 0.015 }">
           {{ $t("settings.deleteQuestion") }}
         </p>
 
@@ -50,7 +70,7 @@
           {{ $t("auth.logout") }}
         </button>
 
-        <p class="whitespace-pre-line">
+        <p data-split="{ type: 'word', stagger: 0.015 }" class="whitespace-pre-line">
           {{ $t("settings.deleteDescription") }}
         </p>
 
@@ -82,6 +102,7 @@ definePageMeta({
 const { user, signOut, deleteUser } = await useAuth();
 const localePath = useLocalePath();
 const toast = useToast();
+const { formatDateTime } = useFormatDate();
 const showDeleteConfirm = ref(false);
 
 async function handleSignOut() {
