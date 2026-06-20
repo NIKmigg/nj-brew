@@ -1,3 +1,4 @@
+import type { LocalizedString } from "@shared/schemas/i18n";
 import type { InsertProductSchema, ProductFilters } from "@shared/schemas/product";
 import { asc, desc, eq, gt, gte, like, lte } from "drizzle-orm";
 import { customAlphabet } from "nanoid";
@@ -11,13 +12,13 @@ export async function findProductBySlug(slug: string) {
   });
 }
 
-export async function createUniqueSlug(name: string) {
+export async function createUniqueSlug(name: LocalizedString) {
   const nanoid = customAlphabet(
     "abcdefghijklmnopqrstuvwxyz0123456789",
     5,
   );
 
-  const baseSlug = slugify(name, {
+  const baseSlug = slugify(name.de, {
     lower: true,
     strict: true,
   });

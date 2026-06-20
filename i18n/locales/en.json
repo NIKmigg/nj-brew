@@ -1,7 +1,58 @@
 {
   "global": {
     "loading": "Loading...",
-    "missingFeature": "This feature is not available yet."
+    "missingFeature": "This feature is not available yet.",
+    "skipToContent": "Skip to content",
+    "close": "Close",
+    "reset": "Reset"
+  },
+  "seo": {
+    "default": {
+      "title": "NJ Brew",
+      "description": "NJ Brew helps you brew mead with a recipe calculator, ingredient market, and practical brewing knowledge."
+    },
+    "home": {
+      "title": "Tavern",
+      "description": "Discover NJ Brew, plan your own mead, and find inspiration for your next brewing project."
+    },
+    "generator": {
+      "title": "Mead Calculator",
+      "description": "Calculate ingredients, fermentation values, and brewing recommendations for your own mead."
+    },
+    "market": {
+      "title": "Market",
+      "description": "Browse ingredients and brewing gear for your next mead project."
+    },
+    "login": {
+      "title": "Login",
+      "description": "Sign in to NJ Brew or create an account for your brewing journey."
+    },
+    "forgotPassword": {
+      "title": "Reset Password",
+      "description": "Request a link to reset your NJ Brew password."
+    },
+    "resetPassword": {
+      "title": "Set New Password",
+      "description": "Set a new password for your NJ Brew account."
+    },
+    "user": {
+      "title": "Settings",
+      "description": "Manage your NJ Brew account and personal details."
+    },
+    "orders": {
+      "title": "My Orders",
+      "description": "View your NJ Brew orders."
+    },
+    "admin": {
+      "title": "Admin Dashboard",
+      "description": "Manage products, orders, and brewing values in NJ Brew."
+    },
+    "legal": {
+      "imprintTitle": "Imprint",
+      "imprintDescription": "Legal notice and contact information for NJ Brew.",
+      "privacyTitle": "Privacy Policy",
+      "privacyDescription": "Information about privacy and data protection at NJ Brew."
+    }
   },
   "admin": {
     "title": "Admin Dashboard",
@@ -11,6 +62,17 @@
     "users": "Manage Users",
     "meadConstants": "Manage Mead Constants",
     "editConstants": "Edit Constants",
+    "product": {
+      "nameDe": "Name (German)",
+      "nameEn": "Name (English)",
+      "descriptionDe": "Description (German)",
+      "descriptionEn": "Description (English)",
+      "price": "Price",
+      "stock": "Stock",
+      "imageUrl": "Image URL",
+      "saving": "Saving...",
+      "save": "Save product"
+    },
     "constants": {
       "ingredients": "Ingredients",
       "honeyPerL": "Honey per Litre",
@@ -26,7 +88,9 @@
       "displayValues": "Display Values",
       "estimatedBrix": "Estimated °Brix",
       "estimatedAlc": "Estimated Alcohol Content",
-      "save": "Save"
+      "save": "Save",
+      "saveSuccess": "Saved successfully!",
+      "saveFailed": "Saving failed."
     }
   },
   "auth": {
@@ -79,6 +143,13 @@
     "failed": "Authentication failed."
   },
   "info": "Info",
+  "theme": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "toast": {
+    "close": "Close notification"
+  },
   "footer": {
     "tagline": "Brewing craft in the old tradition.",
     "copyright": "Copyright © {year} - All rights reserved"
@@ -267,6 +338,13 @@
       "price": "Price",
       "inStock": "In Stock",
       "reset": "Reset"
+    },
+    "product": {
+      "addToCart": "Add to cart: {name}",
+      "buy": "Buy",
+      "buyProduct": "Buy: {name}",
+      "available": "{count} available",
+      "notAvailable": "Not available"
     },
     "sort": {
       "priceAsc": "Price ascending",

@@ -17,13 +17,13 @@
           <img
             v-if="user?.image"
             :src="user.image"
-            alt="avatar"
+            :alt="user.name || $t('nav.user')"
             class="rounded-full"
           >
           <img
             v-else
             src="/avatar.webp"
-            alt="avatar"
+            :alt="$t('nav.user')"
             class="rounded-full"
           >
         </div>
@@ -66,6 +66,8 @@
 definePageMeta({
   layout: "settings",
   middleware: "auth",
+  titleKey: "seo.user.title",
+  descriptionKey: "seo.user.description",
 });
 
 const { user, signOut, deleteUser } = await useAuth();

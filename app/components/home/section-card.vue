@@ -5,8 +5,11 @@
       data.background,
     ]"
     class="card bg-cover bg-center transition-all duration-500 overflow-hidden"
+    tabindex="0"
     @mouseenter="emit('activate')"
     @mouseleave="emit('deactivate')"
+    @focus="emit('activate')"
+    @blur="emit('deactivate')"
   >
     <div class="relative card-body items-center text-center justify-center">
       <div

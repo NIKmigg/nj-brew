@@ -132,6 +132,7 @@ function resetField(field: keyof UpdateMeadConstantsSchema) {
 }
 
 const toast = useToast();
+const { t } = useI18n();
 
 const onSubmit = handleSubmit(async (values) => {
   try {
@@ -140,10 +141,10 @@ const onSubmit = handleSubmit(async (values) => {
       body: values,
     });
 
-    toast.show("Erfolgreich gespeichert!", "success", 3000);
+    toast.show(t("admin.constants.saveSuccess"), "success", 3000);
   }
   catch (error: any) {
-    const message = error.data?.message ?? "Speichern fehlgeschlagen.";
+    const message = error.data?.message ?? t("admin.constants.saveFailed");
     toast.show(message, "error", 5000);
   }
 });

@@ -102,5 +102,15 @@ export async function seedProducts() {
       imageUrl: "/products/yeast.webp",
       category: "Basiszutat",
     },
-  ]).onConflictDoNothing();
+  ].map(({ category: _category, description, name, ...product }) => ({
+    ...product,
+    description: {
+      de: description,
+      en: description,
+    },
+    name: {
+      de: name,
+      en: name,
+    },
+  }))).onConflictDoNothing();
 }

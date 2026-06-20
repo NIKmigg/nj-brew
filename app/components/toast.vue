@@ -16,6 +16,8 @@
 
         <button
           class="btn btn-circle btn-ghost btn-sm ml-auto"
+          type="button"
+          :aria-label="$t('toast.close')"
           @click="remove(toast.id)"
         >
           <Icon name="mdi:close" class="text-lg" />

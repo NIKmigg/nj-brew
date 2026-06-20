@@ -48,6 +48,8 @@
 <script setup lang="ts">
 definePageMeta({
   middleware: "admin",
+  titleKey: "seo.admin.title",
+  descriptionKey: "seo.admin.description",
 });
 
 const localePath = useLocalePath();

@@ -25,6 +25,7 @@
           <button
             type="button"
             class="btn btn-circle absolute right-2 bottom-2 shadow-xl hover:bg-neutral"
+            :aria-label="$t('market.product.addToCart', { name: localize(product.name) })"
             @click.stop="handleAddToCart"
           >
             <Icon name="mdi:cart-add" class="text-2xl" />

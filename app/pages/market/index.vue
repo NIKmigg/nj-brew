@@ -29,12 +29,19 @@
               type="search"
               required
               :placeholder="$t('market.filter.search')"
+              :aria-label="$t('market.filter.search')"
               class=""
             >
           </label>
 
           <div class="dropdown dropdown-end">
-            <button tabindex="0" type="button" class="btn btn-ghost btn-circle ml-4 hover:bg-neutral">
+            <button
+              tabindex="0"
+              type="button"
+              class="btn btn-ghost btn-circle ml-4 hover:bg-neutral"
+              :aria-label="$t('market.filter.category')"
+              aria-haspopup="menu"
+            >
               <Icon
                 name="mdi:filter"
                 class="text-2xl cursor-pointer"
@@ -54,6 +61,7 @@
                     type="radio"
                     :value="null"
                     class="radio radio-sm"
+                    :aria-label="$t('market.filter.all')"
                   >
                   <span>{{ $t('market.filter.all') }}</span>
                 </label>
@@ -67,6 +75,7 @@
                     type="radio"
                     :value="category.id"
                     class="radio radio-sm"
+                    :aria-label="localize(category.name)"
                   >
                   <span>{{ localize(category.name) }}</span>
                 </label>
@@ -79,6 +88,7 @@
                     v-model.number="filters.minPrice"
                     type="number"
                     placeholder="Min"
+                    :aria-label="`${$t('market.filter.price')} Min`"
                     class="input input-sm input-bordered w-full"
                   >
                   <span>-</span>
@@ -86,6 +96,7 @@
                     v-model.number="filters.maxPrice"
                     type="number"
                     placeholder="Max"
+                    :aria-label="`${$t('market.filter.price')} Max`"
                     class="input input-sm input-bordered w-full"
                   >
                 </div>
@@ -98,6 +109,7 @@
                   class="checkbox checkbox-sm"
                   :true-value="true"
                   :false-value="undefined"
+                  :aria-label="$t('market.filter.inStock')"
                 >
                 <span>{{ $t('market.filter.inStock') }}</span>
               </label>
@@ -112,6 +124,8 @@
               tabindex="0"
               type="button"
               class="btn btn-ghost btn-circle ml-4 hover:bg-neutral"
+              :aria-label="$t('market.sort.reset')"
+              aria-haspopup="menu"
             >
               <Icon
                 name="mdi:sort"
@@ -185,7 +199,7 @@
           <NuxtLink
             v-for="product in products"
             :key="product.id"
-            :to="`/market/${product.slug}`"
+            :to="localePath(`/market/${product.slug}`)"
           >
             <MarketProductCard :product="product" />
           </NuxtLink>
@@ -207,9 +221,12 @@
 <script setup lang="ts">
 const toast = useToast();
 const { localize } = useLocalize();
+const localePath = useLocalePath();
 
 definePageMeta({
   middleware: "auth",
+  titleKey: "seo.market.title",
+  descriptionKey: "seo.market.description",
 });
 
 const { filters, products, status, error, resetFilters, isActiveSort, setSort, isSortActive, isFilterActive } = useProductFilters();

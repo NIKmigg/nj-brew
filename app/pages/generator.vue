@@ -22,6 +22,8 @@
               <button
                 v-if="msg.step === 'volume'"
                 class="btn btn-ghost ml-2 hover:bg-transparent"
+                type="button"
+                :aria-label="$t('generator.inputs.targetVolume')"
                 @click="onVolumeEdit"
               >
                 <Icon name="mdi:edit" />
@@ -42,6 +44,9 @@
                     v-bind="targetVolumeLAttrs"
                     type="number"
                     min="0.1"
+                    :aria-label="$t('generator.inputs.targetVolume')"
+                    :aria-invalid="errors.targetVolumeL ? 'true' : 'false'"
+                    :aria-describedby="errors.targetVolumeL ? 'target-volume-error' : undefined"
                     class="app-number-input focus:outline-none max-w-30 "
                     :class="{ 'input-error': errors.targetVolumeL }"
                     :disabled="isThinking"
@@ -50,13 +55,15 @@
                   <span>{{ $t("generator.chat.liters") }}</span>
                   <button
                     class="btn btn-ghost ml-5"
+                    type="button"
+                    :aria-label="$t('generator.inputs.calculate')"
                     :disabled="isThinking"
                     @click="onEnter"
                   >
                     <Icon name="mdi:send" />
                   </button>
                 </div>
-                <p v-if="errors.targetVolumeL" class="text-error label text-xs">
+                <p v-if="errors.targetVolumeL" id="target-volume-error" class="text-error label text-xs">
                   {{ $t(errors.targetVolumeL) }}
                 </p>
               </label>
@@ -324,6 +331,8 @@ import ListTile from "~/components/list-tile.vue";
 
 definePageMeta({
   middleware: "auth",
+  titleKey: "seo.generator.title",
+  descriptionKey: "seo.generator.description",
 });
 
 const result = ref<MeadRecipeOutput | null>(null);

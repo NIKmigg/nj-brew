@@ -10,5 +10,7 @@
 definePageMeta({
   layout: "settings",
   middleware: "auth",
+  titleKey: "seo.orders.title",
+  descriptionKey: "seo.orders.description",
 });
 </script>

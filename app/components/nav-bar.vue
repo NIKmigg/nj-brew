@@ -1,13 +1,19 @@
 <template>
-  <div class="navbar rounded-2xl border border-base-300/30 bg-base-100/80 backdrop-blur shadow-lg">
+  <nav class="navbar rounded-2xl border border-base-300/30 bg-base-100/80 backdrop-blur shadow-lg" :aria-label="$t('nav.home')">
     <div class="navbar-start ml-4">
       <div class="dropdown">
-        <div tabindex="0" role="button" class="flex items-center justify-center hover:scale-110 lg:hidden">
+        <button
+          type="button"
+          class="flex items-center justify-center hover:scale-110 lg:hidden"
+          :aria-label="$t('nav.home')"
+          aria-haspopup="menu"
+        >
           <Icon name="mdi:menu" class="text-3xl" />
-        </div>
+        </button>
         <ul
           tabindex="-1"
           class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+          role="menu"
         >
           <li>
             <NuxtLink :to="localePath('/')" class="hover:bg-transparent hover:scale-110" :class="{ 'text-primary/80': isActive('/') }">
@@ -36,10 +42,12 @@
       <NuxtLink
         :to="localePath('/')"
         class="flex items-center ml-4"
+        aria-label="NJ Brew"
       >
         <img
           src="/logo.webp"
-          alt="NJ Logo"
+          alt=""
+          aria-hidden="true"
           class="w-10 h-10"
         >
         <span class="ml-2 font-bold text-xl font-old-style text-primary/80">
@@ -48,7 +56,7 @@
       </NuxtLink>
     </div>
     <div class="navbar-center hidden lg:flex">
-      <ul class="menu menu-horizontal px-1">
+      <ul class="menu menu-horizontal px-1" role="list">
         <li>
           <NuxtLink :to="localePath('/')" class="hover:bg-transparent hover:scale-110" :class="{ 'text-primary/80': isActive('/') }">
             <Icon name="mdi:home" class="text-3xl" />
@@ -75,23 +83,28 @@
     </div>
     <div class="navbar-end mr-4">
       <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <button
+          type="button"
+          class="btn btn-ghost btn-circle avatar"
+          :aria-label="$t('nav.user')"
+          aria-haspopup="menu"
+        >
           <img
             v-if="user?.image"
             :src="user.image"
-            alt="avatar"
+            :alt="user.name || $t('nav.user')"
             class="rounded-full"
           >
 
           <img
             v-else
             src="/avatar.webp"
-            alt="avatar"
+            :alt="$t('nav.user')"
             class="rounded-full"
           >
-        </div>
+        </button>
 
-        <div tabindex="0" class="dropdown-content mt-3 z-1 w-64 card card-compact bg-base-100 shadow">
+        <div tabindex="0" class="dropdown-content mt-3 z-1 w-64 card card-compact bg-base-100 shadow" role="menu">
           <div class="card-body text-center">
             <h3 class="font-semibold">
               {{ user?.name || 'Ragnar Prostbrok' }}
@@ -112,6 +125,7 @@
                 class="btn btn-sm join-item flex-1"
                 :class="{ 'btn-active': locale === language.code }"
                 :to="switchLocalePath(language.code)"
+                :aria-current="locale === language.code ? 'true' : undefined"
               >
                 {{ language.label }}
               </NuxtLink>
@@ -149,7 +163,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script setup lang="ts">

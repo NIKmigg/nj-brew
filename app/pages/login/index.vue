@@ -26,64 +26,70 @@
       </div>
       <form class="flex flex-col gap-3" @submit.prevent="onSubmit">
         <div v-if="mode === 'signup'" class="form-control w-full">
-          <label class="label pl-3 pb-1">
+          <label class="label pl-3 pb-1" for="auth-name">
             <span class="label-text">{{ $t('auth.name') }}</span>
           </label>
           <div class="relative">
             <Icon name="mdi:account" class="absolute z-60 left-3 top-1/2 -translate-y-1/2 opacity-60" />
             <input
-              v-model="name"
               v-bind="nameAttrs"
+              id="auth-name"
+              v-model="name"
               class="input input-neutral w-full pl-10 pr-10"
               autocomplete="name"
               type="text"
+              :aria-invalid="errors.name ? 'true' : 'false'"
             >
           </div>
           <FormMessage :message="errors.name" class="pl-3" />
         </div>
         <div class="form-control w-full">
-          <label class="label pl-3 pb-1">
+          <label class="label pl-3 pb-1" for="auth-email">
             <span class="label-text">{{ $t('auth.email') }}</span>
           </label>
           <div class="relative">
             <Icon name="mdi:at" class="absolute z-60 left-3 top-1/2 -translate-y-1/2 opacity-60" />
             <input
-              v-model="email"
               v-bind="emailAttrs"
+              id="auth-email"
+              v-model="email"
               class="input input-neutral w-full pl-10 pr-10"
               autocomplete="email"
               type="email"
+              :aria-invalid="errors.email ? 'true' : 'false'"
             >
           </div>
           <FormMessage :message="errors.email" class="pl-3" />
         </div>
         <div class="form-control w-full">
-          <label class="label pl-3 pb-1">
+          <label class="label pl-3 pb-1" for="auth-password">
             <span class="label-text">{{ $t('auth.password') }}</span>
           </label>
           <div class="relative">
             <Icon name="mdi:lock" class="absolute z-60 left-3 top-1/2 -translate-y-1/2 opacity-60" />
             <input
-              v-model="password"
               v-bind="passwordAttrs"
+              id="auth-password"
+              v-model="password"
               class="input input-neutral w-full pl-10 pr-10"
               :autocomplete="mode === 'signup' ? 'new-password' : 'current-password'"
               :type="showPassword ? 'text' : 'password'"
+              :aria-invalid="errors.password ? 'true' : 'false'"
             >
-            <span
-              tabindex="0"
-              role="button"
+            <button
+              type="button"
               class="absolute right-3 top-5.5 -translate-y-1/2 cursor-pointer hover:text-neutral focus:text-neutral"
+              :aria-label="$t('auth.password')"
+              :aria-pressed="showPassword"
               @click="showPassword = !showPassword"
-              @keydown.enter="showPassword = !showPassword"
             >
               <Icon :name="showPassword ? 'mdi-eye' : 'mdi-eye-off'" class="opacity-60 text-2xl" />
-            </span>
+            </button>
           </div>
           <FormMessage :message="errors.password" class="pl-3" />
         </div>
         <div v-if="mode === 'signup'" class="form-control w-full">
-          <label class="label pl-3 pb-1">
+          <label class="label pl-3 pb-1" for="auth-confirm-password">
             <span class="label-text">{{ $t('auth.confirmPassword') }}</span>
           </label>
 
@@ -94,21 +100,23 @@
             />
 
             <input
-              v-model="confirmPassword"
               v-bind="confirmPasswordAttrs"
+              id="auth-confirm-password"
+              v-model="confirmPassword"
               class="input input-neutral w-full pl-10 pr-10"
               autocomplete="new-password"
               :type="showConfirmPassword ? 'text' : 'password'"
+              :aria-invalid="errors.confirmPassword ? 'true' : 'false'"
             >
-            <span
-              tabindex="0"
-              role="button"
+            <button
+              type="button"
               class="absolute right-3 top-5.5 -translate-y-1/2 cursor-pointer hover:text-neutral focus:text-neutral"
+              :aria-label="$t('auth.confirmPassword')"
+              :aria-pressed="showConfirmPassword"
               @click="showConfirmPassword = !showConfirmPassword"
-              @keydown.enter="showConfirmPassword = !showConfirmPassword"
             >
               <Icon :name="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'" class="opacity-60 text-2xl" />
-            </span>
+            </button>
           </div>
           <FormMessage :message="errors.confirmPassword" class="pl-3" />
         </div>
@@ -158,6 +166,11 @@ import AuthVerificationAction from "~/components/auth/verification-action.vue";
 import FormMessage from "~/components/form-message.vue";
 
 const toast = useToast();
+
+definePageMeta({
+  titleKey: "seo.login.title",
+  descriptionKey: "seo.login.description",
+});
 
 const {
   user,

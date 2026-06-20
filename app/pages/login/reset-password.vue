@@ -12,32 +12,34 @@
 
       <form v-else class="flex flex-col gap-3" @submit.prevent="onSubmit">
         <div class="form-control w-full">
-          <label class="label pl-3 pb-1">
+          <label class="label pl-3 pb-1" for="reset-password">
             <span class="label-text">{{ $t('auth.password') }}</span>
           </label>
           <div class="relative">
             <Icon name="mdi:lock" class="absolute z-60 left-3 top-1/2 -translate-y-1/2 opacity-60" />
             <input
-              v-model="password"
               v-bind="passwordAttrs"
+              id="reset-password"
+              v-model="password"
               class="input input-neutral w-full pl-10 pr-10"
               autocomplete="new-password"
               :type="showPassword ? 'text' : 'password'"
+              :aria-invalid="errors.password ? 'true' : 'false'"
             >
-            <span
-              tabindex="0"
-              role="button"
+            <button
+              type="button"
               class="absolute right-3 top-5.5 -translate-y-1/2 cursor-pointer hover:text-neutral focus:text-neutral"
+              :aria-label="$t('auth.password')"
+              :aria-pressed="showPassword"
               @click="showPassword = !showPassword"
-              @keydown.enter="showPassword = !showPassword"
             >
               <Icon :name="showPassword ? 'mdi-eye' : 'mdi-eye-off'" class="opacity-60 text-2xl" />
-            </span>
+            </button>
           </div>
           <FormMessage :message="errors.password" class="pl-3" />
         </div>
         <div class="form-control w-full">
-          <label class="label pl-3 pb-1">
+          <label class="label pl-3 pb-1" for="reset-confirm-password">
             <span class="label-text">{{ $t('auth.confirmPassword') }}</span>
           </label>
 
@@ -48,21 +50,23 @@
             />
 
             <input
-              v-model="confirmPassword"
               v-bind="confirmPasswordAttrs"
+              id="reset-confirm-password"
+              v-model="confirmPassword"
               class="input input-neutral w-full pl-10 pr-10"
               autocomplete="new-password"
               :type="showConfirmPassword ? 'text' : 'password'"
+              :aria-invalid="errors.confirmPassword ? 'true' : 'false'"
             >
-            <span
-              tabindex="0"
-              role="button"
+            <button
+              type="button"
               class="absolute right-3 top-5.5 -translate-y-1/2 cursor-pointer hover:text-neutral focus:text-neutral"
+              :aria-label="$t('auth.confirmPassword')"
+              :aria-pressed="showConfirmPassword"
               @click="showConfirmPassword = !showConfirmPassword"
-              @keydown.enter="showConfirmPassword = !showConfirmPassword"
             >
               <Icon :name="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'" class="opacity-60 text-2xl" />
-            </span>
+            </button>
           </div>
           <FormMessage :message="errors.confirmPassword" class="pl-3" />
         </div>
@@ -92,6 +96,11 @@ import AuthCard from "~/components/auth/auth-card.vue";
 import FormMessage from "~/components/form-message.vue";
 
 const toast = useToast();
+
+definePageMeta({
+  titleKey: "seo.resetPassword.title",
+  descriptionKey: "seo.resetPassword.description",
+});
 
 const { resetPassword } = await useAuth();
 const route = useRoute();

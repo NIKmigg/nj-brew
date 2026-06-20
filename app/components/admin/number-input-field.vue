@@ -7,6 +7,8 @@
       <input
         v-model="value"
         :name="name"
+        :aria-label="label"
+        :aria-invalid="errorMessage ? 'true' : 'false'"
         type="number"
         :step="step"
         :min="min"
@@ -18,6 +20,7 @@
       <button
         type="button"
         class="btn btn-ghost btn-xs"
+        :aria-label="$t('global.reset')"
         @click="$emit('reset')"
       >
         <Icon name="mdi:restore" size="20" class="text-primary/60" />

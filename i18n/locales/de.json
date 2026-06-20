@@ -1,7 +1,58 @@
 {
   "global": {
     "loading": "Lädt...",
-    "missingFeature": "Diese Funktion ist noch nicht verfügbar."
+    "missingFeature": "Diese Funktion ist noch nicht verfügbar.",
+    "skipToContent": "Zum Inhalt springen",
+    "close": "Schließen",
+    "reset": "Zurücksetzen"
+  },
+  "seo": {
+    "default": {
+      "title": "NJ Brew",
+      "description": "NJ Brew begleitet dich beim Metbrauen mit Rezeptrechner, Zutatenmarkt und Wissen rund um Honigwein."
+    },
+    "home": {
+      "title": "Taverne",
+      "description": "Entdecke NJ Brew, plane deinen eigenen Met und finde Inspiration fuer dein naechstes Brauprojekt."
+    },
+    "generator": {
+      "title": "Met-Rechner",
+      "description": "Berechne Zutaten, Gaerwerte und Brauempfehlungen fuer deinen eigenen Met."
+    },
+    "market": {
+      "title": "Markt",
+      "description": "Stoeber durch Zutaten und Brauzubehoer fuer dein naechstes Metprojekt."
+    },
+    "login": {
+      "title": "Login",
+      "description": "Melde dich bei NJ Brew an oder erstelle ein Konto fuer deine Braureise."
+    },
+    "forgotPassword": {
+      "title": "Passwort zuruecksetzen",
+      "description": "Fordere einen Link an, um dein NJ Brew Passwort zurueckzusetzen."
+    },
+    "resetPassword": {
+      "title": "Neues Passwort setzen",
+      "description": "Setze ein neues Passwort fuer dein NJ Brew Konto."
+    },
+    "user": {
+      "title": "Einstellungen",
+      "description": "Verwalte dein NJ Brew Konto und deine persoenlichen Angaben."
+    },
+    "orders": {
+      "title": "Meine Bestellungen",
+      "description": "Sieh dir deine Bestellungen bei NJ Brew an."
+    },
+    "admin": {
+      "title": "Admin Dashboard",
+      "description": "Verwalte Produkte, Bestellungen und Brauwerte in NJ Brew."
+    },
+    "legal": {
+      "imprintTitle": "Impressum",
+      "imprintDescription": "Rechtliche Angaben und Kontaktinformationen von NJ Brew.",
+      "privacyTitle": "Datenschutzerklaerung",
+      "privacyDescription": "Informationen zum Datenschutz bei NJ Brew."
+    }
   },
   "admin": {
     "title": "Admin Dashboard",
@@ -11,6 +62,17 @@
     "users": "Benutzer verwalten",
     "meadConstants": "Met-Konstanten verwalten",
     "editConstants": "Konstanten bearbeiten",
+    "product": {
+      "nameDe": "Name (Deutsch)",
+      "nameEn": "Name (Englisch)",
+      "descriptionDe": "Beschreibung (Deutsch)",
+      "descriptionEn": "Beschreibung (Englisch)",
+      "price": "Preis",
+      "stock": "Lagerbestand",
+      "imageUrl": "Bild-URL",
+      "saving": "Speichern...",
+      "save": "Produkt speichern"
+    },
     "constants": {
       "ingredients": "Zutaten",
       "honeyPerL": "Honig pro Liter",
@@ -26,7 +88,9 @@
       "displayValues": "Anzeigewerte",
       "estimatedBrix": "Geschätzter °Brix-Wert",
       "estimatedAlc": "Geschätzter Alkoholgehalt",
-      "save": "Speichern"
+      "save": "Speichern",
+      "saveSuccess": "Erfolgreich gespeichert!",
+      "saveFailed": "Speichern fehlgeschlagen."
     }
   },
   "auth": {
@@ -79,6 +143,13 @@
     "failed": "Auth fehlgeschlagen."
   },
   "info": "Info",
+  "theme": {
+    "switchToLight": "Helles Design aktivieren",
+    "switchToDark": "Dunkles Design aktivieren"
+  },
+  "toast": {
+    "close": "Benachrichtigung schließen"
+  },
   "footer": {
     "tagline": "Braukunst nach alter Tradition.",
     "copyright": "Copyright © {year} - Alle Rechte vorbehalten"
@@ -267,6 +338,13 @@
       "price": "Preis",
       "inStock": "Vorrätig",
       "reset": "Zurücksetzen"
+    },
+    "product": {
+      "addToCart": "In den Warenkorb: {name}",
+      "buy": "Kaufen",
+      "buyProduct": "Kaufen: {name}",
+      "available": "{count} verfügbar",
+      "notAvailable": "Nicht verfügbar"
     },
     "sort": {
       "priceAsc": "Preis aufsteigend",
