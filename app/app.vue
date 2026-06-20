@@ -1,15 +1,4 @@
 <template>
-  <Html :lang="localeHead.htmlAttrs?.lang" :dir="localeHead.htmlAttrs?.dir">
-    <Head>
-      <template v-for="link in localeHead.link" :key="link.id || link.key || link.hid || link.href">
-        <Link v-bind="link" />
-      </template>
-      <template v-for="meta in localeHead.meta" :key="meta.id || meta.key || meta.hid || meta.property || meta.name">
-        <Meta v-bind="meta" />
-      </template>
-    </Head>
-  </Html>
-
   <NuxtRouteAnnouncer />
 
   <NuxtLayout>
@@ -26,15 +15,18 @@ const localeHead = useLocaleHead({
   seo: true,
 });
 
-useHead({
+useHead(() => ({
+  htmlAttrs: localeHead.value.htmlAttrs,
   titleTemplate: titleChunk => titleChunk ? `${titleChunk} | NJ Brew` : "NJ Brew",
   meta: [
+    ...localeHead.value.meta,
     { name: "theme-color", content: "#17120f" },
   ],
   link: [
+    ...localeHead.value.link,
     { rel: "icon", href: "/favicon.ico" },
   ],
-});
+}));
 
 usePageSeo();
 </script>

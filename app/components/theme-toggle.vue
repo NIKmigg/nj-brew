@@ -1,5 +1,5 @@
 <template>
-  <label class="swap swap-rotate" :aria-label="toggleLabel">
+  <label v-if="mounted" class="swap swap-rotate" :aria-label="toggleLabel">
     <input
       v-model="isDark"
       type="checkbox"
@@ -14,6 +14,7 @@
 <script setup lang="ts">
 const colorMode = useColorMode();
 const { t } = useI18n();
+const mounted = ref(false);
 
 const isDark = computed({
   get() {
@@ -25,4 +26,8 @@ const isDark = computed({
 });
 
 const toggleLabel = computed(() => isDark.value ? t("theme.switchToLight") : t("theme.switchToDark"));
+
+onMounted(() => {
+  mounted.value = true;
+});
 </script>
