@@ -23,6 +23,11 @@ import imprintEn from "@legal/imprint.en.html?raw";
 
 const { locale } = useI18n();
 
+definePageMeta({
+  titleKey: "seo.legal.imprintTitle",
+  descriptionKey: "seo.legal.imprintDescription",
+});
+
 const content = computed(() =>
   locale.value === "de"
     ? imprintDe

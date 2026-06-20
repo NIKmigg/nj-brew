@@ -17,13 +17,13 @@
           <img
             v-if="user?.image"
             :src="user.image"
-            alt="avatar"
+            :alt="user.name || $t('nav.user')"
             class="rounded-full"
           >
           <img
             v-else
             src="/avatar.webp"
-            alt="avatar"
+            :alt="$t('nav.user')"
             class="rounded-full"
           >
         </div>
@@ -54,11 +54,20 @@
           {{ $t("settings.deleteDescription") }}
         </p>
 
-        <button class="btn btn-error btn-soft my-5" @click="handleDeleteAccount">
+        <button class="btn btn-error btn-soft my-5" type="button" @click="showDeleteConfirm = true">
           {{ $t("auth.deleteAccount") }}
         </button>
       </div>
     </section>
+
+    <ConfirmModal
+      v-model="showDeleteConfirm"
+      title-key="settings.deleteConfirmTitle"
+      text-key="settings.deleteConfirmText"
+      confirm-key="settings.deleteConfirmSubmit"
+      :text-params="{ email: user?.email || '-' }"
+      @confirm="handleDeleteAccount"
+    />
   </div>
 </template>
 
@@ -66,11 +75,14 @@
 definePageMeta({
   layout: "settings",
   middleware: "auth",
+  titleKey: "seo.user.title",
+  descriptionKey: "seo.user.description",
 });
 
 const { user, signOut, deleteUser } = await useAuth();
 const localePath = useLocalePath();
 const toast = useToast();
+const showDeleteConfirm = ref(false);
 
 async function handleSignOut() {
   try {
@@ -89,6 +101,8 @@ async function handleSignOut() {
 
 async function handleDeleteAccount() {
   try {
+    showDeleteConfirm.value = false;
+
     await deleteUser();
 
     toast.show($t("auth.deleteAccountSuccess"));

@@ -23,6 +23,11 @@ import privacyEn from "@legal/privacy.en.html?raw";
 
 const { locale } = useI18n();
 
+definePageMeta({
+  titleKey: "seo.legal.privacyTitle",
+  descriptionKey: "seo.legal.privacyDescription",
+});
+
 const content = computed(() =>
   locale.value === "de"
     ? privacyDe

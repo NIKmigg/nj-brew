@@ -30,13 +30,13 @@
             >
               {{
                 product.stock > 0
-                  ? `${product.stock} verfügbar`
-                  : "Nicht verfügbar"
+                  ? $t("market.product.available", { count: product.stock })
+                  : $t("market.product.notAvailable")
               }}
             </div>
           </div>
-          <button class="btn btn-primary btn-lg">
-            Kaufen
+          <button class="btn btn-primary btn-lg" type="button" :aria-label="$t('market.product.buyProduct', { name: localize(product.name) })">
+            {{ $t("market.product.buy") }}
           </button>
         </div>
       </div>
@@ -68,6 +68,12 @@ if (error.value) {
     statusMessage: "Produkt nicht gefunden",
   });
 }
+
+usePageSeo({
+  title: () => product.value ? localize(product.value.name) : $t("seo.market.title"),
+  description: () => product.value?.description ? localize(product.value.description) : $t("seo.market.description"),
+  image: () => product.value?.imageUrl ?? "/market-light.webp",
+});
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat("de-DE", {

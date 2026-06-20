@@ -2,11 +2,18 @@
 import { resolve } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 
-import "./server/lib/env";
+import { env } from "./server/lib/env";
+
+const siteUrl = env.NUXT_PUBLIC_SITE_URL;
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      siteUrl,
+    },
+  },
   routeRules: {
     "/api/auth/**": {
       csurf: false,
@@ -43,6 +50,7 @@ export default defineNuxtConfig({
     dataValue: "theme",
   },
   i18n: {
+    baseUrl: siteUrl,
     defaultLocale: "de",
     strategy: "prefix_except_default",
     locales: [

@@ -20,6 +20,7 @@ const envSchema = z.object({
   MAIL_FROM: z.string(),
   TRUSTED_ORIGINS: z.string().transform(value => value.split(",").map(origin => origin.trim()).filter(Boolean)),
   DEV_MAILS_TO: z.string(),
+  NUXT_PUBLIC_SITE_URL: z.string().default("http://localhost:3000"),
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;

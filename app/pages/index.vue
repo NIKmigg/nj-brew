@@ -20,9 +20,9 @@
           <p data-split="{ type: 'word', stagger: 0.015 }" class="mb-5">
             {{ $t("home.body") }}
           </p>
-          <button class="btn btn-primary">
+          <NuxtLink :to="localePath('/generator')" class="btn btn-primary">
             {{ $t("home.cta") }}
-          </button>
+          </NuxtLink>
         </div>
       </div>
     </section>
@@ -83,6 +83,12 @@ import type { HomeCardSchema } from "@shared/schemas/home-card";
 import { ref } from "vue";
 
 const active = ref<number | null>(null);
+const localePath = useLocalePath();
+
+definePageMeta({
+  titleKey: "seo.home.title",
+  descriptionKey: "seo.home.description",
+});
 
 const items: HomeCardSchema[] = [
   {

@@ -1,16 +1,22 @@
 <template>
   <div class="flex flex-row gap-2">
     <slot />
-    <button class="btn btn-ghost btn-circle tooltip" :data-tip="$t('info')" @click="modal?.showModal()">
+    <button
+      class="btn btn-ghost btn-circle tooltip"
+      type="button"
+      :aria-label="$t('info')"
+      :data-tip="$t('info')"
+      @click="modal?.showModal()"
+    >
       <Icon name="mdi:info" size="24" class="text-base-content/40 cursor-help" />
     </button>
   </div>
 
   <Teleport to="body">
-    <dialog ref="modal" class="modal">
+    <dialog ref="modal" class="modal" :aria-label="title">
       <div class="modal-box">
         <form method="dialog">
-          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" :aria-label="$t('global.close')">
             ✕
           </button>
         </form>
@@ -22,7 +28,9 @@
         </p>
       </div>
       <form method="dialog" class="modal-backdrop">
-        <button>close</button>
+        <button :aria-label="$t('global.close')">
+          {{ $t("global.close") }}
+        </button>
       </form>
     </dialog>
   </Teleport>
