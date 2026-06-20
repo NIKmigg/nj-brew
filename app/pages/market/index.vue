@@ -1,21 +1,23 @@
 <template>
   <div>
-    <section class="py-16 mx-auto max-w-3xl px-4">
+    <section v-section-reveal class="py-16 mx-auto max-w-3xl px-4">
       <div class="container my-auto text-center mx-auto max-w-3xl">
-        <p class="text-4xl font-bold mb-4 font-old-style">
+        <h1 data-split class="text-4xl font-bold mb-4 font-old-style">
           {{ $t('market.hero.title') }}
+        </h1>
+        <p data-split="{ type: 'word', stagger: 0.015 }">
+          {{ $t('market.hero.body') }}
         </p>
-        <p>{{ $t('market.hero.body') }}</p>
       </div>
     </section>
     <WaveCard />
     <section class="bg-base-200 py-16">
       <div class="container my-auto text-center mx-auto max-w-7xl px-4">
-        <div class="container my-auto text-center mx-auto max-w-3xl mb-8">
-          <p class="text-4xl font-bold mb-4 font-old-style">
+        <div v-section-reveal class="container my-auto text-center mx-auto max-w-3xl mb-8">
+          <h2 data-split class="text-4xl font-bold mb-4 font-old-style">
             {{ $t('market.browse.title') }}
-          </p>
-          <p>
+          </h2>
+          <p data-split="{ type: 'word', stagger: 0.015 }">
             {{ $t('market.browse.body') }}
             <br>
             {{ $t('market.browse.hint') }}
@@ -207,12 +209,14 @@
       </div>
     </section>
     <WaveCard class="rotate-180 bg-base-100/80" />
-    <section class="bg-base-100/80 py-16">
+    <section v-section-reveal class="bg-base-100/80 py-16">
       <div class="container my-auto text-center mx-auto max-w-3xl px-4">
-        <p class="text-4xl font-bold mb-4 font-old-style">
+        <h2 data-split class="text-4xl font-bold mb-4 font-old-style">
           {{ $t('market.contact.title') }}
+        </h2>
+        <p data-split="{ type: 'word', stagger: 0.015 }">
+          {{ $t('market.contact.body') }}
         </p>
-        <p>{{ $t('market.contact.body') }}</p>
       </div>
     </section>
   </div>

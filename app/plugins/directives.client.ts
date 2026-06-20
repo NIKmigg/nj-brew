@@ -198,6 +198,10 @@ function cleanupReveal(el: RevealElement) {
   delete el.__revealFrame;
 }
 
+function convertNewlinesToBr(el: HTMLElement) {
+  el.innerHTML = el.innerHTML.replace(/\n/g, "<br>");
+}
+
 function createSplitReveal(
   el: RevealElement,
   binding: DirectiveBinding<RevealOptions | undefined>,
@@ -212,6 +216,8 @@ function createSplitReveal(
     let split: ReturnType<GsapTools["SplitText"]["create"]> | undefined;
 
     const context = tools.gsap.context(() => {
+      convertNewlinesToBr(el);
+
       split = tools.SplitText.create(el, getSplitTextOptions(options));
       const targets = getTargets(split, options.type);
 

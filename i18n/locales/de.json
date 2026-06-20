@@ -295,22 +295,22 @@
   },
   "home": {
     "title": "NJ Brew",
-    "body": "Zwischen Honigfässern, alten Rezeptrollen und den Geschichten erfahrener Metbrauer findet Ihr alles, was Ihr für Euren nächsten Trunk benötigt. Entdeckt traditionelle und moderne Metrezepte, plant Eure eigenen Kreationen und taucht ein in die Kunst des Metbrauens. Ob neugieriger Lehrling oder erfahrener Braumeister - die Taverne steht Euch offen.",
+    "body": "Zwischen Honigfässern, alten Rezeptrollen und den Geschichten erfahrener Metbrauer findet Ihr alles, was Ihr für Euren nächsten Trunk benötigt.\n\nEntdeckt traditionelle und moderne Metrezepte, plant Eure eigenen Kreationen und taucht ein in die Kunst des Metbrauens.\n\nOb neugieriger Lehrling oder erfahrener Braumeister - die Taverne steht Euch offen.",
     "cta": "Loslegen",
     "welcome": "Willkommen Reisender!",
-    "intro": "In der Taverne von NJ Brew findest du die besten Rezepte für deine Braukünste. Egal, ob du ein erfahrener Braumeister oder ein neugieriger Anfänger bist, wir haben etwas für jeden Geschmack. Tauche ein in die Welt des Brauens und entdecke neue Aromen und Techniken. Prost!",
+    "intro": "In der Taverne von NJ Brew findest du die besten Rezepte für deine Braukünste.\n\nEgal, ob du ein erfahrener Braumeister oder ein neugieriger Anfänger bist, wir haben etwas für jeden Geschmack. Tauche ein in die Welt des Brauens und entdecke neue Aromen und Techniken.\nProst!",
     "cards": {
       "tavern": {
         "title": "Taverne",
-        "description": "Entdecke unsere vielfältige Auswahl an Rezepten, die von traditionellen bis zu modernen Kreationen reichen. Egal, ob du ein Anfänger oder ein erfahrener Braumeister bist, hier findest du Inspiration für dein nächstes Brauprojekt."
+        "description": "Entdecke unsere vielfältige Auswahl an Rezepten, die von traditionellen bis zu modernen Kreationen reichen.\n\nEgal, ob du ein Anfänger oder ein erfahrener Braumeister bist, hier findest du Inspiration für dein nächstes Brauprojekt."
       },
       "brewery": {
         "title": "Brauerei",
-        "description": "Lerne die Kunst des Brauens kennen und entdecke die Geheimnisse hinter der Herstellung von Bier. Von der Auswahl der Zutaten bis hin zum Brauprozess bieten wir dir wertvolle Einblicke und Tipps, um dein eigenes Bier zu brauen."
+        "description": "Lerne die Kunst des Brauens kennen und entdecke die Geheimnisse hinter der Herstellung von Bier.\n\nVon der Auswahl der Zutaten bis hin zum Brauprozess bieten wir dir wertvolle Einblicke und Tipps, um dein eigenes Bier zu brauen."
       },
       "market": {
         "title": "Markt",
-        "description": "Finde die besten Zutaten und Ausrüstung für dein Brauhobby. Unser Markt bietet eine sorgfältig ausgewählte Auswahl an Malzen, Hopfen, Hefe und Brauzubehör, damit du alles hast, was du brauchst, um dein perfektes Bier zu brauen."
+        "description": "Finde die besten Zutaten und Ausrüstung für dein Brauhobby.\n\nUnser Markt bietet eine sorgfältig ausgewählte Auswahl an Malzen, Hopfen, Hefe und Brauzubehör, damit du alles hast, was du brauchst, um dein perfektes Bier zu brauen."
       }
     },
     "housemead": {
@@ -326,7 +326,7 @@
     "title": "Markt",
     "hero": {
       "title": "Willkommen auf dem Markt!",
-      "body": "Auf dem Markt findest du eine Vielzahl von Produkten, die von talentierten Braumeistern angeboten werden. Stöbere durch die Auswahl und entdecke einzigartige Zutaten, exklusive Rezepte und handgefertigte Brauzubehör. Egal, ob du nach seltenen Hopfensorten, speziellen Malzen oder einzigartigen Hefestämmen suchst, hier wirst du fündig. Unterstütze die Braukunst und finde die perfekten Zutaten für dein nächstes Brauprojekt. Viel Spaß beim Einkaufen!"
+      "body": "Auf dem Markt findest du eine Vielzahl von Produkten, die von talentierten Braumeistern angeboten werden.\n\nStöbere durch die Auswahl und entdecke einzigartige Zutaten, exklusive Rezepte und handgefertigte Brauzubehör.\nEgal, ob du nach seltenen Hopfensorten, speziellen Malzen oder einzigartigen Hefestämmen suchst, hier wirst du fündig. Unterstütze die Braukunst und finde die perfekten Zutaten für dein nächstes Brauprojekt.\n\nViel Spaß beim Einkaufen!"
     },
     "browse": {
       "title": "Stöbere durch alle Produkte...",
@@ -374,7 +374,7 @@
   },
   "settings": {
     "welcomeTitle": "Willkommen im Gästebuch der Taverne, {name}!",
-    "welcomeText": "Vor dir liegt das alte Gästebuch der Taverne. Hier kannst du deine Einträge überprüfen, persönliche Angaben ändern und die Aufzeichnungen zu deiner Person verwalten. Jede Änderung wird sorgfältig von den Schreibern des Hauses dokumentiert.",
+    "welcomeText": "Vor dir liegt das alte Gästebuch der Taverne.\nHier kannst du deine Einträge überprüfen, persönliche Angaben ändern und die Aufzeichnungen zu deiner Person verwalten. Jede Änderung wird sorgfältig von den Schreibern des Hauses dokumentiert.",
 
     "userProperties": {
       "name": "Name im Gästebuch",
