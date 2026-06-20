@@ -82,7 +82,21 @@
       </ul>
     </div>
     <div class="navbar-end mr-4">
-      <div class="dropdown dropdown-end">
+      <button
+        v-if="!mounted"
+        type="button"
+        class="btn btn-ghost btn-circle avatar"
+        :aria-label="$t('nav.user')"
+        disabled
+      >
+        <img
+          src="/avatar.webp"
+          :alt="$t('nav.user')"
+          class="rounded-full"
+        >
+      </button>
+
+      <div v-else class="dropdown dropdown-end">
         <button
           type="button"
           class="btn btn-ghost btn-circle avatar"
@@ -169,6 +183,7 @@
 <script setup lang="ts">
 const { user, signOut, isAdmin } = await useAuth();
 
+const mounted = ref(false);
 const route = useRoute();
 const localePath = useLocalePath();
 const switchLocalePath = useSwitchLocalePath();
@@ -179,6 +194,10 @@ const languages = [
   { code: "de", label: "DE" },
   { code: "en", label: "EN" },
 ] as const;
+
+onMounted(() => {
+  mounted.value = true;
+});
 
 function isActive(path: string) {
   return route.path === localePath(path);
