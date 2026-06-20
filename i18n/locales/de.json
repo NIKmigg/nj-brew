@@ -4,7 +4,9 @@
     "missingFeature": "Diese Funktion ist noch nicht verfügbar.",
     "skipToContent": "Zum Inhalt springen",
     "close": "Schließen",
-    "reset": "Zurücksetzen"
+    "reset": "Zurücksetzen",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen"
   },
   "seo": {
     "default": {
@@ -384,7 +386,10 @@
 
     "deleteQuestion": "Rufen neue Abenteuer nach dir und möchtest du die Taverne von NJ Brew hinter dir lassen?",
 
-    "deleteDescription": "Möchtest du nicht nur die Taverne verlassen, sondern auch alle Spuren deiner Reise verwischen?\n\nDie Schreiber der Taverne werden auf deinen Wunsch hin sämtliche Einträge zu deiner Person aus dem Gästebuch entfernen. Bedenke, dass dieser Vorgang endgültig ist und nicht rückgängig gemacht werden kann."
+    "deleteDescription": "Möchtest du nicht nur die Taverne verlassen, sondern auch alle Spuren deiner Reise verwischen?\n\nDie Schreiber der Taverne werden auf deinen Wunsch hin sämtliche Einträge zu deiner Person aus dem Gästebuch entfernen. Bedenke, dass dieser Vorgang endgültig ist und nicht rückgängig gemacht werden kann.",
+    "deleteConfirmTitle": "Konto wirklich löschen?",
+    "deleteConfirmText": "Möchtest du das Konto {email} wirklich löschen?\n\nDu erhältst anschließend eine E-Mail, um die Löschung endgültig zu bestätigen.",
+    "deleteConfirmSubmit": "Konto löschen"
   },
   "legal": {
     "imprint": "Impressum",

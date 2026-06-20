@@ -4,7 +4,9 @@
     "missingFeature": "This feature is not available yet.",
     "skipToContent": "Skip to content",
     "close": "Close",
-    "reset": "Reset"
+    "reset": "Reset",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   },
   "seo": {
     "default": {
@@ -384,7 +386,10 @@
 
     "deleteQuestion": "Do new adventures call for you, and do you wish to leave the tavern of NJ Brew behind?",
 
-    "deleteDescription": "Do you wish not only to leave the tavern, but also to erase all traces of your journey?\n\nAt your request, the scribes of the tavern will remove all records concerning you from the guestbook. Be aware that this action is permanent and cannot be undone."
+    "deleteDescription": "Do you wish not only to leave the tavern, but also to erase all traces of your journey?\n\nAt your request, the scribes of the tavern will remove all records concerning you from the guestbook. Be aware that this action is permanent and cannot be undone.",
+    "deleteConfirmTitle": "Delete account?",
+    "deleteConfirmText": "Do you really want to delete the account {email}?\n\nYou will receive an email afterwards to confirm the deletion permanently.",
+    "deleteConfirmSubmit": "Delete account"
   },
   "legal": {
     "imprint": "Imprint",
