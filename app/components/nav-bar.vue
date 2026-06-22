@@ -81,7 +81,16 @@
         </li>
       </ul>
     </div>
-    <div class="navbar-end mr-4">
+    <div class="navbar-end mr-4 space-x-4">
+      <NuxtLink
+        :to="localePath('/cart')"
+        type="button"
+        class="flex items-center justify-center hover:scale-110"
+        :aria-label="$t('nav.cart')"
+      >
+        <Icon name="mdi:cart" class="text-3xl" />
+      </NuxtLink>
+
       <button
         v-if="!mounted"
         type="button"
