@@ -1,6 +1,6 @@
 <template>
-  <NuxtLink class="btn btn-accent w-full" :to="loginTo">
-    <Icon name="mdi:login" size="20" />
+  <NuxtLink class="btn btn-ghost btn-wide hover:scale-110 hover:text-accent" :to="loginTo">
+    <Icon name="mdi:login" class="text-xl" />
     {{ $t("auth.login") }}
   </NuxtLink>
 </template>

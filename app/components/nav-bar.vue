@@ -108,7 +108,7 @@
       <div v-else class="dropdown dropdown-end">
         <button
           type="button"
-          class="btn btn-ghost btn-circle avatar"
+          class="btn btn-ghost btn-circle avatar hover:scale-110"
           :aria-label="$t('nav.user')"
           aria-haspopup="menu"
         >
@@ -139,14 +139,14 @@
 
             <div class="divider my-3" />
 
-            <ThemeToggle class="mb-4" />
+            <ThemeToggle class="mb-3" />
 
-            <div class="join mb-4 w-full">
+            <div class="join mx-auto">
               <NuxtLink
                 v-for="language in languages"
                 :key="language.code"
-                class="btn btn-sm join-item flex-1"
-                :class="{ 'btn-active': locale === language.code }"
+                class="btn btn-soft btn-sm join-item hover:scale-110"
+                :class="{ 'btn-active bg-primary/80': locale === language.code }"
                 :to="switchLocalePath(language.code)"
                 :aria-current="locale === language.code ? 'true' : undefined"
               >
@@ -154,34 +154,25 @@
               </NuxtLink>
             </div>
 
+            <div class="divider my-3" />
+
             <div v-if="user">
               <NuxtLink
                 :to="localePath('/user')"
-                class="btn btn-ghost flex items-center justify-center gap-2 w-full hover:scale-110"
+                class="btn btn-ghost btn-wide hover:scale-110"
                 :class="{ 'text-primary/80': isActive('/admin') }"
               >
                 <Icon name="mdi:cog" class="text-xl" />
                 {{ $t("nav.user") }}
               </NuxtLink>
 
-              <button class="btn btn-ghost" @click="handleSignOut">
+              <button class="btn btn-ghost btn-wide hover:scale-110 hover:text-error" @click="handleSignOut">
+                <Icon name="mdi:logout" class="text-xl" />
                 {{ $t("nav.logout") }}
               </button>
             </div>
 
             <AuthButton v-else />
-
-            <div v-if="isAdmin">
-              <div class="divider my-3" />
-              <NuxtLink
-                :to="localePath('/admin')"
-                class="btn btn-ghost flex items-center justify-center gap-2 w-full hover:scale-110"
-                :class="{ 'text-primary/80': isActive('/admin') }"
-              >
-                <Icon name="mdi:shield-crown" class="text-xl" />
-                {{ $t("nav.admin") }}
-              </NuxtLink>
-            </div>
           </div>
         </div>
       </div>
@@ -190,7 +181,7 @@
 </template>
 
 <script setup lang="ts">
-const { user, signOut, isAdmin } = await useAuth();
+const { user, signOut } = await useAuth();
 
 const mounted = ref(false);
 const route = useRoute();

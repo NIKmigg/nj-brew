@@ -1,13 +1,13 @@
 <template>
-  <label v-if="mounted" class="swap swap-rotate" :aria-label="toggleLabel">
+  <label v-if="mounted" class="swap swap-rotate group hover:scale-110" :aria-label="toggleLabel">
     <input
       v-model="isDark"
       type="checkbox"
       :aria-checked="isDark"
       :aria-label="toggleLabel"
     >
-    <Icon name="tabler:sun" class="swap-on" size="24" />
-    <Icon name="tabler:moon" class="swap-off" size="24" />
+    <Icon name="tabler:sun" class="swap-on transition-colors group-hover:text-primary" size="24" />
+    <Icon name="tabler:moon" class="swap-off transition-colors group-hover:text-primary" size="24" />
   </label>
 </template>
 

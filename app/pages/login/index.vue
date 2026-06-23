@@ -8,16 +8,16 @@
     <AuthCard :title="$t('auth.welcome')" :description="$t('auth.intro')">
       <div class="join w-full">
         <button
-          class="btn btn-soft join-item flex-1"
-          :class="{ 'btn-neutral': mode === 'login' }"
+          class="btn btn-soft join-item flex-1 hover:scale-110"
+          :class="{ 'btn-active btn-neutral': mode === 'login' }"
           type="button"
           @click="selectMode('login')"
         >
           {{ $t("auth.login") }}
         </button>
         <button
-          class="btn btn-soft join-item flex-1"
-          :class="{ 'btn-neutral': mode === 'signup' }"
+          class="btn btn-soft join-item flex-1 hover:scale-110"
+          :class="{ 'btn-active btn-neutral': mode === 'signup' }"
           type="button"
           @click="selectMode('signup')"
         >
@@ -132,7 +132,7 @@
         />
         <button :disabled="formState.pending.value" class="btn btn-accent w-full" type="submit">
           <span v-if="formState.pending.value" class="loading loading-spinner loading-sm" />
-          <Icon v-else name="mdi:key" size="20" />
+          <Icon v-else name="mdi:key" class="text-xl" />
           {{ mode === 'signup' ? $t("auth.register") : $t("auth.login") }}
         </button>
         <NuxtLink
@@ -150,7 +150,7 @@
         type="button"
         @click="callSignInWithGitHub"
       >
-        <Icon name="tabler:brand-github" size="20" />
+        <Icon name="tabler:brand-github" class="text-xl" />
         {{ $t("auth.github") }}
       </button>
     </AuthCard>
