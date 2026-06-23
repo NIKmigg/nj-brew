@@ -7,6 +7,16 @@ import { env } from "./server/lib/env";
 const siteUrl = env.NUXT_PUBLIC_SITE_URL;
 
 export default defineNuxtConfig({
+  app: {
+    layoutTransition: {
+      name: "route",
+      mode: "out-in",
+    },
+    pageTransition: {
+      name: "route",
+      mode: "out-in",
+    },
+  },
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   runtimeConfig: {
