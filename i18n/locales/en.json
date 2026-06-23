@@ -346,7 +346,9 @@
       "buy": "Buy",
       "buyProduct": "Buy: {name}",
       "available": "{count} available",
-      "notAvailable": "Not available"
+      "notAvailable": "Not available",
+      "addedToCart": "Added to basket",
+      "addToCartFailed": "Could not be added"
     },
     "sort": {
       "priceAsc": "Price ascending",
@@ -360,6 +362,15 @@
       "body": "If you have questions about a product or want to learn more about the art of brewing, do not hesitate to contact us. Our team is happy to help you with your brewing projects and support you with advice and assistance. Simply contact us via our contact form or send us an email. We look forward to hearing from you and helping you on your brewing adventure!"
     },
     "toast": "The market is being renovated! Some features may be temporarily unavailable."
+  },
+  "cart": {
+    "title": "Your basket",
+    "empty": "Your basket is still empty",
+    "total": "Total",
+    "checkout": "Checkout",
+    "increase": "Increase quantity",
+    "decrease": "Decrease quantity",
+    "remove": "Remove"
   },
   "nav": {
     "home": "Tavern",

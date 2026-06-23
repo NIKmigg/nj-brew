@@ -346,7 +346,10 @@
       "buy": "Kaufen",
       "buyProduct": "Kaufen: {name}",
       "available": "{count} verfügbar",
-      "notAvailable": "Nicht verfügbar"
+      "notAvailable": "Nicht verfügbar",
+      "addedToCart": "In den Krämerkorb gelegt",
+      "addToCartFailed": "Konnte nicht hinzugefügt werden"
+
     },
     "sort": {
       "priceAsc": "Preis aufsteigend",
@@ -360,6 +363,15 @@
       "body": "Wenn du Fragen zu einem Produkt hast oder mehr über die Braukunst erfahren möchtest, zögere nicht, uns zu kontaktieren. Unser Team steht dir gerne zur Verfügung, um dir bei deinen Brauprojekten zu helfen und dich mit Rat und Tat zu unterstützen. Kontaktiere uns einfach über unser Kontaktformular oder sende uns eine E-Mail. Wir freuen uns darauf, von dir zu hören und dir bei deinem Brauabenteuer zu helfen!"
     },
     "toast": "Der Markt wird umgebaut! Einige Funktionen könnten vorübergehend nicht verfügbar sein."
+  },
+  "cart": {
+    "title": "Dein Krämerkorb",
+    "empty": "Dein Krämerkorb ist noch leer",
+    "total": "Gesamt",
+    "checkout": "Zur Kasse",
+    "increase": "Menge erhöhen",
+    "decrease": "Menge verringern",
+    "remove": "Entfernen"
   },
   "nav": {
     "home": "Taverne",
