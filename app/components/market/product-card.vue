@@ -9,6 +9,7 @@
       </div>
       <figure class="px-10 pt-10 z-1">
         <img
+          ref="img"
           :src="product.imageUrl || ''"
           :alt="localize(product.name)"
           class="rounded-xl w-48 h-48 object-cover"
@@ -43,8 +44,10 @@
 
 <script setup lang="ts">
 import type { SelectProductSchema } from "@shared/schemas/product";
+import { gsap } from "gsap";
 
 const { product } = defineProps<{ product: SelectProductSchema }>();
+const img = ref<HTMLElement | null>(null);
 const { localize } = useLocalize();
 
 function formatPrice(price: number) {
@@ -57,4 +60,23 @@ function formatPrice(price: number) {
 function handleAddToCart() {
   console.warn(`Adding product ${localize(product.name)} to cart`);
 }
+
+let ctx: gsap.Context | null = null;
+
+onMounted(() => {
+  ctx = gsap.context(() => {
+    // Gentle floating animation for product plants.
+    gsap.to(img.value, {
+      y: -15,
+      repeat: -1,
+      yoyo: true,
+      duration: 2,
+      ease: "sine.inOut",
+    });
+  });
+});
+
+onBeforeUnmount(() => {
+  ctx?.revert();
+});
 </script>
