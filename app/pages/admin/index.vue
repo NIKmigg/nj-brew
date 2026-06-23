@@ -47,6 +47,7 @@
 
 <script setup lang="ts">
 definePageMeta({
+  layout: "settings",
   middleware: "admin",
   titleKey: "seo.admin.title",
   descriptionKey: "seo.admin.description",

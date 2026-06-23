@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 definePageMeta({
+  layout: "settings",
   middleware: "admin",
 });
 </script>

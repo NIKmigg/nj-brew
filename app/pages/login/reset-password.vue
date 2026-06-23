@@ -76,7 +76,7 @@
 
         <button :disabled="formState.pending.value" class="btn btn-accent w-full" type="submit">
           <span v-if="formState.pending.value" class="loading loading-spinner loading-sm" />
-          <Icon v-else name="mdi:lock-reset" size="20" />
+          <Icon v-else name="mdi:lock-reset" class="text-xl" />
           {{ $t("auth.updatePassword") }}
         </button>
       </form>

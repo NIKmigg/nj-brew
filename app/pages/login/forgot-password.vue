@@ -29,7 +29,7 @@
         <FormMessage :message="formState.successMessage.value" type="success" />
         <button :disabled="formState.pending.value" class="btn btn-accent w-full" type="submit">
           <span v-if="formState.pending.value" class="loading loading-spinner loading-sm" />
-          <Icon v-else name="mdi:email-fast" size="20" />
+          <Icon v-else name="mdi:email-fast" class="text-xl" />
           {{ $t("auth.sendResetLink") }}
         </button>
         <NuxtLink class="link-hover link text-center text-sm" :to="localePath('/login')">

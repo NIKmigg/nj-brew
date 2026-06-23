@@ -67,6 +67,16 @@
             {{ $t("nav.userOrders") }}
           </NuxtLink>
         </li>
+        <li v-if="isAdmin">
+          <NuxtLink
+            :to="localePath('/admin')"
+            class="hover:bg-transparent hover:scale-110"
+            :class="{ 'text-primary/80': isActive('/admin') }"
+          >
+            <Icon name="mdi:shield-crown" class="text-3xl" />
+            {{ $t("nav.admin") }}
+          </NuxtLink>
+        </li>
       </ul>
     </div>
     <div class="navbar-end mr-4">
@@ -82,6 +92,7 @@
 </template>
 
 <script setup lang="ts">
+const { isAdmin } = await useAuth();
 const route = useRoute();
 const localePath = useLocalePath();
 

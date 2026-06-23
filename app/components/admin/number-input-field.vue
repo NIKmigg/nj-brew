@@ -23,7 +23,7 @@
         :aria-label="$t('global.reset')"
         @click="$emit('reset')"
       >
-        <Icon name="mdi:restore" size="20" class="text-primary/60" />
+        <Icon name="mdi:restore" class="text-primary/60 text-xl" />
       </button>
     </div>
     <p v-if="errorMessage" class="label text-error">
