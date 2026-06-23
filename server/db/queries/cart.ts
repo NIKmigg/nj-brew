@@ -29,7 +29,11 @@ export async function getCartWithItems(cartId: string) {
     where: eq(carts.id, cartId),
     with: {
       items: {
-        with: { product: true },
+        with: {
+          product: {
+            with: { category: true },
+          },
+        },
       },
     },
   });

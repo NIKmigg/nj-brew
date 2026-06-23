@@ -376,6 +376,7 @@
     "home": "Tavern",
     "generator": "Brewery",
     "market": "Market",
+    "cart": "basket",
     "admin": "Admin Dashboard",
     "user": "Settings",
     "logout": "Logout",

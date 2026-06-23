@@ -85,10 +85,16 @@
       <NuxtLink
         :to="localePath('/cart')"
         type="button"
-        class="flex items-center justify-center hover:scale-110"
+        class="flex items-center justify-center hover:scale-110 relative"
         :aria-label="$t('nav.cart')"
       >
         <Icon name="mdi:cart" class="text-3xl" />
+        <span
+          v-if="itemCount > 0"
+          class="absolute -top-2 -right-2 flex items-center justify-center min-w-5 h-5 px-1 bg-primary text-primary-content text-xs font-bold rounded-full leading-none"
+        >
+          {{ itemCount }}
+        </span>
       </NuxtLink>
 
       <button
@@ -189,6 +195,7 @@ const localePath = useLocalePath();
 const switchLocalePath = useSwitchLocalePath();
 const { locale } = useI18n();
 const toast = useToast();
+const { itemCount } = useCart();
 
 const languages = [
   { code: "de", label: "DE" },
