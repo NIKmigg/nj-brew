@@ -370,6 +370,8 @@
   "cart": {
     "title": "Your basket",
     "empty": "Your basket is still empty",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
     "total": "Total",
     "checkout": "Checkout",
     "increase": "Increase quantity",

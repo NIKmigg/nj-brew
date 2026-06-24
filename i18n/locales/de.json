@@ -371,6 +371,8 @@
   "cart": {
     "title": "Dein Krämerkorb",
     "empty": "Dein Krämerkorb ist noch leer",
+    "subtotal": "Zwischensumme",
+    "shipping": "Lieferung",
     "total": "Gesamt",
     "checkout": "Zur Kasse",
     "increase": "Menge erhöhen",
