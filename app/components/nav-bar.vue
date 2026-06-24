@@ -81,7 +81,23 @@
         </li>
       </ul>
     </div>
-    <div class="navbar-end mr-4">
+    <div class="navbar-end mr-4 space-x-4">
+      <NuxtLink
+        :to="localePath('/cart')"
+        type="button"
+        class="flex items-center justify-center hover:scale-110 relative"
+        :class="{ 'animate-pulse': showAddToCartFeedback }"
+        :aria-label="$t('nav.cart')"
+      >
+        <Icon name="mdi:cart" class="text-3xl" />
+        <span
+          v-if="itemCount > 0"
+          class="absolute -top-2 -right-2 flex items-center justify-center min-w-5 h-5 px-1 bg-primary text-primary-content text-xs font-bold rounded-full leading-none"
+        >
+          {{ itemCount }}
+        </span>
+      </NuxtLink>
+
       <button
         v-if="!mounted"
         type="button"
@@ -172,6 +188,8 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
+
 const { user, signOut } = await useAuth();
 
 const mounted = ref(false);
@@ -180,6 +198,8 @@ const localePath = useLocalePath();
 const switchLocalePath = useSwitchLocalePath();
 const { locale } = useI18n();
 const toast = useToast();
+const cartStore = useCartStore();
+const { itemCount, showAddToCartFeedback } = storeToRefs(cartStore);
 
 const languages = [
   { code: "de", label: "DE" },
@@ -188,6 +208,19 @@ const languages = [
 
 onMounted(() => {
   mounted.value = true;
+
+  watch(
+    user,
+    async (value) => {
+      if (value) {
+        await cartStore.ensureLoaded();
+      }
+      else {
+        cartStore.reset();
+      }
+    },
+    { immediate: true },
+  );
 });
 
 function isActive(path: string) {

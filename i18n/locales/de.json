@@ -25,6 +25,10 @@
       "title": "Markt",
       "description": "Stoeber durch Zutaten und Brauzubehoer fuer dein naechstes Metprojekt."
     },
+    "cart": {
+      "title": "Krämerkorb",
+      "description": "Dein Krämerkorb - die ausgewählten Met-Spezialitäten aus unserer Brauerei, bereit für den Kauf."
+    },
     "login": {
       "title": "Login",
       "description": "Melde dich bei NJ Brew an oder erstelle ein Konto fuer deine Braureise."
@@ -346,7 +350,10 @@
       "buy": "Kaufen",
       "buyProduct": "Kaufen: {name}",
       "available": "{count} verfügbar",
-      "notAvailable": "Nicht verfügbar"
+      "notAvailable": "Nicht verfügbar",
+      "addedToCart": "In den Krämerkorb gelegt",
+      "addToCartFailed": "Konnte nicht hinzugefügt werden"
+
     },
     "sort": {
       "priceAsc": "Preis aufsteigend",
@@ -361,10 +368,22 @@
     },
     "toast": "Der Markt wird umgebaut! Einige Funktionen könnten vorübergehend nicht verfügbar sein."
   },
+  "cart": {
+    "title": "Dein Krämerkorb",
+    "empty": "Dein Krämerkorb ist noch leer",
+    "subtotal": "Zwischensumme",
+    "shipping": "Lieferung",
+    "total": "Gesamt",
+    "checkout": "Zur Kasse",
+    "increase": "Menge erhöhen",
+    "decrease": "Menge verringern",
+    "remove": "Entfernen"
+  },
   "nav": {
     "home": "Taverne",
     "generator": "Brauerei",
     "market": "Markt",
+    "cart": "Krämerkorb",
     "admin": "Admin Dashboard",
     "user": "Einstellungen",
     "logout": "Ausloggen",

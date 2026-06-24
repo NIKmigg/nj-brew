@@ -26,10 +26,12 @@
           <button
             type="button"
             class="btn btn-circle absolute right-2 bottom-2 shadow-xl hover:bg-neutral"
+            :disabled="isAdding"
             :aria-label="$t('market.product.addToCart', { name: localize(product.name) })"
-            @click.stop="handleAddToCart"
+            @click.stop.prevent="handleAddToCart"
           >
-            <Icon name="mdi:cart-add" class="text-2xl" />
+            <Icon v-if="justAdded" name="mdi:check" class="text-2xl" />
+            <Icon v-else name="mdi:cart-add" class="text-2xl" />
           </button>
         </div>
         <div class="mt-4 flex items-center justify-between">
@@ -49,6 +51,11 @@ import { gsap } from "gsap";
 const { product } = defineProps<{ product: SelectProductSchema }>();
 const img = ref<HTMLElement | null>(null);
 const { localize } = useLocalize();
+const cartStore = useCartStore();
+const toast = useToast();
+
+const isAdding = ref(false);
+const justAdded = ref(false);
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat("de-DE", {
@@ -57,8 +64,24 @@ function formatPrice(price: number) {
   }).format(price);
 }
 
-function handleAddToCart() {
-  console.warn(`Adding product ${localize(product.name)} to cart`);
+async function handleAddToCart() {
+  if (isAdding.value)
+    return;
+
+  isAdding.value = true;
+  try {
+    await cartStore.addItem(product.id, 1);
+    justAdded.value = true;
+    setTimeout(() => {
+      justAdded.value = false;
+    }, 1500);
+  }
+  catch {
+    toast.show($t("market.product.addToCartFailed"), "error");
+  }
+  finally {
+    isAdding.value = false;
+  }
 }
 
 let ctx: gsap.Context | null = null;

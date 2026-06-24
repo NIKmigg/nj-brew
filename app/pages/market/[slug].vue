@@ -35,9 +35,43 @@
               }}
             </div>
           </div>
-          <button class="btn btn-primary btn-lg" type="button" :aria-label="$t('market.product.buyProduct', { name: localize(product.name) })">
-            {{ $t("market.product.buy") }}
-          </button>
+
+          <div class="flex items-center gap-4">
+            <div v-if="product.stock > 0" class="flex items-center gap-2 rounded-md border border-base-300 px-2 py-1">
+              <button
+                type="button"
+                class="btn btn-ghost btn-sm btn-square"
+                :disabled="quantity <= 1"
+                :aria-label="$t('cart.decrease')"
+                @click="quantity--"
+              >
+                <Icon name="tabler:minus" class="size-4" />
+              </button>
+              <span class="w-8 text-center">{{ quantity }}</span>
+              <button
+                type="button"
+                class="btn btn-ghost btn-sm btn-square"
+                :disabled="quantity >= product.stock"
+                :aria-label="$t('cart.increase')"
+                @click="quantity++"
+              >
+                <Icon name="tabler:plus" class="size-4" />
+              </button>
+            </div>
+
+            <button
+              class="btn btn-primary btn-lg flex-1"
+              type="button"
+              :disabled="product.stock === 0 || isAdding"
+              :aria-label="$t('market.product.buyProduct', { name: localize(product.name) })"
+              @click="handleBuy"
+            >
+              <span v-if="isAdding" class="loading loading-spinner loading-sm" />
+              <template v-else>
+                {{ product.stock === 0 ? $t("market.product.notAvailable") : $t("market.product.buy") }}
+              </template>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -48,6 +82,8 @@
 import type { SelectProductSchema } from "@shared/schemas/product";
 
 const { localize } = useLocalize();
+const cartStore = useCartStore();
+const toast = useToast();
 
 definePageMeta({
   middleware: "auth",
@@ -74,6 +110,26 @@ usePageSeo({
   description: () => product.value?.description ? localize(product.value.description) : $t("seo.market.description"),
   image: () => product.value?.imageUrl ?? "/market-light.webp",
 });
+
+const quantity = ref(1);
+const isAdding = ref(false);
+
+async function handleBuy() {
+  if (!product.value)
+    return;
+
+  isAdding.value = true;
+  try {
+    await cartStore.addItem(product.value.id, quantity.value);
+    toast.show($t("market.product.addedToCart"), "success");
+  }
+  catch {
+    toast.show($t("market.product.addToCartFailed"), "error");
+  }
+  finally {
+    isAdding.value = false;
+  }
+}
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat("de-DE", {
