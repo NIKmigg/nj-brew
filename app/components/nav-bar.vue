@@ -86,6 +86,7 @@
         :to="localePath('/cart')"
         type="button"
         class="flex items-center justify-center hover:scale-110 relative"
+        :class="{ 'animate-pulse': showAddToCartFeedback }"
         :aria-label="$t('nav.cart')"
       >
         <Icon name="mdi:cart" class="text-3xl" />
@@ -187,6 +188,8 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
+
 const { user, signOut } = await useAuth();
 
 const mounted = ref(false);
@@ -195,7 +198,8 @@ const localePath = useLocalePath();
 const switchLocalePath = useSwitchLocalePath();
 const { locale } = useI18n();
 const toast = useToast();
-const { itemCount } = useCart();
+const cartStore = useCartStore();
+const { itemCount, showAddToCartFeedback } = storeToRefs(cartStore);
 
 const languages = [
   { code: "de", label: "DE" },
@@ -204,6 +208,19 @@ const languages = [
 
 onMounted(() => {
   mounted.value = true;
+
+  watch(
+    user,
+    async (value) => {
+      if (value) {
+        await cartStore.ensureLoaded();
+      }
+      else {
+        cartStore.reset();
+      }
+    },
+    { immediate: true },
+  );
 });
 
 function isActive(path: string) {

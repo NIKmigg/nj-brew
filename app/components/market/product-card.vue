@@ -51,7 +51,7 @@ import { gsap } from "gsap";
 const { product } = defineProps<{ product: SelectProductSchema }>();
 const img = ref<HTMLElement | null>(null);
 const { localize } = useLocalize();
-const { addItem } = useCart();
+const cartStore = useCartStore();
 const toast = useToast();
 
 const isAdding = ref(false);
@@ -70,7 +70,7 @@ async function handleAddToCart() {
 
   isAdding.value = true;
   try {
-    await addItem(product.id, 1);
+    await cartStore.addItem(product.id, 1);
     justAdded.value = true;
     setTimeout(() => {
       justAdded.value = false;

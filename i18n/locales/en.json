@@ -25,6 +25,10 @@
       "title": "Market",
       "description": "Browse ingredients and brewing gear for your next mead project."
     },
+    "cart": {
+      "title": "Cart",
+      "description": ""
+    },
     "login": {
       "title": "Login",
       "description": "Sign in to NJ Brew or create an account for your brewing journey."

@@ -82,7 +82,7 @@
 import type { SelectProductSchema } from "@shared/schemas/product";
 
 const { localize } = useLocalize();
-const { addItem } = useCart();
+const cartStore = useCartStore();
 const toast = useToast();
 
 definePageMeta({
@@ -120,7 +120,7 @@ async function handleBuy() {
 
   isAdding.value = true;
   try {
-    await addItem(product.value.id, quantity.value);
+    await cartStore.addItem(product.value.id, quantity.value);
     toast.show($t("market.product.addedToCart"), "success");
   }
   catch {

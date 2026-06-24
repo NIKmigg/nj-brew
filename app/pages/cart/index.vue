@@ -69,7 +69,7 @@
           type="button"
           class="btn btn-ghost btn-sm btn-square text-error"
           :aria-label="$t('cart.remove')"
-          @click="removeItem(item.id)"
+          @click="cartStore.removeItem(item.id)"
         >
           <Icon name="tabler:trash" class="size-4" />
         </button>
@@ -88,9 +88,17 @@
 </template>
 
 <script setup lang="ts">
-const { items, subtotal, status, updateQuantity, removeItem } = useCart();
+import { storeToRefs } from "pinia";
+
+const cartStore = useCartStore();
+const { items, subtotal, status } = storeToRefs(cartStore);
 
 const { locale } = useI18n();
+
+definePageMeta({
+  titleKey: "seo.cart.title",
+  descriptionKey: "seo.cart.description",
+});
 
 function formatPrice(value: number) {
   return new Intl.NumberFormat(locale.value, {
@@ -100,12 +108,12 @@ function formatPrice(value: number) {
 }
 
 function increment(itemId: number, currentQuantity: number) {
-  updateQuantity(itemId, currentQuantity + 1);
+  cartStore.updateQuantity(itemId, currentQuantity + 1);
 }
 
 function decrement(itemId: number, currentQuantity: number) {
   if (currentQuantity <= 1)
     return;
-  updateQuantity(itemId, currentQuantity - 1);
+  cartStore.updateQuantity(itemId, currentQuantity - 1);
 }
 </script>

@@ -25,6 +25,10 @@
       "title": "Markt",
       "description": "Stoeber durch Zutaten und Brauzubehoer fuer dein naechstes Metprojekt."
     },
+    "cart": {
+      "title": "Krämerkorb",
+      "description": ""
+    },
     "login": {
       "title": "Login",
       "description": "Melde dich bei NJ Brew an oder erstelle ein Konto fuer deine Braureise."
