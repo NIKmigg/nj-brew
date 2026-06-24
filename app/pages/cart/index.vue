@@ -18,27 +18,32 @@
         :key="item.id"
         class="flex items-center gap-4 rounded-lg border border-base-300 p-4"
       >
-        <img
-          v-if="item.product.imageUrl"
-          :src="item.product.imageUrl"
-          :alt="item.product.name[locale]"
-          class="size-16 rounded-md object-cover"
+        <NuxtLink
+          :to="localePath(`/market/${item.product.slug}`)"
+          class="flex min-w-0 flex-1 items-center gap-4 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
-        <div
-          v-else
-          class="flex size-16 shrink-0 items-center justify-center rounded-md bg-base-200"
-        >
-          <Icon name="tabler:leaf" class="size-6 text-base-content/40" />
-        </div>
+          <img
+            v-if="item.product.imageUrl"
+            :src="item.product.imageUrl"
+            :alt="item.product.name[locale]"
+            class="size-16 shrink-0 rounded-md object-cover"
+          >
+          <div
+            v-else
+            class="flex size-16 shrink-0 items-center justify-center rounded-md bg-base-200"
+          >
+            <Icon name="tabler:leaf" class="size-6 text-base-content/40" />
+          </div>
 
-        <div class="min-w-0 flex-1">
-          <p class="truncate font-medium">
-            {{ item.product.name[locale] }}
-          </p>
-          <p class="text-sm text-base-content/60">
-            {{ formatPrice(item.product.price) }}
-          </p>
-        </div>
+          <div class="min-w-0">
+            <p class="truncate font-medium hover:underline">
+              {{ item.product.name[locale] }}
+            </p>
+            <p class="text-sm text-base-content/60">
+              {{ formatPrice(item.product.price) }}
+            </p>
+          </div>
+        </NuxtLink>
 
         <div class="flex items-center gap-2 rounded-md border border-base-300 px-2 py-1">
           <button
@@ -94,6 +99,7 @@ const cartStore = useCartStore();
 const { items, subtotal, status } = storeToRefs(cartStore);
 
 const { locale } = useI18n();
+const localePath = useLocalePath();
 
 definePageMeta({
   titleKey: "seo.cart.title",

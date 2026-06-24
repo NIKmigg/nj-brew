@@ -27,7 +27,7 @@
     },
     "cart": {
       "title": "Cart",
-      "description": ""
+      "description": "Your trade basket - the mead specialties you've chosen from our brewery, ready for checkout."
     },
     "login": {
       "title": "Login",
