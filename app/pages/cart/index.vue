@@ -18,32 +18,29 @@
         :key="item.id"
         class="flex items-center gap-4 rounded-lg border border-base-300 p-4"
       >
-        <NuxtLink
-          :to="localePath(`/market/${item.product.slug}`)"
-          class="flex min-w-0 flex-1 items-center gap-4 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        <img
+          v-if="item.product.imageUrl"
+          :src="item.product.imageUrl"
+          :alt="item.product.name[locale]"
+          class="size-16 rounded-md object-cover"
         >
-          <img
-            v-if="item.product.imageUrl"
-            :src="item.product.imageUrl"
-            :alt="item.product.name[locale]"
-            class="size-16 shrink-0 rounded-md object-cover"
-          >
-          <div
-            v-else
-            class="flex size-16 shrink-0 items-center justify-center rounded-md bg-base-200"
-          >
-            <Icon name="tabler:leaf" class="size-6 text-base-content/40" />
-          </div>
+        <div
+          v-else
+          class="flex size-16 shrink-0 items-center justify-center rounded-md bg-base-200"
+        >
+          <Icon name="mdi:leaf" class="size-6 text-base-content/40" />
+        </div>
 
-          <div class="min-w-0">
-            <p class="truncate font-medium hover:underline">
+        <div class="min-w-0 flex-1">
+          <NuxtLink :to="localePath(`/market/${item.product.slug}`)">
+            <p class="truncate font-medium">
               {{ item.product.name[locale] }}
             </p>
-            <p class="text-sm text-base-content/60">
-              {{ formatPrice(item.product.price) }}
-            </p>
-          </div>
-        </NuxtLink>
+          </NuxtLink>
+          <p class="text-sm text-base-content/60">
+            {{ formatPrice(item.product.price) }}
+          </p>
+        </div>
 
         <div class="flex items-center gap-2 rounded-md border border-base-300 px-2 py-1">
           <button
@@ -53,7 +50,7 @@
             :aria-label="$t('cart.decrease')"
             @click="decrement(item.id, item.quantity)"
           >
-            <Icon name="tabler:minus" class="size-4" />
+            <Icon name="mdi:minus" class="size-4" />
           </button>
           <span class="w-6 text-center text-sm">{{ item.quantity }}</span>
           <button
@@ -62,7 +59,7 @@
             :aria-label="$t('cart.increase')"
             @click="increment(item.id, item.quantity)"
           >
-            <Icon name="tabler:plus" class="size-4" />
+            <Icon name="mdi:plus" class="size-4" />
           </button>
         </div>
 
@@ -76,7 +73,7 @@
           :aria-label="$t('cart.remove')"
           @click="cartStore.removeItem(item.id)"
         >
-          <Icon name="tabler:trash" class="size-4" />
+          <Icon name="mdi:trash-can-outline" class="size-4" />
         </button>
       </div>
 
