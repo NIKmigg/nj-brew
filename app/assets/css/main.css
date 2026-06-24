@@ -151,3 +151,19 @@ html[data-theme="dark"] {
   --noise: 0;
 }
 
+.route-enter-active,
+.route-leave-active {
+  transition: opacity 280ms ease;
+}
+
+.route-enter-from,
+.route-leave-to {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-enter-active,
+  .route-leave-active {
+    transition: none;
+  }
+}
