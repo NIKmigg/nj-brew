@@ -24,161 +24,238 @@
           </p>
         </div>
         <div class="mb-8 flex justify-center">
-          <label class="input input-neutral border-none w-100">
-            <Icon name="mdi:magnify" class="text-xl" />
+          <label class="input input-neutral w-100 border-none">
+            <Icon
+              name="mdi:magnify"
+              class="text-xl"
+            />
+
             <input
               v-model="filters.search"
               type="search"
-              required
               :placeholder="$t('market.filter.search')"
               :aria-label="$t('market.filter.search')"
-              class=""
             >
           </label>
 
-          <div class="dropdown dropdown-end">
-            <button
-              tabindex="0"
-              type="button"
-              class="btn btn-ghost btn-circle ml-4 hover:bg-neutral"
-              :aria-label="$t('market.filter.category')"
-              aria-haspopup="menu"
-            >
+          <!-- Filter -->
+          <GsapDropdown
+            id="market-filter"
+            type="dialog"
+            align="end"
+            :label="$t('market.filter.category')"
+            :duration="0.65"
+            :close-time-scale="2.5"
+            open-ease="elastic.out(0.9, 0.45)"
+            close-ease="power3.in"
+            trigger-class="btn btn-ghost btn-circle ml-4 hover:bg-neutral"
+            panel-class="mt-2 w-64 rounded-box bg-base-100 p-4 shadow-lg"
+          >
+            <template #trigger="{ open }">
               <Icon
-                name="mdi:filter"
-                class="text-2xl cursor-pointer"
+                :name="open ? 'mdi:filter' : 'mdi:filter-outline'"
+                class="cursor-pointer text-2xl"
                 :class="{
                   'text-neutral': isFilterActive,
                   'hover:text-base-content': isFilterActive,
                 }"
               />
-            </button>
+            </template>
 
-            <div tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box shadow-lg p-4 w-64 mt-2 gap-4">
-              <div class="flex flex-col gap-1">
-                <span class="text-sm font-semibold text-start">{{ $t('market.filter.category') }}</span>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input
-                    v-model="filters.categoryId"
-                    type="radio"
-                    :value="null"
-                    class="radio radio-sm"
-                    :aria-label="$t('market.filter.all')"
-                  >
-                  <span>{{ $t('market.filter.all') }}</span>
-                </label>
-                <label
-                  v-for="category in categories"
-                  :key="category.id"
-                  class="flex items-center gap-2 cursor-pointer"
-                >
-                  <input
-                    v-model="filters.categoryId"
-                    type="radio"
-                    :value="category.id"
-                    class="radio radio-sm"
-                    :aria-label="localize(category.name)"
-                  >
-                  <span>{{ localize(category.name) }}</span>
-                </label>
-              </div>
+            <template #default>
+              <div class="flex flex-col gap-4">
+                <fieldset class="flex flex-col gap-1">
+                  <legend class="mb-1 text-start text-sm font-semibold">
+                    {{ $t("market.filter.category") }}
+                  </legend>
 
-              <div class="flex flex-col gap-1">
-                <span class="text-sm font-semibold text-start">{{ $t('market.filter.price') }}</span>
-                <div class="flex items-center gap-2">
-                  <input
-                    v-model.number="filters.minPrice"
-                    type="number"
-                    placeholder="Min"
-                    :aria-label="`${$t('market.filter.price')} Min`"
-                    class="input input-sm input-bordered w-full"
+                  <label class="flex cursor-pointer items-center gap-2">
+                    <input
+                      v-model="filters.categoryId"
+                      type="radio"
+                      :value="null"
+                      class="radio radio-sm"
+                    >
+
+                    <span>
+                      {{ $t("market.filter.all") }}
+                    </span>
+                  </label>
+
+                  <label
+                    v-for="category in categories"
+                    :key="category.id"
+                    class="flex cursor-pointer items-center gap-2"
                   >
-                  <span>-</span>
+                    <input
+                      v-model="filters.categoryId"
+                      type="radio"
+                      :value="category.id"
+                      class="radio radio-sm"
+                    >
+
+                    <span>
+                      {{ localize(category.name) }}
+                    </span>
+                  </label>
+                </fieldset>
+
+                <fieldset class="flex flex-col gap-1">
+                  <legend class="mb-1 text-start text-sm font-semibold">
+                    {{ $t("market.filter.price") }}
+                  </legend>
+
+                  <div class="flex items-center gap-2">
+                    <input
+                      v-model.number="filters.minPrice"
+                      type="number"
+                      inputmode="decimal"
+                      placeholder="Min"
+                      :aria-label="`${$t('market.filter.price')} Min`"
+                      class="input input-bordered input-sm w-full"
+                    >
+
+                    <span aria-hidden="true">
+                      –
+                    </span>
+
+                    <input
+                      v-model.number="filters.maxPrice"
+                      type="number"
+                      inputmode="decimal"
+                      placeholder="Max"
+                      :aria-label="`${$t('market.filter.price')} Max`"
+                      class="input input-bordered input-sm w-full"
+                    >
+                  </div>
+                </fieldset>
+
+                <label class="flex cursor-pointer items-center gap-2">
                   <input
-                    v-model.number="filters.maxPrice"
-                    type="number"
-                    placeholder="Max"
-                    :aria-label="`${$t('market.filter.price')} Max`"
-                    class="input input-sm input-bordered w-full"
+                    v-model="filters.inStock"
+                    type="checkbox"
+                    class="checkbox checkbox-sm"
+                    :true-value="true"
+                    :false-value="undefined"
                   >
+
+                  <span>
+                    {{ $t("market.filter.inStock") }}
+                  </span>
+                </label>
+
+                <div class="flex gap-2">
+                  <button
+                    type="button"
+                    class="btn btn-sm flex-1"
+                    @click="resetFilters('filter')"
+                  >
+                    {{ $t("market.filter.reset") }}
+                  </button>
                 </div>
               </div>
+            </template>
+          </GsapDropdown>
 
-              <label class="flex items-center gap-2 cursor-pointer">
-                <input
-                  v-model="filters.inStock"
-                  type="checkbox"
-                  class="checkbox checkbox-sm"
-                  :true-value="true"
-                  :false-value="undefined"
-                  :aria-label="$t('market.filter.inStock')"
-                >
-                <span>{{ $t('market.filter.inStock') }}</span>
-              </label>
-
-              <button type="button" class="btn btn-sm" @click="resetFilters('filter')">
-                {{ $t('market.filter.reset') }}
-              </button>
-            </div>
-          </div>
-          <div class="dropdown dropdown-end">
-            <button
-              tabindex="0"
-              type="button"
-              class="btn btn-ghost btn-circle ml-4 hover:bg-neutral"
-              :aria-label="$t('market.sort.reset')"
-              aria-haspopup="menu"
-            >
+          <!-- Sortierung -->
+          <GsapDropdown
+            id="market-sort"
+            type="menu"
+            align="end"
+            :label="$t('market.sort.reset')"
+            :duration="0.65"
+            :close-time-scale="2.5"
+            open-ease="elastic.out(0.9, 0.45)"
+            close-ease="power3.in"
+            trigger-class="btn btn-ghost btn-circle ml-4 hover:bg-neutral"
+            panel-class="mt-2 w-64 rounded-box bg-base-100 p-4 shadow-lg"
+          >
+            <template #trigger="{ open }">
               <Icon
-                name="mdi:sort"
-                class="text-2xl cursor-pointer"
+                :name="open ? 'mdi:sort' : 'mdi:sort'"
+                class="cursor-pointer text-2xl"
                 :class="{
                   'text-neutral': isSortActive,
                   'hover:text-base-content': isSortActive,
                 }"
               />
-            </button>
+            </template>
 
-            <div tabindex="0" class="dropdown-content menu bg-base-100 rounded-box shadow-lg p-4 w-64 mt-2 gap-4">
+            <template #default="{ close }">
               <div class="flex flex-col gap-1">
                 <button
+                  type="button"
+                  role="menuitemradio"
                   class="btn btn-ghost justify-start"
-                  :class="{ 'bg-neutral': isActiveSort('price', 'asc') }"
-                  @click="setSort('price', 'asc')"
+                  :class="{
+                    'bg-neutral': isActiveSort('price', 'asc'),
+                  }"
+                  :aria-checked="isActiveSort('price', 'asc')"
+                  @click="applySort('price', 'asc', close)"
                 >
                   <Icon name="mdi:sort-ascending" />
-                  {{ $t('market.sort.priceAsc') }}
+
+                  {{ $t("market.sort.priceAsc") }}
                 </button>
+
                 <button
+                  type="button"
+                  role="menuitemradio"
                   class="btn btn-ghost justify-start"
-                  :class="{ 'bg-neutral': isActiveSort('price', 'desc') }"
-                  @click="setSort('price', 'desc')"
+                  :class="{
+                    'bg-neutral': isActiveSort('price', 'desc'),
+                  }"
+                  :aria-checked="isActiveSort('price', 'desc')"
+                  @click="applySort('price', 'desc', close)"
                 >
                   <Icon name="mdi:sort-descending" />
-                  {{ $t('market.sort.priceDesc') }}
+
+                  {{ $t("market.sort.priceDesc") }}
                 </button>
+
                 <button
+                  type="button"
+                  role="menuitemradio"
                   class="btn btn-ghost justify-start"
-                  :class="{ 'bg-neutral': isActiveSort('name', 'asc') }"
-                  @click="setSort('name', 'asc')"
+                  :class="{
+                    'bg-neutral': isActiveSort('name', 'asc'),
+                  }"
+                  :aria-checked="isActiveSort('name', 'asc')"
+                  @click="applySort('name', 'asc', close)"
                 >
                   <Icon name="mdi:sort-alphabetical-ascending" />
-                  {{ $t('market.sort.nameAsc') }}
+
+                  {{ $t("market.sort.nameAsc") }}
                 </button>
+
                 <button
+                  type="button"
+                  role="menuitemradio"
                   class="btn btn-ghost justify-start"
-                  :class="{ 'bg-neutral': isActiveSort('name', 'desc') }"
-                  @click="setSort('name', 'desc')"
+                  :class="{
+                    'bg-neutral': isActiveSort('name', 'desc'),
+                  }"
+                  :aria-checked="isActiveSort('name', 'desc')"
+                  @click="applySort('name', 'desc', close)"
                 >
                   <Icon name="mdi:sort-alphabetical-descending" />
-                  {{ $t('market.sort.nameDesc') }}
+
+                  {{ $t("market.sort.nameDesc") }}
                 </button>
-                <button class="btn btn-sm" @click="resetFilters('sort')">
-                  {{ $t('market.sort.reset') }}
+
+                <div class="divider my-2" />
+
+                <button
+                  type="button"
+                  role="menuitem"
+                  class="btn btn-sm"
+                  @click="resetSort(close)"
+                >
+                  {{ $t("market.sort.reset") }}
                 </button>
               </div>
-            </div>
-          </div>
+            </template>
+          </GsapDropdown>
         </div>
         <div
           v-if="status === 'idle' || (status === 'pending' && !products?.length)"
@@ -223,6 +300,10 @@
 </template>
 
 <script setup lang="ts">
+type SortField = "price" | "name";
+type SortDirection = "asc" | "desc";
+type CloseDropdown = () => void;
+
 const toast = useToast();
 const { localize } = useLocalize();
 const localePath = useLocalePath();
@@ -233,10 +314,39 @@ definePageMeta({
   descriptionKey: "seo.market.description",
 });
 
-const { filters, products, status, error, resetFilters, isActiveSort, setSort, isSortActive, isFilterActive } = useProductFilters();
+const {
+  filters,
+  products,
+  status,
+  error,
+  resetFilters,
+  isActiveSort,
+  setSort,
+  isSortActive,
+  isFilterActive,
+} = useProductFilters();
+
 const { categories } = useCategories();
 
+function applySort(
+  field: SortField,
+  direction: SortDirection,
+  close: CloseDropdown,
+) {
+  setSort(field, direction);
+  close();
+}
+
+function resetSort(close: CloseDropdown) {
+  resetFilters("sort");
+  close();
+}
+
 onMounted(() => {
-  toast.show($t("market.toast"), "warning", 9000);
+  toast.show(
+    $t("market.toast"),
+    "warning",
+    9000,
+  );
 });
 </script>
