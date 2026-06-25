@@ -346,7 +346,7 @@
       "reset": "Reset"
     },
     "product": {
-      "addToCart": "Add to cart: {name}",
+      "addToCart": "Add to cart",
       "buy": "Buy",
       "buyProduct": "Buy: {name}",
       "available": "{count} available",

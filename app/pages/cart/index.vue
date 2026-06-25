@@ -1,12 +1,10 @@
 <template>
   <div class="mx-auto max-w-6xl px-4 py-8 sm:py-12">
-    <header class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        <h1 class="text-4xl font-bold sm:text-5xl">
-          {{ $t("cart.title") }}
-        </h1>
-      </div>
-    </header>
+    <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <h1 class="text-4xl font-bold sm:text-5xl">
+        {{ $t("cart.title") }}
+      </h1>
+    </div>
 
     <div
       v-if="status === 'pending'"

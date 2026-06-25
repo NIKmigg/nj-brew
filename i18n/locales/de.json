@@ -346,14 +346,13 @@
       "reset": "Zurücksetzen"
     },
     "product": {
-      "addToCart": "In den Warenkorb: {name}",
+      "addToCart": "In den Krämerkorb",
       "buy": "Kaufen",
       "buyProduct": "Kaufen: {name}",
       "available": "{count} verfügbar",
       "notAvailable": "Nicht verfügbar",
       "addedToCart": "In den Krämerkorb gelegt",
       "addToCartFailed": "Konnte nicht hinzugefügt werden"
-
     },
     "sort": {
       "priceAsc": "Preis aufsteigend",
