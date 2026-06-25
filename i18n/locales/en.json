@@ -371,11 +371,14 @@
   },
   "cart": {
     "title": "Your basket",
+    "products": "Products",
     "empty": "Your basket is still empty",
     "subtotal": "Subtotal",
     "shipping": "Shipping",
+    "shippingCourier": "Courier horse shipping",
     "total": "Total",
     "checkout": "Checkout",
+    "itemCount": "{count} items",
     "increase": "Increase quantity",
     "decrease": "Decrease quantity",
     "remove": "Remove"

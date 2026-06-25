@@ -12,7 +12,7 @@
           class="w-60 mx-auto mb-6 object-cover -rotate-12"
         >
 
-        <h1 ref="heroTitleRef" class="text-5xl md:text-6xl product-name mb-10">
+        <h1 ref="heroTitleRef" class="text-5xl md:text-6xl product-name mb-10 font-old-style">
           {{ localize(product.name) }}
         </h1>
 

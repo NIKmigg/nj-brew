@@ -371,11 +371,14 @@
   },
   "cart": {
     "title": "Dein Krämerkorb",
+    "products": "Produkte",
     "empty": "Dein Krämerkorb ist noch leer",
     "subtotal": "Zwischensumme",
     "shipping": "Lieferung",
+    "shippingCourier": "Versand per Botenpferd",
     "total": "Gesamt",
     "checkout": "Zur Kasse",
+    "itemCount": "{count} Waren",
     "increase": "Menge erhöhen",
     "decrease": "Menge verringern",
     "remove": "Entfernen"

@@ -4,8 +4,22 @@
       <div
         class="absolute left-1/2 top-20 -translate-x-1/2 w-50 h-50 rounded-full blur-3xl bg-neutral/30 pointer-events-none z-0"
       />
-      <div v-if="product.category" class="badge badge-soft badge-neutral absolute top-2 right-2 z-1">
-        {{ localize(product.category.name) }}
+      <div class="absolute top-2 right-2 z-1 flex flex-col items-end gap-2">
+        <div v-if="product.category" class="badge badge-soft badge-neutral">
+          {{ localize(product.category.name) }}
+        </div>
+        <div
+          class="badge"
+          :class="product.stock > 0
+            ? 'badge-success'
+            : 'badge-error'"
+        >
+          {{
+            product.stock > 0
+              ? $t('market.product.available', { count: product.stock })
+              : $t('market.product.notAvailable')
+          }}
+        </div>
       </div>
       <figure class="px-10 pt-10 z-1">
         <img
@@ -26,11 +40,15 @@
           <button
             type="button"
             class="btn btn-circle absolute right-2 bottom-2 shadow-xl hover:bg-neutral"
-            :disabled="isAdding"
-            :aria-label="$t('market.product.addToCart', { name: localize(product.name) })"
+            :disabled="product.stock === 0 || isAdding"
+            :aria-label="product.stock > 0
+              ? $t('market.product.addToCart', { name: localize(product.name) })
+              : $t('market.product.notAvailable')"
             @click.stop.prevent="handleAddToCart"
           >
-            <Icon v-if="justAdded" name="mdi:check" class="text-2xl" />
+            <span v-if="isAdding" class="loading loading-spinner loading-sm" />
+            <Icon v-else-if="product.stock === 0" name="mdi:cart-off" class="text-2xl" />
+            <Icon v-else-if="justAdded" name="mdi:check" class="text-2xl" />
             <Icon v-else name="mdi:cart-add" class="text-2xl" />
           </button>
         </div>
@@ -65,7 +83,7 @@ function formatPrice(price: number) {
 }
 
 async function handleAddToCart() {
-  if (isAdding.value)
+  if (product.stock === 0 || isAdding.value)
     return;
 
   isAdding.value = true;
