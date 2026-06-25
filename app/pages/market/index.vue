@@ -62,7 +62,7 @@
               />
             </template>
 
-            <template #default="{ close }">
+            <template #default>
               <div class="flex flex-col gap-4">
                 <fieldset class="flex flex-col gap-1">
                   <legend class="mb-1 text-start text-sm font-semibold">
@@ -151,14 +151,6 @@
                     @click="resetFilters('filter')"
                   >
                     {{ $t("market.filter.reset") }}
-                  </button>
-
-                  <button
-                    type="button"
-                    class="btn btn-primary btn-sm flex-1"
-                    @click="close()"
-                  >
-                    {{ $t("common.close") }}
                   </button>
                 </div>
               </div>

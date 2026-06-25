@@ -140,8 +140,6 @@
     </div>
 
     <div class="navbar-end mr-4">
-      <!-- Hydration-sicherer Platzhalter -->
-      =======
       <div class="navbar-end mr-4 space-x-4">
         <NuxtLink
           :to="localePath('/cart')"
@@ -159,7 +157,6 @@
           </span>
         </NuxtLink>
 
-        >>>>>>> origin/master
         <button
           v-if="!mounted"
           type="button"
