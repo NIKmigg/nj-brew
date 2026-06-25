@@ -141,120 +141,142 @@
 
     <div class="navbar-end mr-4">
       <!-- Hydration-sicherer Platzhalter -->
-      <button
-        v-if="!mounted"
-        type="button"
-        class="btn btn-circle btn-ghost avatar"
-        :aria-label="$t('nav.user')"
-        disabled
-      >
-        <img src="/avatar.webp" :alt="$t('nav.user')" class="rounded-full">
-      </button>
-
-      <GsapDropdown
-        v-else
-        id="user-navigation"
-        type="dialog"
-        align="end"
-        :label="$t('nav.user')"
-        trigger-class="btn btn-circle btn-ghost avatar hover:scale-110"
-        panel-class="mt-3 w-64 rounded-box bg-base-100 shadow-lg"
-      >
-        <template #trigger>
-          <img
-            v-if="user?.image"
-            :src="user.image"
-            :alt="user.name || $t('nav.user')"
-            class="rounded-full"
+      =======
+      <div class="navbar-end mr-4 space-x-4">
+        <NuxtLink
+          :to="localePath('/cart')"
+          type="button"
+          class="flex items-center justify-center hover:scale-110 relative"
+          :class="{ 'animate-pulse': showAddToCartFeedback }"
+          :aria-label="$t('nav.cart')"
+        >
+          <Icon name="mdi:cart" class="text-3xl" />
+          <span
+            v-if="itemCount > 0"
+            class="absolute -top-2 -right-2 flex items-center justify-center min-w-5 h-5 px-1 bg-primary text-primary-content text-xs font-bold rounded-full leading-none"
           >
+            {{ itemCount }}
+          </span>
+        </NuxtLink>
 
-          <img
-            v-else
-            src="/avatar.webp"
-            :alt="$t('nav.user')"
-            class="rounded-full"
-          >
-        </template>
+        >>>>>>> origin/master
+        <button
+          v-if="!mounted"
+          type="button"
+          class="btn btn-circle btn-ghost avatar"
+          :aria-label="$t('nav.user')"
+          disabled
+        >
+          <img src="/avatar.webp" :alt="$t('nav.user')" class="rounded-full">
+        </button>
 
-        <template #default="{ close }">
-          <div class="card card-compact">
-            <div class="card-body text-center">
-              <h3 class="font-semibold">
-                {{ user?.name || "Ragnar Prostbrok" }}
-              </h3>
+        <GsapDropdown
+          v-else
+          id="user-navigation"
+          type="dialog"
+          align="end"
+          :label="$t('nav.user')"
+          trigger-class="btn btn-circle btn-ghost avatar hover:scale-110"
+          panel-class="mt-3 w-64 rounded-box bg-base-100 shadow-lg"
+        >
+          <template #trigger>
+            <img
+              v-if="user?.image"
+              :src="user.image"
+              :alt="user.name || $t('nav.user')"
+              class="rounded-full"
+            >
 
-              <p class="mt-1 text-sm opacity-70">
-                {{
-                  user?.email
-                    || "ragnar@valhalla.met"
-                }}
-              </p>
+            <img
+              v-else
+              src="/avatar.webp"
+              :alt="$t('nav.user')"
+              class="rounded-full"
+            >
+          </template>
 
-              <div class="divider my-3" />
+          <template #default="{ close }">
+            <div class="card card-compact">
+              <div class="card-body text-center">
+                <h3 class="font-semibold">
+                  {{ user?.name || "Ragnar Prostbrok" }}
+                </h3>
 
-              <ThemeToggle class="mb-3" />
+                <p class="mt-1 text-sm opacity-70">
+                  {{
+                    user?.email
+                      || "ragnar@valhalla.met"
+                  }}
+                </p>
 
-              <div class="join mx-auto">
-                <NuxtLink
-                  v-for="language in languages"
-                  :key="language.code"
-                  class="btn btn-soft btn-sm join-item hover:scale-110"
-                  :class="{
-                    'btn-active bg-primary/80':
-                      locale === language.code,
-                  }"
-                  :to="switchLocalePath(language.code)
-                  "
-                  :aria-current="locale === language.code
-                    ? 'true'
-                    : undefined
-                  "
-                  @click="close()"
-                >
-                  {{ language.label }}
-                </NuxtLink>
-              </div>
+                <div class="divider my-3" />
 
-              <div class="divider my-3" />
+                <ThemeToggle class="mb-3" />
 
-              <div v-if="user">
-                <NuxtLink
-                  :to="localePath('/user')"
-                  class="btn btn-ghost  btn-wide hover:scale-110"
-                  :class="{
-                    'text-primary/80':
-                      isActive('/user'),
-                  }"
-                  @click="close()"
-                >
-                  <Icon name="mdi:cog" class="text-xl" />
+                <div class="join mx-auto">
+                  <NuxtLink
+                    v-for="language in languages"
+                    :key="language.code"
+                    class="btn btn-soft btn-sm join-item hover:scale-110"
+                    :class="{
+                      'btn-active bg-primary/80':
+                        locale === language.code,
+                    }"
+                    :to="switchLocalePath(language.code)
+                    "
+                    :aria-current="locale === language.code
+                      ? 'true'
+                      : undefined
+                    "
+                    @click="close()"
+                  >
+                    {{ language.label }}
+                  </NuxtLink>
+                </div>
 
-                  {{ $t("nav.user") }}
-                </NuxtLink>
+                <div class="divider my-3" />
 
-                <button
-                  type="button"
-                  class="btn btn-ghost btn-wide hover:scale-110 hover:text-error"
-                  @click="handleSignOut(close)"
-                >
-                  <Icon name="mdi:logout" class="text-xl" />
+                <div v-if="user">
+                  <NuxtLink
+                    :to="localePath('/user')"
+                    class="btn btn-ghost  btn-wide hover:scale-110"
+                    :class="{
+                      'text-primary/80':
+                        isActive('/user'),
+                    }"
+                    @click="close()"
+                  >
+                    <Icon name="mdi:cog" class="text-xl" />
 
-                  {{ $t("nav.logout") }}
-                </button>
-              </div>
+                    {{ $t("nav.user") }}
+                  </NuxtLink>
 
-              <div v-else @click="close()">
-                <AuthButton />
+                  <button
+                    type="button"
+                    class="btn btn-ghost btn-wide hover:scale-110 hover:text-error"
+                    @click="handleSignOut(close)"
+                  >
+                    <Icon name="mdi:logout" class="text-xl" />
+
+                    {{ $t("nav.logout") }}
+                  </button>
+                </div>
+
+                <div v-else @click="close()">
+                  <AuthButton />
+                </div>
               </div>
             </div>
-          </div>
-        </template>
-      </GsapDropdown>
+          </template>
+        </GsapDropdown>
+      </div>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
+
 const { user, signOut } = await useAuth();
 
 const mounted = ref(false);
@@ -266,6 +288,8 @@ const switchLocalePath = useSwitchLocalePath();
 const { locale, t } = useI18n();
 
 const toast = useToast();
+const cartStore = useCartStore();
+const { itemCount, showAddToCartFeedback } = storeToRefs(cartStore);
 
 const languages = [
   {
@@ -280,6 +304,19 @@ const languages = [
 
 onMounted(() => {
   mounted.value = true;
+
+  watch(
+    user,
+    async (value) => {
+      if (value) {
+        await cartStore.ensureLoaded();
+      }
+      else {
+        cartStore.reset();
+      }
+    },
+    { immediate: true },
+  );
 });
 
 function isActive(path: string) {

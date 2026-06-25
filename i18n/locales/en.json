@@ -25,6 +25,10 @@
       "title": "Market",
       "description": "Browse ingredients and brewing gear for your next mead project."
     },
+    "cart": {
+      "title": "Cart",
+      "description": "Your trade basket - the mead specialties you've chosen from our brewery, ready for checkout."
+    },
     "login": {
       "title": "Login",
       "description": "Sign in to NJ Brew or create an account for your brewing journey."
@@ -346,7 +350,9 @@
       "buy": "Buy",
       "buyProduct": "Buy: {name}",
       "available": "{count} available",
-      "notAvailable": "Not available"
+      "notAvailable": "Not available",
+      "addedToCart": "Added to basket",
+      "addToCartFailed": "Could not be added"
     },
     "sort": {
       "priceAsc": "Price ascending",
@@ -361,10 +367,22 @@
     },
     "toast": "The market is being renovated! Some features may be temporarily unavailable."
   },
+  "cart": {
+    "title": "Your basket",
+    "empty": "Your basket is still empty",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "checkout": "Checkout",
+    "increase": "Increase quantity",
+    "decrease": "Decrease quantity",
+    "remove": "Remove"
+  },
   "nav": {
     "home": "Tavern",
     "generator": "Brewery",
     "market": "Market",
+    "cart": "basket",
     "admin": "Admin Dashboard",
     "user": "Settings",
     "logout": "Logout",

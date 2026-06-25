@@ -68,6 +68,8 @@ export async function useAuth() {
         getAuthErrorMessage(result.error, "auth.loginFailed"),
       );
     }
+
+    await useCartStore().refresh();
   }
 
   async function signUpWithEmail(
@@ -148,6 +150,8 @@ export async function useAuth() {
         getAuthErrorMessage(result.error, "auth.logoutFailed"),
       );
     }
+
+    useCartStore().reset();
   }
 
   async function deleteUser() {
@@ -160,6 +164,7 @@ export async function useAuth() {
     }
     else {
       await authClient.signOut();
+      useCartStore().reset();
     }
   }
 
