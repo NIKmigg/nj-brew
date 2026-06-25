@@ -3,6 +3,8 @@ import { z } from "zod";
 export const toastSchema = z.object({
   id: z.string(),
   message: z.string(),
+  duration: z.number(),
+  revision: z.number(),
   type: z.enum([
     "success",
     "error",

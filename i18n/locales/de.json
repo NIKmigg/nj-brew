@@ -154,7 +154,9 @@
     "switchToDark": "Dunkles Design aktivieren"
   },
   "toast": {
-    "close": "Benachrichtigung schließen"
+    "close": "Benachrichtigung schließen",
+    "queuedCount": "Wartende Benachrichtigungen: {count}",
+    "regionLabel": "Benachrichtigungen"
   },
   "footer": {
     "tagline": "Braukunst nach alter Tradition.",

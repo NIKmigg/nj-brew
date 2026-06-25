@@ -154,7 +154,9 @@
     "switchToDark": "Switch to dark mode"
   },
   "toast": {
-    "close": "Close notification"
+    "close": "Close notification",
+    "queuedCount": "Notifications waiting: {count}",
+    "regionLabel": "Notifications"
   },
   "footer": {
     "tagline": "Brewing craft in the old tradition.",
