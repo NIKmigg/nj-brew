@@ -80,11 +80,13 @@
       </div>
     </section>
 
-    <ConfirmModal
+    <GsapConfirmModal
       v-model="showDeleteConfirm"
       title-key="settings.deleteConfirmTitle"
       text-key="settings.deleteConfirmText"
       confirm-key="settings.deleteConfirmSubmit"
+      cancel-key="global.cancel"
+      close-key="global.close"
       :text-params="{ email: user?.email || '-' }"
       @confirm="handleDeleteAccount"
     />
