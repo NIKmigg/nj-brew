@@ -378,10 +378,14 @@
     "shippingCourier": "Versand per Botenpferd",
     "total": "Gesamt",
     "checkout": "Zur Kasse",
-    "itemCount": "{count} Waren",
+    "itemCount": "{count} Ware | {count} Waren",
+    "unitPrice": "Einzelpreis: {price}",
+    "quantity": "Menge",
     "increase": "Menge erhöhen",
     "decrease": "Menge verringern",
-    "remove": "Entfernen"
+    "remove": "Entfernen",
+    "itemConfirmRemoveTitle": "Produkt entfernen",
+    "itemConfirmRemoveText": "Willst du {name} wirklich aus dem Warenkorb entfernen?"
   },
   "nav": {
     "home": "Taverne",
