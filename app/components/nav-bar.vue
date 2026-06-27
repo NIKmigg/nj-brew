@@ -293,7 +293,6 @@ const languages = [
   { code: "en", label: "EN" },
 ] as const;
 
-// SSR-sicher: direkt beim Setup laden, falls eingeloggt
 if (user.value) {
   await cartStore.ensureLoaded();
 }
@@ -301,7 +300,6 @@ if (user.value) {
 onMounted(() => {
   mounted.value = true;
 
-  // Reagiert nur noch auf SPÄTERE Login/Logout-Wechsel (nicht initial)
   watch(user, async (value) => {
     if (value) {
       await cartStore.ensureLoaded();

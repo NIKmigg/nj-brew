@@ -4,6 +4,7 @@ const protectedRoutes = [
   "/market",
   "/generator",
   "/user",
+  "/cart",
 ];
 
 const localePrefixes = [
