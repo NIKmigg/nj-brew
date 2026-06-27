@@ -35,7 +35,6 @@
       ]"
       :role="type"
       :aria-labelledby="triggerId"
-      :aria-hidden="!isOpen"
       :inert="!isOpen"
       @keydown="handlePanelKeydown"
     >
