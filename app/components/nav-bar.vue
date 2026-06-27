@@ -276,8 +276,6 @@ import { storeToRefs } from "pinia";
 
 const { user, signOut } = await useAuth();
 
-const mounted = ref(false);
-
 const route = useRoute();
 const localePath = useLocalePath();
 const switchLocalePath = useSwitchLocalePath();
@@ -288,61 +286,47 @@ const toast = useToast();
 const cartStore = useCartStore();
 const { itemCount, showAddToCartFeedback } = storeToRefs(cartStore);
 
+const mounted = ref(false);
+
 const languages = [
-  {
-    code: "de",
-    label: "DE",
-  },
-  {
-    code: "en",
-    label: "EN",
-  },
+  { code: "de", label: "DE" },
+  { code: "en", label: "EN" },
 ] as const;
+
+// SSR-sicher: direkt beim Setup laden, falls eingeloggt
+if (user.value) {
+  await cartStore.ensureLoaded();
+}
 
 onMounted(() => {
   mounted.value = true;
 
-  watch(
-    user,
-    async (value) => {
-      if (value) {
-        await cartStore.ensureLoaded();
-      }
-      else {
-        cartStore.reset();
-      }
-    },
-    { immediate: true },
-  );
+  // Reagiert nur noch auf SPÄTERE Login/Logout-Wechsel (nicht initial)
+  watch(user, async (value) => {
+    if (value) {
+      await cartStore.ensureLoaded();
+    }
+    else {
+      cartStore.reset();
+    }
+  });
 });
 
 function isActive(path: string) {
   return route.path === localePath(path);
 }
 
-async function handleSignOut(
-  closeDropdown?: () => void,
-) {
+async function handleSignOut(closeDropdown?: () => void) {
   closeDropdown?.();
 
   try {
     await signOut();
-
-    toast.show(
-      t("auth.logoutSuccess"),
-    );
-
-    await navigateTo(
-      localePath("/"),
-    );
+    toast.show(t("auth.logoutSuccess"));
+    await navigateTo(localePath("/"));
   }
   catch (error) {
     console.error(error);
-
-    toast.show(
-      t("auth.logoutFailed"),
-      "error",
-    );
+    toast.show(t("auth.logoutFailed"), "error");
   }
 }
 </script>

@@ -2,10 +2,10 @@
   <div class="mx-auto min-h-[calc(100vh-8rem)] w-full max-w-6xl px-4 py-8 sm:py-12">
     <div class="grid items-start gap-6 md:grid-cols-[minmax(0,1fr)_22rem]">
       <section class="card overflow-hidden bg-base-100 text-base-content shadow-sm">
-        <div class="flex items-center justify-between gap-4 border-b border-base-300 px-6 py-5">
+        <div class="flex items-center justify-between gap-4 border-b border-base-300 p-6">
           <div class="flex items-center gap-3">
             <Icon name="mdi:package-variant-closed" size="24" class="shrink-0 text-primary" />
-            <h1 class="truncate text-xl font-bold sm:text-2xl">
+            <h1 class="truncate text-xl font-bold sm:text-2xl font-old-style">
               {{ $t("cart.products") }}
             </h1>
           </div>
@@ -62,7 +62,7 @@
 
             <div class="min-w-0 self-center">
               <NuxtLink :to="localePath(`/market/${item.product.slug}`)">
-                <h2 class="truncate text-lg font-bold leading-tight transition-colors hover:text-primary">
+                <h2 class="truncate text-lg font-bold leading-tight transition-colors hover:text-primary font-old-style">
                   {{ item.product.name[locale] }}
                 </h2>
               </NuxtLink>
@@ -77,7 +77,7 @@
               </p>
             </div>
 
-            <div class="col-span-2 flex items-center justify-between gap-3 sm:col-span-1 sm:flex-col sm:items-end sm:justify-center">
+            <div class="col-start-2 flex items-center justify-between gap-3 sm:col-start-auto sm:flex-col sm:items-end sm:justify-center">
               <p class="whitespace-nowrap text-base font-bold">
                 {{ formatPrice(item.product.price * item.quantity) }}
               </p>
@@ -134,14 +134,14 @@
         v-if="items.length > 0"
         class="card bg-base-100 p-6 text-base-content shadow-sm md:sticky md:top-28"
       >
-        <div class="mb-5 flex items-center gap-3">
+        <div class="flex items-center gap-3 mb-4">
           <Icon name="mdi:basket-check-outline" size="24" class="text-primary" />
-          <h2 class="text-xl font-bold">
+          <h1 class="truncate text-xl font-bold sm:text-2xl font-old-style">
             {{ $t("cart.title") }}
-          </h2>
+          </h1>
         </div>
 
-        <dl class="space-y-2 border-y border-base-300 py-5 text-base">
+        <dl class="-mx-6 space-y-2 border-y border-base-300 px-6 py-5 text-base">
           <div class="flex items-center justify-between gap-4 text-base-content/70">
             <dt>{{ $t("cart.subtotal") }}</dt>
             <dd class="font-medium text-base-content">

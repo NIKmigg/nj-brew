@@ -44,7 +44,7 @@
     <div class="sticky bottom-4 flex justify-center">
       <button
         type="button"
-        class="btn btn-primary shadow-xl mb-10 text-white"
+        class="btn btn-primary shadow-xl mb-10"
         :disabled="product.stock === 0 || isAdding"
         :aria-label="t('market.product.buyProduct', { name: localize(product.name) })"
         @click="handleBuy"
@@ -55,12 +55,8 @@
         </template>
         <template v-else>
           {{ t('market.product.addToCart') }}
-          <Icon
-            v-if="cartStore.showAddToCartFeedback"
-            name="mdi:check"
-            class="text-xl"
-          />
-          <Icon v-else name="mdi:cart-add" class="text-2xl text-white" />
+          <Icon v-if="cartStore.showAddToCartFeedback" name="mdi:check" size="24" />
+          <Icon v-else name="mdi:cart-add" size="24" />
         </template>
       </button>
     </div>

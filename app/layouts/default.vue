@@ -24,6 +24,13 @@
 </template>
 
 <script setup lang="ts">
+const { user } = await useAuth();
+const cartStore = useCartStore();
 const { y } = useWindowScroll();
+
+if (user.value) {
+  await cartStore.ensureLoaded();
+}
+
 const scrolled = computed(() => y.value > 50);
 </script>
