@@ -1,10 +1,10 @@
 <template>
   <div class="mx-auto min-h-[calc(100vh-8rem)] w-full max-w-6xl px-4 py-8 sm:py-12">
     <div class="grid items-start gap-6 md:grid-cols-[minmax(0,1fr)_22rem]">
-      <section class="overflow-hidden rounded-lg bg-base-100/95 text-base-content shadow-2xl shadow-base-300/30">
+      <section class="card overflow-hidden bg-base-100 text-base-content shadow-sm">
         <div class="flex items-center justify-between gap-4 border-b border-base-300 px-6 py-5">
-          <div class="flex min-w-0 items-center gap-3">
-            <Icon name="mdi:package-variant-closed" class="size-6 shrink-0 text-primary" />
+          <div class="flex items-center gap-3">
+            <Icon name="mdi:package-variant-closed" size="24" class="shrink-0 text-primary" />
             <h1 class="truncate text-xl font-bold sm:text-2xl">
               {{ $t("cart.products") }}
             </h1>
@@ -12,9 +12,9 @@
 
           <span
             v-if="items.length > 0"
-            class="shrink-0 rounded-xl bg-base-200 px-3 py-1 text-sm font-bold text-primary sm:text-base"
+            class="badge badge-soft badge-neutral shrink-0 text-sm font-bold sm:text-base"
           >
-            {{ $t("cart.itemCount", { count: totalQuantity }) }}
+            {{ $t("cart.itemCount", { count: totalQuantity }, totalQuantity) }}
           </span>
         </div>
 
@@ -29,28 +29,28 @@
           v-else-if="items.length === 0"
           class="px-6 py-14 text-center"
         >
-          <div class="mx-auto mb-5 flex size-16 items-center justify-center rounded-lg bg-base-200 text-primary">
-            <Icon name="mdi:basket-off-outline" class="size-8" />
+          <div class="mx-auto mb-5 flex size-16 items-center justify-center rounded-box bg-base-200 text-primary">
+            <Icon name="mdi:basket-off-outline" size="30" />
           </div>
           <p class="mb-6 text-lg font-semibold">
             {{ $t("cart.empty") }}
           </p>
-          <NuxtLink :to="localePath('/market')" class="btn btn-outline">
-            <Icon name="mdi:storefront-outline" class="size-5" />
+          <NuxtLink :to="localePath('/market')" class="btn btn-link">
+            <Icon name="mdi:arrow-left-bold" />
             {{ $t("nav.market") }}
           </NuxtLink>
         </div>
 
-        <div v-else class="px-6 py-4">
-          <article
+        <ul v-else class="px-6 py-4">
+          <li
             v-for="(item, index) in items"
             :key="item.id"
-            class="grid grid-cols-[3.75rem_minmax(0,1fr)_auto] gap-4 py-5"
+            class="grid grid-cols-[3.75rem_minmax(0,1fr)] gap-4 py-5 sm:grid-cols-[3.75rem_minmax(0,1fr)_auto]"
             :class="index > 0 ? 'border-t border-base-300' : ''"
           >
             <NuxtLink
               :to="localePath(`/market/${item.product.slug}`)"
-              class="flex size-15 items-center justify-center rounded-lg bg-base-200 text-primary transition-colors hover:bg-base-300"
+              class="flex size-15 items-center justify-center rounded-box bg-base-200 text-primary"
               :aria-label="item.product.name[locale]"
             >
               <img
@@ -72,44 +72,70 @@
               >
                 {{ item.product.description[locale] }}
               </p>
+              <p class="mt-2 text-sm font-semibold text-base-content/70">
+                {{ $t("cart.unitPrice", { price: formatPrice(item.product.price) }) }}
+              </p>
             </div>
 
-            <div class="flex flex-col items-end justify-center gap-3">
+            <div class="col-span-2 flex items-center justify-between gap-3 sm:col-span-1 sm:flex-col sm:items-end sm:justify-center">
               <p class="whitespace-nowrap text-base font-bold">
                 {{ formatPrice(item.product.price * item.quantity) }}
               </p>
 
-              <div class="flex h-8 items-center overflow-hidden rounded-lg border border-base-300 bg-base-200">
+              <div class="flex items-center gap-2">
+                <div class="join">
+                  <button
+                    type="button"
+                    class="btn btn-sm join-item btn-square"
+                    :disabled="item.quantity <= 1"
+                    :aria-label="$t('cart.decrease')"
+                    @click="decrement(item.id, item.quantity)"
+                  >
+                    <Icon name="mdi:minus" size="24" />
+                  </button>
+                  <input
+                    :value="item.quantity"
+                    type="number"
+                    min="1"
+                    inputmode="numeric"
+                    class="input input-sm join-item w-14 px-1 text-center font-bold [appearance:textfield]
+                    [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none
+                    border-none"
+                    :aria-label="$t('cart.quantity')"
+                    @change="updateQuantityFromInput(item.id, $event, item.quantity)"
+                    @keydown.enter.prevent="updateQuantityFromInput(item.id, $event, item.quantity)"
+                  >
+                  <button
+                    type="button"
+                    class="btn btn-sm join-item btn-square"
+                    :disabled="item.quantity >= 99"
+                    :aria-label="$t('cart.increase')"
+                    @click="increment(item.id, item.quantity)"
+                  >
+                    <Icon name="mdi:plus" size="24" />
+                  </button>
+                </div>
+
                 <button
                   type="button"
-                  class="flex size-8 items-center justify-center text-base-content transition-colors hover:bg-base-300 disabled:cursor-not-allowed disabled:opacity-35"
-                  :disabled="item.quantity <= 1"
-                  :aria-label="$t('cart.decrease')"
-                  @click="decrement(item.id, item.quantity)"
+                  class="btn btn-sm btn-ghost text-error"
+                  :aria-label="$t('cart.remove')"
+                  @click="openRemoveConfirm(item.id)"
                 >
-                  <Icon name="mdi:minus" class="size-4" />
-                </button>
-                <span class="w-8 text-center text-base font-bold leading-none">{{ item.quantity }}</span>
-                <button
-                  type="button"
-                  class="flex size-8 items-center justify-center text-base-content transition-colors hover:bg-base-300"
-                  :aria-label="$t('cart.increase')"
-                  @click="increment(item.id, item.quantity)"
-                >
-                  <Icon name="mdi:plus" class="size-4" />
+                  <Icon name="mdi:trash-can-outline" size="24" />
                 </button>
               </div>
             </div>
-          </article>
-        </div>
+          </li>
+        </ul>
       </section>
 
       <aside
         v-if="items.length > 0"
-        class="rounded-lg bg-base-100/95 p-6 text-base-content shadow-2xl shadow-base-300/30 md:sticky md:top-28"
+        class="card bg-base-100 p-6 text-base-content shadow-sm md:sticky md:top-28"
       >
         <div class="mb-5 flex items-center gap-3">
-          <Icon name="mdi:basket-check-outline" class="size-6 text-primary" />
+          <Icon name="mdi:basket-check-outline" size="24" class="text-primary" />
           <h2 class="text-xl font-bold">
             {{ $t("cart.title") }}
           </h2>
@@ -136,13 +162,29 @@
 
         <NuxtLink
           :to="localePath('/market/checkout')"
-          class="mt-5 flex h-13 w-full items-center justify-center gap-3 rounded-lg border border-base-300 bg-base-200 px-4 text-lg font-bold text-base-content transition-colors hover:bg-base-300"
+          class="btn btn-primary mt-5 w-full"
         >
-          <Icon name="mdi:currency-usd-circle-outline" class="size-5 text-primary" />
+          <Icon name="mdi:currency-usd-circle-outline" size="24" />
           {{ $t("cart.checkout") }}
+        </NuxtLink>
+
+        <NuxtLink :to="localePath('/market')" class="btn btn-ghost mt-3 hover:text-primary">
+          <Icon name="mdi:arrow-left-bold" />
+          {{ $t("nav.market") }}
         </NuxtLink>
       </aside>
     </div>
+
+    <GsapConfirmModal
+      v-model="showRemoveConfirm"
+      title-key="cart.itemConfirmRemoveTitle"
+      text-key="cart.itemConfirmRemoveText"
+      confirm-key="cart.remove"
+      cancel-key="global.cancel"
+      close-key="global.close"
+      :text-params="{ name: itemPendingRemovalName }"
+      @confirm="removePendingItem"
+    />
   </div>
 </template>
 
@@ -161,6 +203,13 @@ const totalQuantity = computed(() =>
   items.value.reduce((sum, item) => sum + item.quantity, 0),
 );
 const total = computed(() => subtotal.value + shippingCost);
+const showRemoveConfirm = ref(false);
+const itemPendingRemovalId = ref<number | null>(null);
+const itemPendingRemovalName = computed(() => {
+  const item = items.value.find(item => item.id === itemPendingRemovalId.value);
+
+  return item?.product.name[locale.value] ?? "";
+});
 
 definePageMeta({
   titleKey: "seo.cart.title",
@@ -175,6 +224,8 @@ function formatPrice(value: number) {
 }
 
 function increment(itemId: number, currentQuantity: number) {
+  if (currentQuantity >= 99)
+    return;
   cartStore.updateQuantity(itemId, currentQuantity + 1);
 }
 
@@ -182,5 +233,35 @@ function decrement(itemId: number, currentQuantity: number) {
   if (currentQuantity <= 1)
     return;
   cartStore.updateQuantity(itemId, currentQuantity - 1);
+}
+
+function updateQuantityFromInput(itemId: number, event: Event, currentQuantity: number) {
+  const input = event.currentTarget as HTMLInputElement;
+  const parsedQuantity = Number.parseInt(input.value, 10);
+  const quantity = clampQuantity(Number.isFinite(parsedQuantity) ? parsedQuantity : currentQuantity);
+
+  input.value = String(quantity);
+
+  if (quantity === currentQuantity)
+    return;
+
+  cartStore.updateQuantity(itemId, quantity);
+}
+
+function clampQuantity(quantity: number) {
+  return Math.min(Math.max(quantity, 1), 99);
+}
+
+function openRemoveConfirm(itemId: number) {
+  itemPendingRemovalId.value = itemId;
+  showRemoveConfirm.value = true;
+}
+
+function removePendingItem() {
+  if (itemPendingRemovalId.value === null)
+    return;
+
+  cartStore.removeItem(itemPendingRemovalId.value);
+  itemPendingRemovalId.value = null;
 }
 </script>

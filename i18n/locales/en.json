@@ -378,10 +378,14 @@
     "shippingCourier": "Courier horse shipping",
     "total": "Total",
     "checkout": "Checkout",
-    "itemCount": "{count} items",
+    "itemCount": "{count} item | {count} items",
+    "unitPrice": "Unit price: {price}",
+    "quantity": "Quantity",
     "increase": "Increase quantity",
     "decrease": "Decrease quantity",
-    "remove": "Remove"
+    "remove": "Remove",
+    "itemConfirmRemoveTitle": "Remove product",
+    "itemConfirmRemoveText": "Are you sure you want to remove {name} from your basket?"
   },
   "nav": {
     "home": "Tavern",
