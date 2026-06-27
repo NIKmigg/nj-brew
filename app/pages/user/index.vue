@@ -66,7 +66,7 @@
           {{ $t("settings.deleteQuestion") }}
         </p>
 
-        <button class="btn btn-success btn-soft my-5" @click="handleSignOut">
+        <button class="btn btn-success btn-soft my-5" type="button" @click="handleSignOut">
           {{ $t("auth.logout") }}
         </button>
 
@@ -74,9 +74,19 @@
           {{ $t("settings.deleteDescription") }}
         </p>
 
-        <button class="btn btn-error btn-soft my-5" type="button" @click="showDeleteConfirm = true">
+        <GsapMagneticButton
+          mode="repel"
+          type="button"
+          class="btn btn-error btn-soft my-5"
+          :strength="28"
+          :activation-distance="90"
+          :aria-label="$t('auth.deleteAccount')"
+          aria-haspopup="dialog"
+          :aria-expanded="showDeleteConfirm"
+          @click="showDeleteConfirm = true"
+        >
           {{ $t("auth.deleteAccount") }}
-        </button>
+        </GsapMagneticButton>
       </div>
     </section>
 
