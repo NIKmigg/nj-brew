@@ -38,15 +38,17 @@
       </div>
     </section>
     <section class="relative bg-base-200 py-16">
-      <div class="flex flex-col md:flex-row gap-5 min-h-125 md:h-125 max-w-7xl mx-auto">
+      <div class="mx-auto flex max-w-7xl flex-col gap-5 px-4 md:h-125 md:flex-row">
         <HomeSectionCard
           v-for="item in items"
           :key="item.id"
           :data="item"
-          :active="active === item.id"
-          class="flex-1"
-          @activate="active = item.id"
-          @deactivate="active = null"
+          :active="activeCardId === item.id"
+          :pinned="pinnedCardId === item.id"
+          @activate="activateCard(item.id)"
+          @deactivate="deactivateCard(item.id)"
+          @toggle="toggleCard(item.id)"
+          @close="closeCard(item.id)"
         />
       </div>
     </section>
@@ -82,8 +84,46 @@
 import type { HomeCardSchema } from "@shared/schemas/home-card";
 import { ref } from "vue";
 
-const active = ref<number | null>(null);
 const localePath = useLocalePath();
+
+const activeCardId = ref<number | null>(null);
+const pinnedCardId = ref<number | null>(null);
+
+function activateCard(id: number) {
+  if (pinnedCardId.value === null) {
+    activeCardId.value = id;
+  }
+}
+
+function deactivateCard(id: number) {
+  if (
+    pinnedCardId.value === null
+    && activeCardId.value === id
+  ) {
+    activeCardId.value = null;
+  }
+}
+
+function toggleCard(id: number) {
+  if (pinnedCardId.value === id) {
+    pinnedCardId.value = null;
+    activeCardId.value = null;
+    return;
+  }
+
+  pinnedCardId.value = id;
+  activeCardId.value = id;
+}
+
+function closeCard(id: number) {
+  if (activeCardId.value === id) {
+    activeCardId.value = null;
+  }
+
+  if (pinnedCardId.value === id) {
+    pinnedCardId.value = null;
+  }
+}
 
 definePageMeta({
   titleKey: "seo.home.title",
