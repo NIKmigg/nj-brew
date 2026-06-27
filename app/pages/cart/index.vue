@@ -35,7 +35,7 @@
           <p class="mb-6 text-lg font-semibold">
             {{ $t("cart.empty") }}
           </p>
-          <NuxtLink :to="localePath('/market')" class="btn btn-link">
+          <NuxtLink :to="localePath('/market')" class="btn btn-ghost hover:text-primary">
             <Icon name="mdi:arrow-left-bold" />
             {{ $t("nav.market") }}
           </NuxtLink>
