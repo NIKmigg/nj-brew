@@ -80,7 +80,6 @@
           class="btn btn-error btn-soft my-5"
           :strength="28"
           :activation-distance="90"
-          :aria-label="$t('auth.deleteAccount')"
           aria-haspopup="dialog"
           :aria-expanded="showDeleteConfirm"
           @click="showDeleteConfirm = true"

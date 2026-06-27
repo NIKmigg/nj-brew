@@ -1,24 +1,35 @@
 <template>
-  <button
-    ref="buttonRef"
+  <component
+    :is="isLink ? NuxtLink : 'button'"
+    :ref="setControlRef"
     v-bind="$attrs"
-    :type="type"
-    :disabled="disabled"
+    :to="props.to"
+    :type="isLink ? undefined : props.type"
+    :disabled="isLink ? undefined : props.disabled"
+    :aria-disabled="isLink && props.disabled ? 'true' : undefined"
+    :tabindex="isLink && props.disabled ? -1 : undefined"
     class="magnetic-button"
+    @click="handleClick"
     @focus="handleFocus"
   >
-    <slot />
-  </button>
+    <span ref="contentRef" class="magnetic-button-content">
+      <slot />
+    </span>
+  </component>
 </template>
 
 <script setup lang="ts">
+import type { ComponentPublicInstance } from "vue";
+import type { RouteLocationRaw } from "vue-router";
 import { gsap } from "gsap";
+import { NuxtLink } from "#components";
 
 defineOptions({
   inheritAttrs: false,
 });
 
 const props = withDefaults(defineProps<{
+  to?: RouteLocationRaw;
   mode?: MagneticMode;
   type?: ButtonType;
   disabled?: boolean;
@@ -29,7 +40,7 @@ const props = withDefaults(defineProps<{
   moveEase?: string;
   returnEase?: string;
 }>(), {
-  ariaDescribedby: undefined,
+  to: undefined,
   mode: "attract",
   type: "button",
   disabled: false,
@@ -40,11 +51,36 @@ const props = withDefaults(defineProps<{
   moveEase: "power2.out",
   returnEase: "elastic.out(1, 0.4)",
 });
+
+const emit = defineEmits<{
+  click: [event: MouseEvent];
+}>();
+
 type MagneticMode = "attract" | "repel";
 type ButtonType = "button" | "submit" | "reset";
 type QuickToFunction = ReturnType<typeof gsap.quickTo>;
 
-const buttonRef = ref<HTMLButtonElement | null>(null);
+const buttonRef = ref<HTMLElement | null>(null);
+const contentRef = ref<HTMLElement | null>(null);
+
+const isLink = computed(() => props.to !== undefined);
+
+function setControlRef(value: Element | ComponentPublicInstance | null) {
+  if (value instanceof HTMLElement) {
+    buttonRef.value = value;
+    return;
+  }
+
+  if (value && "$el" in value && value.$el instanceof HTMLElement) {
+    buttonRef.value = value.$el;
+    return;
+  }
+
+  buttonRef.value = null;
+}
+
+let contentXTo: QuickToFunction | null = null;
+let contentYTo: QuickToFunction | null = null;
 
 const clamp = gsap.utils.clamp(0, 1);
 
@@ -67,7 +103,7 @@ function readPosition(element: HTMLElement, property: "x" | "y") {
   return Number.parseFloat(String(value)) || 0;
 }
 
-function getAnchorMetrics(button: HTMLButtonElement) {
+function getAnchorMetrics(button: HTMLElement) {
   const rect = button.getBoundingClientRect();
   const currentX = readPosition(button, "x");
   const currentY = readPosition(button, "y");
@@ -82,10 +118,21 @@ function getAnchorMetrics(button: HTMLButtonElement) {
   };
 }
 
+function handleClick(event: MouseEvent) {
+  if (props.disabled) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    return;
+  }
+
+  emit("click", event);
+}
+
 function createMovementTweens() {
   const button = buttonRef.value;
+  const content = contentRef.value;
 
-  if (!button) {
+  if (!button || !content) {
     return;
   }
 
@@ -94,6 +141,8 @@ function createMovementTweens() {
 
   xTo?.tween.kill();
   yTo?.tween.kill();
+  contentXTo?.tween.kill();
+  contentYTo?.tween.kill();
 
   xTo = gsap.quickTo(button, "x", {
     duration: props.moveDuration,
@@ -104,35 +153,53 @@ function createMovementTweens() {
     duration: props.moveDuration,
     ease: props.moveEase,
   });
+
+  contentXTo = gsap.quickTo(content, "x", {
+    duration: props.moveDuration,
+    ease: props.moveEase,
+  });
+
+  contentYTo = gsap.quickTo(content, "y", {
+    duration: props.moveDuration,
+    ease: props.moveEase,
+  });
 }
 
 function stopMovementTweens() {
   xTo?.tween.kill();
   yTo?.tween.kill();
+  contentXTo?.tween.kill();
+  contentYTo?.tween.kill();
 
   xTo = null;
   yTo = null;
+  contentXTo = null;
+  contentYTo = null;
 }
 
 function startTracking() {
   const button = buttonRef.value;
+  const content = contentRef.value;
 
-  if (!button)
+  if (!button || !content) {
     return;
+  }
 
   isTracking = true;
   createMovementTweens();
 
-  gsap.set(button, {
+  gsap.set([button, content], {
     willChange: "transform",
   });
 }
 
 function resetButton(immediate = false) {
   const button = buttonRef.value;
+  const content = contentRef.value;
 
-  if (!button)
+  if (!button || !content) {
     return;
+  }
 
   isTracking = false;
 
@@ -142,7 +209,7 @@ function resetButton(immediate = false) {
   returnTween = null;
 
   if (immediate) {
-    gsap.set(button, {
+    gsap.set([button, content], {
       x: 0,
       y: 0,
       willChange: "auto",
@@ -151,14 +218,14 @@ function resetButton(immediate = false) {
     return;
   }
 
-  returnTween = gsap.to(button, {
+  returnTween = gsap.to([button, content], {
     x: 0,
     y: 0,
     duration: props.returnDuration,
     ease: props.returnEase,
     overwrite: "auto",
     onComplete() {
-      gsap.set(button, {
+      gsap.set([button, content], {
         willChange: "auto",
       });
 
@@ -250,6 +317,14 @@ function handlePointerMove(event: PointerEvent) {
 
   xTo?.(position.x);
   yTo?.(position.y);
+
+  const contentDirection = props.mode === "attract" ? 1 : -1;
+
+  const contentX = gsap.utils.clamp(-12, 12, deltaX * 0.15) * contentDirection;
+  const contentY = gsap.utils.clamp(-8, 8, deltaY * 0.15) * contentDirection;
+
+  contentXTo?.(contentX);
+  contentYTo?.(contentY);
 }
 
 function handleFocus() {
@@ -322,13 +397,23 @@ onBeforeUnmount(() => {
   transform: translate3d(0, 0, 0);
 }
 
+.magnetic-button-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: inherit;
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+}
+
 .magnetic-button:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .magnetic-button {
+  .magnetic-button,
+  .magnetic-button-content {
     transform: none !important;
   }
 }

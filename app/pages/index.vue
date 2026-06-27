@@ -20,9 +20,15 @@
           <p data-split="{ type: 'word', stagger: 0.015 }" class="mb-5">
             {{ $t("home.body") }}
           </p>
-          <NuxtLink :to="localePath('/generator')" class="btn btn-primary">
+          <GsapMagneticButton
+            :to="localePath('/generator')"
+            mode="attract"
+            class="btn btn-primary"
+            :strength="28"
+            :activation-distance="90"
+          >
             {{ $t("home.cta") }}
-          </NuxtLink>
+          </GsapMagneticButton>
         </div>
       </div>
     </section>
