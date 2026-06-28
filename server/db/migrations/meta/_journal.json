@@ -141,6 +141,13 @@
       "when": 1782632767922,
       "tag": "0019_tricky_onslaught",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "6",
+      "when": 1782649818794,
+      "tag": "0020_sudden_lockjaw",
+      "breakpoints": true
     }
   ]
 }
