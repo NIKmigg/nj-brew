@@ -1,18 +1,18 @@
 import { db } from "@server/db";
-import { cartItems, carts } from "@server/db/schema/cart";
+import { cart, cartItems } from "@server/db/schema/cart";
 import { products } from "@server/db/schema/products";
 import { and, eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 
 export async function getOrCreateCart(userId: string) {
-  const existing = await db.query.carts.findFirst({
-    where: eq(carts.userId, userId),
+  const existing = await db.query.cart.findFirst({
+    where: eq(cart.userId, userId),
   });
 
   if (existing)
     return existing;
 
-  const [newCart] = await db.insert(carts).values({
+  const [newCart] = await db.insert(cart).values({
     id: nanoid(),
     userId,
   }).returning();
@@ -25,8 +25,8 @@ export async function getOrCreateCart(userId: string) {
 }
 
 export async function getCartWithItems(cartId: string) {
-  return db.query.carts.findFirst({
-    where: eq(carts.id, cartId),
+  return db.query.cart.findFirst({
+    where: eq(cart.id, cartId),
     with: {
       items: {
         with: {

@@ -3,8 +3,8 @@ import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { user } from "./auth";
 import { products } from "./products";
 
-export const carts = sqliteTable(
-  "carts",
+export const cart = sqliteTable(
+  "cart",
   {
     id: text("id").primaryKey(),
 
@@ -19,7 +19,7 @@ export const carts = sqliteTable(
       .notNull(),
   },
   table => [
-    index("carts_userId_idx").on(table.userId),
+    index("cart_userId_idx").on(table.userId),
   ],
 );
 
@@ -30,7 +30,7 @@ export const cartItems = sqliteTable(
 
     cartId: text("cart_id")
       .notNull()
-      .references(() => carts.id, { onDelete: "cascade" }),
+      .references(() => cart.id, { onDelete: "cascade" }),
 
     productId: integer("product_id")
       .notNull()
