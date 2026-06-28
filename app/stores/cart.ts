@@ -71,7 +71,7 @@ export const useCartStore = defineStore("cart", () => {
     }
   }
 
-  async function addItem(productId: number, quantity = 1) {
+  async function addItem(productId: string, quantity = 1) {
     await csrfFetch("/api/cart/items", {
       method: "POST",
       body: { productId, quantity },
@@ -94,7 +94,7 @@ export const useCartStore = defineStore("cart", () => {
     }, 1500);
   }
 
-  async function updateQuantity(itemId: number, quantity: number) {
+  async function updateQuantity(itemId: string, quantity: number) {
     if (!cart.value)
       return;
 
@@ -122,7 +122,7 @@ export const useCartStore = defineStore("cart", () => {
     }
   }
 
-  async function removeItem(itemId: number) {
+  async function removeItem(itemId: string) {
     if (!cart.value)
       return;
 

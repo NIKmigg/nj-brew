@@ -1,5 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { addressColumn } from "./address";
 
 export const user = sqliteTable("user", {
   id: text("id").primaryKey(),
@@ -9,6 +10,7 @@ export const user = sqliteTable("user", {
     .default(false)
     .notNull(),
   image: text("image"),
+  address: addressColumn("address"),
   role: text("role").default("user").notNull(),
   banned: integer("banned", {
     mode: "boolean",

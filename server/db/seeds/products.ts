@@ -1,5 +1,6 @@
 import { db } from "@server/db/index";
 import { products } from "@server/db/schema/products";
+import { nanoid } from "nanoid";
 
 export async function seedProducts() {
   await db.insert(products).values([
@@ -102,8 +103,10 @@ export async function seedProducts() {
       imageUrl: "/products/yeast.webp",
       category: "Basiszutat",
     },
-  ].map(({ category: _category, description, name, ...product }) => ({
+  ].map(({ category: _category, description, name, slug, ...product }) => ({
     ...product,
+    id: nanoid(),
+    slug,
     description: {
       de: description,
       en: description,

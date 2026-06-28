@@ -1,18 +1,18 @@
 import { db } from "@server/db";
-import { cart, cartItems } from "@server/db/schema/cart";
+import { cartItems, carts } from "@server/db/schema/carts";
 import { products } from "@server/db/schema/products";
 import { and, eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 
 export async function getOrCreateCart(userId: string) {
-  const existing = await db.query.cart.findFirst({
-    where: eq(cart.userId, userId),
+  const existing = await db.query.carts.findFirst({
+    where: eq(carts.userId, userId),
   });
 
   if (existing)
     return existing;
 
-  const [newCart] = await db.insert(cart).values({
+  const [newCart] = await db.insert(carts).values({
     id: nanoid(),
     userId,
   }).returning();
@@ -25,8 +25,8 @@ export async function getOrCreateCart(userId: string) {
 }
 
 export async function getCartWithItems(cartId: string) {
-  return db.query.cart.findFirst({
-    where: eq(cart.id, cartId),
+  return db.query.carts.findFirst({
+    where: eq(carts.id, cartId),
     with: {
       items: {
         with: {
@@ -39,7 +39,7 @@ export async function getCartWithItems(cartId: string) {
   });
 }
 
-export async function findCartItem(cartId: string, productId: number) {
+export async function findCartItem(cartId: string, productId: string) {
   return db.query.cartItems.findFirst({
     where: and(
       eq(cartItems.cartId, cartId),
@@ -48,7 +48,7 @@ export async function findCartItem(cartId: string, productId: number) {
   });
 }
 
-export async function findCartItemById(cartId: string, itemId: number) {
+export async function findCartItemById(cartId: string, itemId: string) {
   return db.query.cartItems.findFirst({
     where: and(eq(cartItems.id, itemId), eq(cartItems.cartId, cartId)),
   });
@@ -56,7 +56,7 @@ export async function findCartItemById(cartId: string, itemId: number) {
 
 export async function addCartItem(
   cartId: string,
-  productId: number,
+  productId: string,
   quantity: number,
 ) {
   const product = await db.query.products.findFirst({
@@ -77,6 +77,7 @@ export async function addCartItem(
   }
 
   return db.insert(cartItems).values({
+    id: nanoid(),
     cartId,
     productId,
     quantity,
@@ -85,7 +86,7 @@ export async function addCartItem(
 
 export async function updateCartItemQuantity(
   cartId: string,
-  itemId: number,
+  itemId: string,
   quantity: number,
 ) {
   const item = await findCartItemById(cartId, itemId);
@@ -98,7 +99,7 @@ export async function updateCartItemQuantity(
     .returning();
 }
 
-export async function removeCartItem(cartId: string, itemId: number) {
+export async function removeCartItem(cartId: string, itemId: string) {
   return db.delete(cartItems)
     .where(and(eq(cartItems.id, itemId), eq(cartItems.cartId, cartId)));
 }

@@ -1,6 +1,7 @@
 import type { LocalizedString } from "@shared/schemas/i18n";
 import { sql } from "drizzle-orm";
 import { index, integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { addressColumn } from "./address";
 import { user } from "./auth";
 import { products } from "./products";
 
@@ -24,19 +25,8 @@ export const orders = sqliteTable(
     total: real("total").notNull(),
     currency: text("currency").default("EUR").notNull(),
 
-    billingName: text("billing_name").notNull(),
-    billingEmail: text("billing_email").notNull(),
-    billingStreet: text("billing_street").notNull(),
-    billingPostalCode: text("billing_postal_code").notNull(),
-    billingCity: text("billing_city").notNull(),
-    billingCountry: text("billing_country").notNull(),
-
-    shippingName: text("shipping_name").notNull(),
-    shippingEmail: text("shipping_email").notNull(),
-    shippingStreet: text("shipping_street").notNull(),
-    shippingPostalCode: text("shipping_postal_code").notNull(),
-    shippingCity: text("shipping_city").notNull(),
-    shippingCountry: text("shipping_country").notNull(),
+    billingAddress: addressColumn("billing_address").notNull(),
+    shippingAddress: addressColumn("shipping_address").notNull(),
 
     createdAt: integer("created_at", { mode: "timestamp_ms" })
       .default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`)
@@ -62,7 +52,7 @@ export const orderItems = sqliteTable(
       .notNull()
       .references(() => orders.id, { onDelete: "cascade" }),
 
-    productId: integer("product_id").references(() => products.id, { onDelete: "set null" }),
+    productId: text("product_id").references(() => products.id, { onDelete: "set null" }),
 
     productSlug: text("product_slug").notNull(),
     productName: text("product_name", { mode: "json" }).notNull().$type<LocalizedString>(),
