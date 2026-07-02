@@ -1,6 +1,9 @@
 <template>
   <div class="mx-auto min-h-[calc(100vh-8rem)] w-full max-w-6xl px-4 py-8 sm:py-12">
-    <div class="grid items-start gap-6 md:grid-cols-[minmax(0,1fr)_22rem]">
+    <div
+      class="grid items-start gap-6"
+      :class="items.length > 0 ? 'md:grid-cols-[minmax(0,1fr)_22rem]' : ''"
+    >
       <section
         class="card overflow-hidden bg-base-100 text-base-content shadow-sm"
         aria-labelledby="cart-products-title"
@@ -206,7 +209,7 @@
         </dl>
 
         <GsapMagneticButton
-          :to="localePath('/market/checkout')"
+          :to="localePath('/cart/order')"
           mode="attract"
           class="btn btn-primary mt-5 w-full"
           :strength="24"
@@ -253,7 +256,7 @@ const totalQuantity = computed(() =>
 );
 const total = computed(() => subtotal.value + shippingCost);
 const showRemoveConfirm = ref(false);
-const itemPendingRemovalId = ref<number | null>(null);
+const itemPendingRemovalId = ref<string | null>(null);
 const itemPendingRemovalName = computed(() => {
   const item = items.value.find(item => item.id === itemPendingRemovalId.value);
 
@@ -273,19 +276,19 @@ function formatPrice(value: number) {
   }).format(value);
 }
 
-function increment(itemId: number, currentQuantity: number) {
+function increment(itemId: string, currentQuantity: number) {
   if (currentQuantity >= 99)
     return;
   cartStore.updateQuantity(itemId, currentQuantity + 1);
 }
 
-function decrement(itemId: number, currentQuantity: number) {
+function decrement(itemId: string, currentQuantity: number) {
   if (currentQuantity <= 1)
     return;
   cartStore.updateQuantity(itemId, currentQuantity - 1);
 }
 
-function updateQuantityFromInput(itemId: number, event: Event, currentQuantity: number) {
+function updateQuantityFromInput(itemId: string, event: Event, currentQuantity: number) {
   const input = event.currentTarget as HTMLInputElement;
   const parsedQuantity = Number.parseInt(input.value, 10);
   const quantity = clampQuantity(Number.isFinite(parsedQuantity) ? parsedQuantity : currentQuantity);
@@ -302,7 +305,7 @@ function clampQuantity(quantity: number) {
   return Math.min(Math.max(quantity, 1), 99);
 }
 
-function openRemoveConfirm(itemId: number) {
+function openRemoveConfirm(itemId: string) {
   itemPendingRemovalId.value = itemId;
   showRemoveConfirm.value = true;
 }
@@ -313,5 +316,6 @@ function removePendingItem() {
 
   cartStore.removeItem(itemPendingRemovalId.value);
   itemPendingRemovalId.value = null;
+  showRemoveConfirm.value = false;
 }
 </script>
