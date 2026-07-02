@@ -9,5 +9,5 @@ export async function getMeadConstants() {
 export async function updateMeadConstants(values: Partial<typeof meadConstants.$inferInsert>) {
   return await db.update(meadConstants)
     .set(values)
-    .where(eq(meadConstants.id, 1));
+    .where(eq(meadConstants.id, "default"));
 }

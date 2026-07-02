@@ -1,7 +1,7 @@
 import type { LocalizedString } from "@shared/schemas/i18n";
 import type { InsertProductSchema, ProductFilters } from "@shared/schemas/product";
 import { asc, desc, eq, gt, gte, like, lte } from "drizzle-orm";
-import { customAlphabet } from "nanoid";
+import { customAlphabet, nanoid } from "nanoid";
 import slugify from "slugify";
 import { db } from "..";
 import { products } from "../schema";
@@ -34,6 +34,7 @@ export async function createUniqueSlug(name: LocalizedString) {
 
 export async function insertProduct(insertable: InsertProductSchema, slug: string) {
   return await db.insert(products).values({
+    id: nanoid(),
     ...insertable,
     slug,
   }).returning();

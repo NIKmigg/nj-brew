@@ -3,6 +3,6 @@ import { meadConstants } from "@server/db/schema/mead";
 
 export async function seedMeadConstants() {
   await db.insert(meadConstants)
-    .values({ id: 1 })
+    .values({ id: "default" })
     .onConflictDoNothing();
 }

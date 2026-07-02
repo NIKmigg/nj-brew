@@ -1,8 +1,8 @@
 import { clearCart, getOrCreateCart } from "@server/db/queries/cart";
-import { requireUserSession } from "@server/utils/session";
+import { requireUser } from "@server/utils/require-user";
 
 export default defineEventHandler(async (event) => {
-  const { user } = await requireUserSession(event);
+  const { user } = await requireUser(event);
 
   const cart = await getOrCreateCart(user.id);
   await clearCart(cart.id);

@@ -1,11 +1,14 @@
 import { getOrCreateCart, updateCartItemQuantity } from "@server/db/queries/cart";
-import { requireUserSession } from "@server/utils/session";
+import { requireUser } from "@server/utils/require-user";
 import { updateCartItemSchema } from "@shared/schemas/cart";
 
 export default defineEventHandler(async (event) => {
-  const id = Number(getRouterParam(event, "id"));
+  const id = getRouterParam(event, "id");
   const body = await readValidatedBody(event, updateCartItemSchema.parse);
-  const { user } = await requireUserSession(event);
+  const { user } = await requireUser(event);
+
+  if (!id)
+    throw createError({ statusCode: 400, message: "Eintrag fehlt" });
 
   const cart = await getOrCreateCart(user.id);
 

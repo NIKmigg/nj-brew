@@ -29,6 +29,12 @@
       "title": "Krämerkorb",
       "description": "Dein Krämerkorb - die ausgewählten Met-Spezialitäten aus unserer Brauerei, bereit für den Kauf."
     },
+    "checkout": {
+      "title": "Bestellung abschließen",
+      "description": "Gib Lieferadresse und Rechnungsadresse für deine NJ Brew Bestellung an.",
+      "confirmationTitle": "Bestellung bestätigt",
+      "confirmationDescription": "Deine NJ Brew Bestellung wurde erfolgreich bestätigt."
+    },
     "login": {
       "title": "Login",
       "description": "Melde dich bei NJ Brew an oder erstelle ein Konto fuer deine Braureise."
@@ -395,6 +401,54 @@
     "lineTotal": "Gesamtpreis für {name}: {price}",
     "itemConfirmRemoveTitle": "Produkt entfernen",
     "itemConfirmRemoveText": "Willst du {name} wirklich aus dem Warenkorb entfernen?"
+  },
+  "checkout": {
+    "step": "Kasse",
+    "title": "Bestellung abschließen",
+    "backToCart": "Zurück zum Krämerkorb",
+    "shippingAddress": "Lieferadresse",
+    "billingAddress": "Rechnungsadresse",
+    "items": "Bestellte Artikel",
+    "paymentMethod": "Zahlungsmethode",
+    "cashPayment": "Barzahlung",
+    "cashPaymentInfo": "Aktuell nur Barzahlung verfügbar.",
+    "useShippingAsBilling": "Rechnungsadresse entspricht der Lieferadresse",
+    "billingMatchesShipping": "Die Lieferadresse wird als Rechnungsadresse verwendet.",
+    "submit": "Bestellung aufgeben",
+    "confirmTitle": "Bestellung bestätigen",
+    "confirmText": "Möchtest du die Bestellung wirklich abschließen und zahlungspflichtig für {total} bestellen?",
+    "confirmSubmit": "Bestellung bestätigen",
+    "success": "Bestellung erfolgreich aufgegeben.",
+    "failed": "Bestellung konnte nicht aufgegeben werden.",
+    "confirmationStep": "Bestätigung",
+    "confirmationTitle": "Vielen Dank für deine Bestellung!",
+    "confirmationText": "Deine Bestellung wurde erfolgreich aufgenommen. Du findest sie ab jetzt in deinen Bestellungen.",
+    "backToMarket": "Zurück zum Markt",
+    "viewOrders": "Bestellungen ansehen",
+    "validationError": "Bitte prüfe die markierten Felder.",
+    "validationRequired": "Bitte gib einen gültigen Wert ein.",
+    "validation": {
+      "firstNameRequired": "Bitte gib deinen Vornamen ein.",
+      "lastNameRequired": "Bitte gib deinen Nachnamen ein.",
+      "emailRequired": "Bitte gib deine E-Mail-Adresse ein.",
+      "emailInvalid": "Bitte gib eine gültige E-Mail-Adresse ein.",
+      "streetRequired": "Bitte gib deine Straße ein.",
+      "houseNumberRequired": "Bitte gib deine Hausnummer ein.",
+      "postalCodeRequired": "Bitte gib deine Postleitzahl ein.",
+      "cityRequired": "Bitte gib deinen Ort ein.",
+      "countryRequired": "Bitte gib dein Land ein."
+    },
+    "fields": {
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "email": "E-Mail",
+      "street": "Straße",
+      "houseNumber": "Hausnummer",
+      "postalCode": "Postleitzahl",
+      "city": "Ort",
+      "country": "Land"
+    }
+
   },
   "nav": {
     "home": "Taverne",

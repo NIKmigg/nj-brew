@@ -4,7 +4,7 @@ import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { localizedStringSchema } from "./i18n";
 
 export const insertCategorySchema = createInsertSchema(categories, {
-  name: () => localizedStringSchema, // field => field.min(1).max(50),
+  name: () => localizedStringSchema,
 }).omit ({
   id: true,
   createdAt: true,

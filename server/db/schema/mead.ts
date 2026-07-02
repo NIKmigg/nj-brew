@@ -1,7 +1,7 @@
-import { integer, real, sqliteTable } from "drizzle-orm/sqlite-core";
+import { integer, real, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const meadConstants = sqliteTable("mead_constants", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+  id: text("id").primaryKey(),
 
   honeyPerL: real("honey_per_l").notNull().default(364),
   honeyPerLDefault: real("honey_per_l_default").notNull().default(364),

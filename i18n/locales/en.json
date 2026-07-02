@@ -29,6 +29,12 @@
       "title": "Cart",
       "description": "Your trade basket - the mead specialties you've chosen from our brewery, ready for checkout."
     },
+    "checkout": {
+      "title": "Place order",
+      "description": "Enter shipping and billing addresses for your NJ Brew order.",
+      "confirmationTitle": "Order confirmed",
+      "confirmationDescription": "Your NJ Brew order was confirmed successfully."
+    },
     "login": {
       "title": "Login",
       "description": "Sign in to NJ Brew or create an account for your brewing journey."
@@ -395,6 +401,53 @@
     "lineTotal": "Total price for {name}: {price}",
     "itemConfirmRemoveTitle": "Remove product",
     "itemConfirmRemoveText": "Are you sure you want to remove {name} from your basket?"
+  },
+  "checkout": {
+    "step": "Checkout",
+    "title": "Place order",
+    "backToCart": "Back to basket",
+    "shippingAddress": "Shipping address",
+    "billingAddress": "Billing address",
+    "items": "Ordered items",
+    "paymentMethod": "Payment method",
+    "cashPayment": "Cash payment",
+    "cashPaymentInfo": "Currently only cash payment is available.",
+    "useShippingAsBilling": "Billing address matches shipping address",
+    "billingMatchesShipping": "The shipping address will be used as the billing address.",
+    "submit": "Place order",
+    "confirmTitle": "Confirm order",
+    "confirmText": "Do you really want to complete this order and place it for {total} with payment obligation?",
+    "confirmSubmit": "Confirm order",
+    "success": "Order placed successfully.",
+    "failed": "Order could not be placed.",
+    "confirmationStep": "Confirmation",
+    "confirmationTitle": "Thank you for your order!",
+    "confirmationText": "Your order has been received successfully. You can find it in your orders from now on.",
+    "backToMarket": "Back to market",
+    "viewOrders": "View orders",
+    "validationError": "Please check the highlighted fields.",
+    "validationRequired": "Please enter a valid value.",
+    "validation": {
+      "firstNameRequired": "Please enter your first name.",
+      "lastNameRequired": "Please enter your last name.",
+      "emailRequired": "Please enter your email address.",
+      "emailInvalid": "Please enter a valid email address.",
+      "streetRequired": "Please enter your street.",
+      "houseNumberRequired": "Please enter your house number.",
+      "postalCodeRequired": "Please enter your postal code.",
+      "cityRequired": "Please enter your city.",
+      "countryRequired": "Please enter your country."
+    },
+    "fields": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "street": "Street",
+      "houseNumber": "House number",
+      "postalCode": "Postal code",
+      "city": "City",
+      "country": "Country"
+    }
   },
   "nav": {
     "home": "Tavern",
